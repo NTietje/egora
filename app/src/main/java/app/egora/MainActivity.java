@@ -16,9 +16,10 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
+
     private Button buttonReg;
     private Button buttonUser;
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
