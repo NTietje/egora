@@ -56,6 +56,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                 if (password.equals(editRepeatedPassword.getText().toString().trim())) {
                     // Firebase registration
                     mAuth.createUserWithEmailAndPassword(editEmail.getText().toString(), password);
+                    //hier fehlt noch eine Abfrage an Firebase ob die Registr. erfolreich war
                     Toast.makeText(CreateAccountActivity.this, "You have successfully registered!",
                             Toast.LENGTH_LONG).show();
                 }
