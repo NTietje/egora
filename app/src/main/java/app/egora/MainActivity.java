@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser("nn@gmail.com", "han2200nn");
+                registerUser("n4n@gmail.com", "han2200nn");
                 Log.i("register", "user registered");
             }
         });

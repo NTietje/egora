@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="logoMarginTop">56dp</dimen>
+    <dimen name="marginEditText">12dp</dimen>
+    <dimen name="marginButtonToEditText">25dp</dimen>
+</resources>
