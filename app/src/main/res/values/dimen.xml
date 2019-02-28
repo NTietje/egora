@@ -3,4 +3,7 @@
     <dimen name="logoMarginTop">56dp</dimen>
     <dimen name="marginEditText">12dp</dimen>
     <dimen name="marginButtonToEditText">25dp</dimen>
+    <dimen name="rectangleDefaultWidth">320dp</dimen>
+    <dimen name="rectangleDefaultHeight">72dp</dimen>
+    <dimen name="rectangleDefaultPaddingLeft">20dp</dimen>
 </resources>

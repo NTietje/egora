@@ -23,6 +23,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/testEdit"
+        style="@style/DefaultEditText"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="596dp"
+        android:hint="Password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
         android:id="@+id/logEmail"
         android:layout_width="320dp"
         android:layout_height="72dp"
