@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "1029508940920",
+    "firebase_url": "https://egora-f9e76.firebaseio.com",
+    "project_id": "egora-f9e76",
+    "storage_bucket": "egora-f9e76.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029508940920:android:116b7d1efb836d24",
+        "android_client_info": {
+          "package_name": "app.egora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029508940920-5pt4fbs6k00c5o6b5cl0ech4je4q6m9v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.egora",
+            "certificate_hash": "f7d7d8cf35977c0d8b2dba7450988c3c8d124e6a"
+          }
+        },
+        {
+          "client_id": "1029508940920-vu7ajei07j2dk80fe0sdbljphn2uf7bn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.egora",
+            "certificate_hash": "6117730daabfed7e219a65bc4f250ebfefcdff15"
+          }
+        },
+        {
+          "client_id": "1029508940920-1mvci85b8irfi5c2tuusi464ifikd7f5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABYI7ZOLKqnUSILJISNcCBU8cFg4y53sA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029508940920-1mvci85b8irfi5c2tuusi464ifikd7f5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
