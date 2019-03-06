@@ -12,7 +12,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <android.support.constraint.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,34 +37,19 @@
 
             <EditText
                 android:id="@+id/regEmail"
-                android:layout_width="320dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="40dp"
-                android:background="#D8D8D8"
+                style="@style/EgoraEditText"
                 android:hint="E-Mail"
-                android:paddingLeft="20dp"
-                android:textColor="@color/darkTextColor"
-                android:textSize="20sp"
+                android:inputType="textEmailAddress"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/titleRegisterView"
-                android:inputType="text"
-                android:maxLines="1"
-                android:lines="1"
-                android:scrollHorizontally="true"
-                android:ellipsize="end"/>
+                app:layout_constraintTop_toBottomOf="@+id/titleRegisterView" />
 
             <EditText
                 android:id="@+id/regPassword"
-                android:layout_width="320dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="@dimen/marginEditText"
-                android:background="#D8D8D8"
+                style="@style/EgoraEditText"
                 android:hint="Password"
-                android:paddingLeft="20dp"
-                android:textColor="@color/darkTextColor"
-                android:textSize="20sp"
+                android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.505"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,14 +57,9 @@
 
             <EditText
                 android:id="@+id/regPasswordRepeat"
-                android:layout_width="320dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="@dimen/marginEditText"
-                android:background="#D8D8D8"
+                style="@style/EgoraEditText"
                 android:hint="Repeat Password"
-                android:paddingLeft="20dp"
-                android:textColor="@color/darkTextColor"
-                android:textSize="20sp"
+                android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,14 +67,9 @@
 
             <EditText
                 android:id="@+id/regFirstName"
-                android:layout_width="320dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="@dimen/marginEditText"
-                android:background="#D8D8D8"
+                style="@style/EgoraEditText"
                 android:hint="First Name"
-                android:paddingLeft="20dp"
-                android:textColor="@color/darkTextColor"
-                android:textSize="20sp"
+                android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,14 +77,9 @@
 
             <EditText
                 android:id="@+id/regLastName"
-                android:layout_width="320dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="@dimen/marginEditText"
-                android:background="#D8D8D8"
+                style="@style/EgoraEditText"
                 android:hint="Last Name"
-                android:paddingLeft="20dp"
-                android:textColor="@color/darkTextColor"
-                android:textSize="20sp"
+                android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.472"
                 app:layout_constraintStart_toStartOf="parent"
@@ -117,15 +87,9 @@
 
             <Button
                 android:id="@+id/buttonRegister"
-                style="@android:style/Widget.Material.Light.Button.Borderless"
-                android:layout_width="322dp"
-                android:layout_height="72dp"
+                style="@style/EgoraButton"
                 android:layout_marginTop="@dimen/marginButtonToEditText"
-                android:background="@color/colorPrimary"
-                android:fontFamily="sans-serif"
                 android:text="Register"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.483"
                 app:layout_constraintStart_toStartOf="parent"
