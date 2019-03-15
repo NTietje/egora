@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(task.isSuccessful()){
                     progressDialog.dismiss();
-                    Log.i("loginVerify", mAuth.getCurrentUser().getEmail());
+                    Log.i("loginVerify", "Displayname:  " + mAuth.getCurrentUser().getDisplayName());
                     //Enter Datenbank
                     //finish activity
                 }

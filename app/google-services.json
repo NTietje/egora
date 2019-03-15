@@ -31,6 +31,14 @@
           }
         },
         {
+          "client_id": "1029508940920-an4hpb14rjj4t9njcdlolf1l0l8sgcqt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.egora",
+            "certificate_hash": "06c024073a4a40695d0d9597de2100ab3f8ce2ad"
+          }
+        },
+        {
           "client_id": "1029508940920-1mvci85b8irfi5c2tuusi464ifikd7f5.apps.googleusercontent.com",
           "client_type": 3
         }
