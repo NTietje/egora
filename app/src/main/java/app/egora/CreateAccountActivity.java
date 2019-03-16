@@ -1,6 +1,7 @@
 package app.egora;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -98,6 +99,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         });
     }
 
+    //Register-User-method
     private void registerUser(){
         progressDialog.setMessage("Register user...");
         progressDialog.show();
@@ -111,10 +113,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         final String streetName = editStreetName.getText().toString().trim();
         final String cityName = editCityName.getText().toString().trim();
 
-
         //final String phoneNumber = editPhoneNumber.getText().toString().trim();
-
-        //if (password.equals(editRepeatedPassword.getText().toString().trim())) {
 
             //Validating matching passwords
             if(!password.equals(editRepeatedPassword.getText().toString().trim())){
@@ -149,13 +148,17 @@ public class CreateAccountActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
 
                     if(task.isSuccessful()){
+
                         mAuth.signInWithEmailAndPassword(email, password);
                         FirebaseUser user = mAuth.getCurrentUser();
                         String userID = user.getUid();
                         Log.d("UserID: " , userID);
 
+                        //Writing into Database
                         UserInformation userInformation = new UserInformation(cityName, email, firstName, houseNumber, lastName, streetName);
                         Log.d("cityName: ", cityName);
+
+                        //Failurelistener
                         myRef.child("users").child(user.getUid()).setValue(userInformation).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
@@ -163,6 +166,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                             }
                         });
 
+                        //Writing into Authentication-Database
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                 .setDisplayName(displayName)
                                 .build();
@@ -171,7 +175,13 @@ public class CreateAccountActivity extends AppCompatActivity {
                         Toast.makeText(CreateAccountActivity.this, "Registration successful",
                                 Toast.LENGTH_LONG).show();
 
+                        //Changing Activity
+                        Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+
                     }
+                    //Show Exception-Message
                     else if(!task.isSuccessful()){
                         progressDialog.dismiss();
                         Toast.makeText(CreateAccountActivity.this, task.getException().getMessage(),
@@ -179,15 +189,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                     }
                 }
             });
-            /*
-                            if(!name.equals("") && !email.equals("") && !phoneNum.equals("")){
-                    UserInformation userInformation = new UserInformation(email,name,phoneNum);
-                    myRef.child("users").child(userID).setValue(userInformation);
-                    toastMessage("New Information has been saved.");
-                    mName.setText("");
-                    mEmail.setText("");
-                    mPhoneNum.setText("");
-             */
         //}
     }
 

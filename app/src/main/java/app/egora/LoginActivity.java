@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("login", "login button clicked"); // nur zum Testen
                 // hier Login mit Firebase Auth ausführen
                 userLogin();
+
             }
         });
 
@@ -76,10 +77,12 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    //User-Login-method
     private void userLogin(){
         String email = editEmail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
+        //Validating Inputs
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Please insert a valid email address", Toast.LENGTH_LONG).show();
             return;
@@ -89,19 +92,22 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        //Showing Dialog
         progressDialog.setMessage("Logging in...");
         progressDialog.show();
 
+        //Sign-In
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-
-
                 if(task.isSuccessful()){
                     progressDialog.dismiss();
                     Log.i("loginVerify", "Displayname:  " + mAuth.getCurrentUser().getDisplayName());
                     //Enter Datenbank
                     //finish activity
+                    Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 else {
                     progressDialog.dismiss();
