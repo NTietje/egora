@@ -8,14 +8,12 @@
     android:layout_height="match_parent"
     tools:context=".CreateAccountActivity">
 
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.constraint.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="75dp">
@@ -41,19 +39,19 @@
                 android:layout_height="72dp"
                 android:layout_marginTop="40dp"
                 android:background="#D8D8D8"
+                android:ellipsize="end"
                 android:hint="E-Mail"
+                android:inputType="text"
+                android:lines="1"
+                android:maxLines="1"
                 android:paddingLeft="20dp"
+                android:scrollHorizontally="true"
                 android:textColor="@color/darkTextColor"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/titleRegisterView"
-                android:inputType="text"
-                android:maxLines="1"
-                android:lines="1"
-                android:scrollHorizontally="true"
-                android:ellipsize="end"/>
+                app:layout_constraintTop_toBottomOf="@+id/titleRegisterView" />
 
             <EditText
                 android:id="@+id/regPassword"
@@ -91,7 +89,7 @@
                 android:layout_height="72dp"
                 android:layout_marginTop="@dimen/marginEditText"
                 android:background="#D8D8D8"
-                android:hint="First Name"
+                android:hint="Firstname"
                 android:paddingLeft="20dp"
                 android:textColor="@color/darkTextColor"
                 android:textSize="20sp"
@@ -106,7 +104,7 @@
                 android:layout_height="72dp"
                 android:layout_marginTop="@dimen/marginEditText"
                 android:background="#D8D8D8"
-                android:hint="Last Name"
+                android:hint="Lastname"
                 android:paddingLeft="20dp"
                 android:textColor="@color/darkTextColor"
                 android:textSize="20sp"
@@ -114,6 +112,51 @@
                 app:layout_constraintHorizontal_bias="0.472"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/regFirstName" />
+
+            <EditText
+                android:id="@+id/regStreetName"
+                android:layout_width="320dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="@dimen/marginEditText"
+                android:background="#D8D8D8"
+                android:hint="Streetname"
+                android:paddingLeft="20dp"
+                android:textColor="@color/darkTextColor"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.472"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/regLastName" />
+
+            <EditText
+                android:id="@+id/regHouseNumber"
+                android:layout_width="320dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="@dimen/marginEditText"
+                android:background="#D8D8D8"
+                android:hint="Housenumber"
+                android:paddingLeft="20dp"
+                android:textColor="@color/darkTextColor"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.472"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/regStreetName" />
+
+            <EditText
+                android:id="@+id/regCityName"
+                android:layout_width="320dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="@dimen/marginEditText"
+                android:background="#D8D8D8"
+                android:hint="City"
+                android:paddingLeft="20dp"
+                android:textColor="@color/darkTextColor"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.472"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/regHouseNumber" />
 
             <Button
                 android:id="@+id/buttonRegister"
@@ -129,7 +172,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.483"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/regLastName" />
+                app:layout_constraintTop_toBottomOf="@+id/regCityName" />
 
         </android.support.constraint.ConstraintLayout>
 
