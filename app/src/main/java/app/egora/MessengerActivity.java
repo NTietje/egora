@@ -9,18 +9,18 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class HomeActivity extends AppCompatActivity {
+public class MessengerActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_messenger);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-        bottomNav.getMenu().getItem(1).setChecked(true);
+        bottomNav.getMenu().getItem(2).setChecked(true);
 
     }
 
@@ -44,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             startActivity(intent);
+
             return true;
         }
 

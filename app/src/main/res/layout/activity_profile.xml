@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
->
+    >
 
 
     <FrameLayout
@@ -15,6 +15,15 @@
         android:layout_above="@id/bottom_navigation"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile Activity"
+        android:textSize="30sp"
+        android:layout_centerInParent="true"
+        />
+
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -23,8 +32,6 @@
         app:menu="@menu/button_navigation_main"
         android:background="@color/white"
         />
-
-
 
 
 </RelativeLayout>

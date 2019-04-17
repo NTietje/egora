@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Show User Profile"
+        android:id="@+id/main_show_user_profile"
+        >
+    </item>
+    <item
+        android:title="Logout"
+        android:id="@+id/main_logout"
+        >
+    </item>
+
+
+</menu>

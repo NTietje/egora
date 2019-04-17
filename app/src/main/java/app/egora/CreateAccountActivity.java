@@ -176,7 +176,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
 
                         //Changing Activity
-                        Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                        Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
                         startActivity(intent);
                         finish();
 
