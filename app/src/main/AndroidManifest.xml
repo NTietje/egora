@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MessageActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,11 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateAccountActivity"></activity>
-        <activity android:name=".ProfileActivity"></activity>
-        <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".MessengerActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".CreateAccountActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".MessengerActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

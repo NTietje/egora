@@ -25,6 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Pattern;
 
+import app.egora.Model.UserInformation;
+
 public class CreateAccountActivity extends AppCompatActivity {
 
     // Declaration Authentification Components
@@ -107,11 +109,12 @@ public class CreateAccountActivity extends AppCompatActivity {
         final String password = editPassword.getText().toString().trim();
         final String email = editEmail.getText().toString().trim();
         final String firstName = editFirstName.getText().toString().trim();
-        final String lastName = editFirstName.getText().toString().trim();
+        final String lastName = editLastName.getText().toString().trim();
         final String displayName = "" + firstName + " " + lastName;
         final String houseNumber = editHouseNumber.getText().toString().trim();
         final String streetName = editStreetName.getText().toString().trim();
         final String cityName = editCityName.getText().toString().trim();
+        final String imageURL = "default";
 
         //final String phoneNumber = editPhoneNumber.getText().toString().trim();
 
@@ -155,7 +158,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                         Log.d("UserID: " , userID);
 
                         //Writing into Database
-                        UserInformation userInformation = new UserInformation(cityName, email, firstName, houseNumber, lastName, streetName);
+                        UserInformation userInformation = new UserInformation(cityName, email, firstName, houseNumber, lastName, streetName, userID, imageURL);
                         Log.d("cityName: ", cityName);
 
                         //Failurelistener

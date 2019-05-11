@@ -1,18 +1,34 @@
-package app.egora;
+package app.egora.Model;
+
+import android.nfc.tech.NfcA;
 
 public class UserInformation  {
 
+    private String userID;
     private String cityName;
     private String email;
     private String firstName;
     private String houseNumber;
     private String lastName;
     private String streetName;
+    private String imageURL;
 
 
 
+    public UserInformation(){
+        this.cityName = "NA";
+        this.email = "NA";
+        this.firstName = "NA";
+        this.houseNumber = "NA";
+        this.lastName = "NA";
+        this.streetName = "NA";
+        this.userID = "NA";
+        this.imageURL = "default";
+    }
     //Constructor
-    public UserInformation(String cityName,String email, String firstName, String houseNumber, String lastName, String streetName) {
+    public UserInformation(String cityName,String email, String firstName, String houseNumber, String lastName, String streetName, String userID, String imageURL) {
+        this.userID = userID;
+        this.imageURL = imageURL;
         this.cityName = cityName;
         this.email = email;
         this.firstName = firstName;
@@ -22,6 +38,23 @@ public class UserInformation  {
     }
 
     //Getter and Setter Methods
+
+    public String getUserID(){
+        return userID;
+    }
+
+    public void setUserID(String userID){
+        this.userID = userID;
+    }
+
+    public String getImageURL(){
+        return imageURL;
+    }
+
+    public void setImageURL(){
+        this.imageURL = imageURL;
+    }
+
     public String getCityName() {
         return cityName;
     }
@@ -69,4 +102,8 @@ public class UserInformation  {
     public void setStreetName(String streetName) {
         this.streetName = streetName;
     }
+
+    public String getFullName(){ return firstName + " " + lastName;}
+
+    public String getAddress () {return cityName + " , " + streetName + " " + houseNumber;}
 }
