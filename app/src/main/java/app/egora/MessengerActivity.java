@@ -60,6 +60,7 @@ public class MessengerActivity extends AppCompatActivity {
 
 
 
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -94,12 +95,14 @@ public class MessengerActivity extends AppCompatActivity {
         myTablayout.setupWithViewPager(myViewPager);
     }
 
+    //Toolbar Menu Hinzufügen
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.options_menu, menu);
         return true;
     }
 
+    //Toolbar Menu - Funktionen (Logout)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -113,6 +116,7 @@ public class MessengerActivity extends AppCompatActivity {
         return false;
     }
 
+    //Bottom Navigationsbar
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener(){
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item){
@@ -137,6 +141,7 @@ public class MessengerActivity extends AppCompatActivity {
 
     };
 
+    //Viewpager für Fragments
     private void setupViewPager (ViewPager myViewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new ChatsFragment(), "Chats");

@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import app.egora.Model.UserInformation;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -51,7 +52,10 @@ public class ContactsFragment extends Fragment {
                 TextView userName = v.findViewById(R.id.user_information_name);
                 TextView address = v.findViewById(R.id.user_information_address);
 
+                CircleImageView contactImage = v.findViewById(R.id.contacs_profile_image);
+
                 UserInformation userInformation = (UserInformation) model;
+                contactImage.setImageResource(R.mipmap.ic_launcher);
                 userName.setText(userInformation.getFullName());
                 address.setText(userInformation.getAddress());
 

@@ -6,20 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="20dp"
-    android:padding = "20dp">
+    android:layout_margin="15dp"
+    android:padding = "15dp">
 
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:id="@+id/contacs_profile_image"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/user_information_name"
+        android:layout_marginStart="60dp"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/user_information_address"
+        android:layout_below="@+id/user_information_name"
+        android:layout_marginStart="60dp"
         />
 
 </RelativeLayout>

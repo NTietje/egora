@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/item_Constraint_Layout">
+
+                <ImageView
+                    android:id="@+id/item_imageView"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="267dp"
+                    android:src="@drawable/ic_photo_camera_gray_24dp"
+                    tools:srcCompat="@tools:sample/avatars"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.472"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <EditText
+                    android:id="@+id/item_description"
+                    android:layout_width="320dp"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="@dimen/marginEditText"
+                    android:background="#D8D8D8"
+                    android:hint="Bezeichnung"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textColor="@color/darkTextColor"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.472"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item_imageView" />
+
+                <EditText
+                    android:id="@+id/item_comment"
+                    android:layout_width="320dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="@dimen/marginEditText"
+                    android:background="#D8D8D8"
+                    android:hint="Beschreibung"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textColor="@color/darkTextColor"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.472"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item_description" />
+
+                <Button
+                    android:id="@+id/item_reset_button"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="Zurücksetzen"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:layout_marginRight="150dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.472"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item_comment"
+                    />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="Einstellen"
+                    android:layout_marginLeft="150dp"
+                    app:layout_constraintLeft_toLeftOf="@+id/item_reset_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.472"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item_comment"/>
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+
+        </ScrollView>
+
+</LinearLayout>

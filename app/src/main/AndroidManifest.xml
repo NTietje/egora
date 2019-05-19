@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AddingItem"/>
         <activity android:name=".CreateAccountActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".HomeActivity" />
