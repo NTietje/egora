@@ -7,31 +7,12 @@
     android:orientation="vertical"
     tools:context=".CommunitiesActivity">
 
-    <android.support.v7.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/toolbar"
+    <ListView
+        android:id="@+id/communitiesListView"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:titleTextColor="@color/lightTextColor"
-        app:titleTextAppearance="@style/toolbarTitleText"
-        app:titleMarginTop="20dp"
-        app:title="Communities" >
-
-    </android.support.v7.widget.Toolbar>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/header_egora" >
-
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp" />
-
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:divider="@color/lightGrey"
+        android:dividerHeight="2sp">
+    </ListView>
 
 </LinearLayout>

@@ -10,7 +10,7 @@
 
     <style name="EgoraEditText">
         <item name="android:background">@drawable/textedit_egora_default</item>
-        <item name="android:textColor">@color/darkTextColor</item>
+        <item name="android:textColor">@color/colorTextDark</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">20sp</item>
         <item name="android:radius">10dp</item>

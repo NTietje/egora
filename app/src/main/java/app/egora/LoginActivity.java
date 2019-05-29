@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i("register", "switch to registerview"); // nur zum Testen
                 Intent intent = new Intent(getBaseContext(), CreateAccountActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
