@@ -12,10 +12,10 @@
         <item name="android:background">@drawable/textedit_egora_default</item>
         <item name="android:textColor">@color/colorTextDark</item>
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/mediumTextSize</item>
         <item name="android:radius">10dp</item>
-        <item name="android:layout_width">320dp</item>
-        <item name="android:layout_height">72dp</item>
+        <item name="android:layout_width">@dimen/rectangleDefaultWidth</item>
+        <item name="android:layout_height">@dimen/rectangleDefaultHeight</item>
         <item name="android:maxLines">1</item>
         <item name="android:lines">1</item>
         <item name="android:scrollHorizontally">true</item>
@@ -28,18 +28,29 @@
         <item name="android:background">@drawable/button_egora_default</item>
         <item name="android:textColor">@color/lightTextColor</item>
         <item name="android:fontFamily">sans-serif</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/mediumTextSize</item>
         <item name="android:radius">10dp</item>
-        <item name="android:layout_width">320dp</item>
-        <item name="android:layout_height">72dp</item>
+        <item name="android:layout_width">@dimen/rectangleDefaultWidth</item>
+        <item name="android:layout_height">@dimen/rectangleDefaultHeight</item>
     </style>
+
+    <style name="EgoraEditField">
+        <item name="android:background">@drawable/textfield_egora_default</item>
+        <item name="android:textColor">@color/colorTextDark</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">@dimen/mediumTextSize</item>
+        <item name="android:layout_width">@dimen/rectangleDefaultWidth</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+    </style>
+
 
     <style name="customToolbar" parent="@style/Widget.AppCompat.Toolbar">
         <item name="titleTextColor">@color/lightTextColor</item>
     </style>
 
     <style name="toolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/titleTextSize</item>
     </style>
 
 </resources>

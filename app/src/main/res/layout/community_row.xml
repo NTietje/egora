@@ -12,7 +12,7 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:paddingRight="15dp"
-        android:textSize="25sp"
+        android:textSize="18sp"
         android:text="Richardstraße 86 22089 Hamburg"
         android:minLines="1"
         android:maxLines="2"
@@ -21,9 +21,8 @@
     <ImageView
         android:id="@+id/privateIconField"
         android:contentDescription="community privacy"
-        android:src="@drawable/ic_launcher_background"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
         />
 
     <ImageView

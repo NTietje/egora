@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_marginTop="@dimen/marginEditText"
+    tools:context=".NewCommunityActivity">
+
+    <EditText
+        android:id="@+id/communityNameEdit"
+        style="@style/EgoraEditText"
+        android:hint="Communityname"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/descEdit"
+        style="@style/EgoraEditField"
+        android:layout_marginTop="@dimen/marginEditText"
+        android:layout_height="200dp"
+        android:gravity="top"
+        android:hint="Write a description for joining users"
+        android:inputType="textMultiLine" />
+
+    <LinearLayout
+        android:layout_width="@dimen/rectangleDefaultWidth"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp" >
+
+        <CheckBox
+            android:id="@+id/keyCheckBox"
+            android:backgroundTint="@color/lightTexteditColor"
+            android:textColor="@color/midGrey"
+            android:textSize="@dimen/smallTextSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Make the community private with a key" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/keyEdit"
+        style="@style/EgoraEditText"
+        android:hint="Key"
+        android:inputType="textVisiblePassword"
+        android:layout_marginTop="5dp"/>
+
+    <Button
+        android:id="@+id/buttonCreateCommunity"
+        style="@style/EgoraButton"
+        android:layout_marginTop="@dimen/marginButtonToEditText"
+        android:text="Create" />
+
+</LinearLayout>
