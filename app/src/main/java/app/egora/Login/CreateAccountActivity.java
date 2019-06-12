@@ -1,16 +1,15 @@
-package app.egora;
+package app.egora.Login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,7 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Pattern;
 
+import app.egora.ItemManagement.HomeActivity;
 import app.egora.Model.UserInformation;
+import app.egora.R;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -179,7 +180,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
 
                         //Changing Activity
-                        Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
+                        Intent intent = new Intent(getBaseContext(), HomeActivity.class);
                         startActivity(intent);
                         finish();
 

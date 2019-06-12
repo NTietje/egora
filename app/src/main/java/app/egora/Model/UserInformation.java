@@ -1,8 +1,6 @@
 package app.egora.Model;
 
-import android.nfc.tech.NfcA;
-
-public class UserInformation  {
+public class UserInformation {
 
     private String userID;
     private String cityName;
@@ -12,6 +10,9 @@ public class UserInformation  {
     private String lastName;
     private String streetName;
     private String imageURL;
+    private String communityName;
+    private String communityID;
+
 
 
 
@@ -25,7 +26,7 @@ public class UserInformation  {
         this.userID = "NA";
         this.imageURL = "default";
     }
-    //Constructor
+    //Constructor without Communityinformation
     public UserInformation(String cityName,String email, String firstName, String houseNumber, String lastName, String streetName, String userID, String imageURL) {
         this.userID = userID;
         this.imageURL = imageURL;
@@ -36,6 +37,19 @@ public class UserInformation  {
         this.lastName = lastName;
         this.streetName = streetName;
     }
+
+    public UserInformation(String cityName,String email, String firstName, String houseNumber, String lastName, String streetName, String userID, String imageURL, String communityName) {
+        this.userID = userID;
+        this.imageURL = imageURL;
+        this.cityName = cityName;
+        this.email = email;
+        this.firstName = firstName;
+        this.houseNumber = houseNumber;
+        this.lastName = lastName;
+        this.streetName = streetName;
+        this.communityName = communityName;
+    }
+
 
     //Getter and Setter Methods
 
@@ -103,7 +117,38 @@ public class UserInformation  {
         this.streetName = streetName;
     }
 
+    public String getCommunityName() {
+        return communityName;
+    }
+
+    public void setCommunityName(String communityName) {
+        this.communityName = communityName;
+    }
+
+    public String getCommunityID() {
+        return communityID;
+    }
+
+    public void setCommunityID(String communityID) {
+        this.communityID = communityID;
+    }
+
     public String getFullName(){ return firstName + " " + lastName;}
 
     public String getAddress () {return cityName + " , " + streetName + " " + houseNumber;}
+
+    /*
+    public void setFullName (String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public  void setAddress (String cityName, String streetName, String houseNumber){
+        this.cityName = cityName;
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+    }
+
+*/
+
 }

@@ -1,4 +1,4 @@
-package app.egora;
+package app.egora.Messenger;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +21,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import app.egora.ItemManagement.HomeActivity;
+import app.egora.Login.LoginActivity;
+import app.egora.Messenger.Fragments.ChatsFragment;
+import app.egora.Messenger.Fragments.ContactsFragment;
 import app.egora.Model.UserInformation;
+import app.egora.ProfileActivity;
+import app.egora.R;
+import app.egora.Utils.SectionsPageAdapter;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessengerActivity extends AppCompatActivity {
@@ -44,6 +51,14 @@ public class MessengerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //Prüfung des Loginstatus
+        mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() == null){
+            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messenger);
 

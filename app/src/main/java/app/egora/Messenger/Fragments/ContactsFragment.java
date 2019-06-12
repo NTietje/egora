@@ -1,4 +1,4 @@
-package app.egora;
+package app.egora.Messenger.Fragments;
 
 
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import app.egora.Model.UserInformation;
+import app.egora.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 

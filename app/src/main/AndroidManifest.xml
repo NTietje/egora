@@ -3,6 +3,10 @@
     package="app.egora">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -11,19 +15,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MessageActivity"></activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Messenger.MessageActivity"></activity>
+        <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddingItem"/>
-        <activity android:name=".CreateAccountActivity" />
+        <activity android:name=".ItemManagement.AddingItem"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity android:name=".Login.CreateAccountActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".MessengerActivity"
+        <activity android:name=".ItemManagement.HomeActivity" />
+        <activity android:name=".Messenger.MessengerActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".MainActivity" />
     </application>

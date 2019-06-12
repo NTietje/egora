@@ -1,9 +1,8 @@
-package app.egora;
+package app.egora.Utils;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.ListFragment;
 
 import java.util.ArrayList;
 import java.util.List;

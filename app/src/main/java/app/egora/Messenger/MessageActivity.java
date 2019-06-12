@@ -1,7 +1,9 @@
-package app.egora;
+package app.egora.Messenger;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import app.egora.R;
 
 public class MessageActivity extends AppCompatActivity {
 
