@@ -4,4 +4,11 @@
     <dimen name="marginEditText">12dp</dimen>
     <dimen name="marginButtonToEditText">25dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="rectangleDefaultWidth">320dp</dimen>
+    <dimen name="rectangleDefaultHeight">72dp</dimen>
+    <dimen name="rectangleDefaultPaddingLeft">20dp</dimen>
+    <dimen name="smallTextSize">15sp</dimen>
+    <dimen name="mediumTextSize">20sp</dimen>
+    <dimen name="largeTextSize">22sp</dimen>
+    <dimen name="titleTextSize">24sp</dimen>
 </resources>

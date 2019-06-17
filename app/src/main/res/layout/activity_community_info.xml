@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".Communities.CommunityInfoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="45dp"
+        android:paddingLeft="45dp"
+        android:orientation="vertical"
+        android:gravity="left">
+
+        <TextView
+            android:id="@+id/communityName_Info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Community Name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="26sp"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/communityDesc_Info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="sdhjfih dfbgua sjhdbfgbjsndhhhhh sdhfffffffjfih djbgua fgh ajsnd sjfih djhfbgua sjhdbfghjb ajsnd"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/editKey_Info"
+            style="@style/EgoraEditText"
+            android:layout_marginTop="@dimen/marginButtonToEditText"
+            android:hint="Key"
+            tools:ignore="Autofill"
+            android:inputType="text"/>
+
+        <Button
+            android:id="@+id/buttonJoin"
+            style="@style/EgoraButton"
+            android:layout_marginTop="@dimen/marginButtonToEditText"
+            android:text="Join" />
+    </LinearLayout>
+
+</LinearLayout>

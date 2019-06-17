@@ -18,63 +18,37 @@
         android:typeface="normal"
         app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/logEmail"
-        android:layout_width="320dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="24dp"
-        android:background="#D8D8D8"
-        android:ellipsize="end"
+        style="@style/EgoraEditText"
         android:hint="E-Mail"
-        android:inputType="text"
-        android:lines="1"
-        android:maxLines="1"
-        android:paddingLeft="20dp"
-        android:scrollHorizontally="true"
-        android:textColor="@color/darkTextColor"
-        android:textSize="20sp"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleLoginView" />
 
     <EditText
         android:id="@+id/logPassword"
-        android:layout_width="320dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="12dp"
-        android:background="#D8D8D8"
+        style="@style/EgoraEditText"
         android:hint="Password"
-        android:paddingLeft="20dp"
-        android:textColor="@color/darkTextColor"
-        android:textSize="20sp"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logEmail"
-        android:inputType="text"
-        android:maxLines="1"
-        android:lines="1"
-        android:scrollHorizontally="true"
-        android:ellipsize="end"/>
+        app:layout_constraintTop_toBottomOf="@+id/logEmail" />
 
     <Button
         android:id="@+id/buttonLogin"
-        style="@android:style/Widget.Material.Light.Button.Borderless"
-        android:layout_width="322dp"
-        android:layout_height="72dp"
+        style="@style/EgoraButton"
         android:layout_marginTop="@dimen/marginButtonToEditText"
-        android:background="@color/colorPrimary"
-        android:fontFamily="sans-serif"
         android:text="Log In"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logPassword" />
 
@@ -100,7 +74,7 @@
         android:text="or"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
