@@ -12,7 +12,7 @@
 
     <ImageView
 
-        android:id="@+id/item_listView_imageView"
+        android:id="@+id/item_imageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="1dp"
@@ -21,19 +21,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/item_listView_name"
+        android:id="@+id/item_textView_name"
         android:layout_marginStart="110dp"
-        android:layout_alignStart="@id/item_listView_imageView"
+        android:layout_alignStart="@id/item_imageView"
         />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/item_listView_description"
-        android:layout_below="@+id/item_listView_name"
+        android:id="@+id/item_textView_description"
+        android:layout_below="@+id/item_textView_name"
         android:layout_marginTop="5dp"
         android:layout_marginStart="110dp"
-        android:layout_alignStart="@id/item_listView_imageView"
+        android:layout_alignStart="@id/item_imageView"
 
         />
 

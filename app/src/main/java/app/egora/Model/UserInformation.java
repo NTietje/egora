@@ -27,9 +27,7 @@ public class UserInformation {
         this.imageURL = "default";
     }
     //Constructor without Communityinformation
-    public UserInformation(String cityName,String email, String firstName, String houseNumber, String lastName, String streetName, String userID, String imageURL) {
-        this.userID = userID;
-        this.imageURL = imageURL;
+    public UserInformation(String cityName,String email, String firstName, String houseNumber, String lastName, String streetName) {
         this.cityName = cityName;
         this.email = email;
         this.firstName = firstName;
@@ -38,9 +36,7 @@ public class UserInformation {
         this.streetName = streetName;
     }
 
-    public UserInformation(String cityName,String email, String firstName, String houseNumber, String lastName, String streetName, String userID, String imageURL, String communityName) {
-        this.userID = userID;
-        this.imageURL = imageURL;
+    public UserInformation(String cityName,String email, String firstName, String houseNumber, String lastName, String streetName, String communityName) {
         this.cityName = cityName;
         this.email = email;
         this.firstName = firstName;

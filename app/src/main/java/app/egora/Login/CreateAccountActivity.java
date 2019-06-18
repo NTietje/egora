@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,17 +22,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import app.egora.ItemManagement.HomeActivity;
-import app.egora.Model.UserInformation;
 import app.egora.R;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
     // Declaration Authentification Components
     private FirebaseDatabase database;
+    private FirebaseFirestore db;
     private DatabaseReference myRef;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -56,6 +60,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         // Initialisation
+        db = FirebaseFirestore.getInstance();
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         myRef = database.getReference();
@@ -76,7 +81,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                 }
             };
         */
-
 
         // Initialisation UI Components
         buttonRegister = findViewById(R.id.buttonRegister);
@@ -117,8 +121,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         final String cityName = editCityName.getText().toString().trim();
         final String imageURL = "default";
 
-        //final String phoneNumber = editPhoneNumber.getText().toString().trim();
-
             //Validating matching passwords
             if(!password.equals(editRepeatedPassword.getText().toString().trim())){
                 progressDialog.dismiss();
@@ -155,20 +157,37 @@ public class CreateAccountActivity extends AppCompatActivity {
 
                         mAuth.signInWithEmailAndPassword(email, password);
                         FirebaseUser user = mAuth.getCurrentUser();
-                        String userID = user.getUid();
+
+                        final String userID = user.getUid();
                         Log.d("UserID: " , userID);
 
-                        //Writing into Database
-                        UserInformation userInformation = new UserInformation(cityName, email, firstName, houseNumber, lastName, streetName, userID, imageURL);
-                        Log.d("cityName: ", cityName);
+                        //Creating User-Document for Cloud Firestore
+                        Map<String, Object> currentUser = new HashMap<>();
+                        currentUser.put("firstName" , firstName);
+                        currentUser.put("lastName", lastName);
+                        currentUser.put("email" , email);
+                        currentUser.put("streetName", streetName);
+                        currentUser.put("houseNumber" , houseNumber);
+                        currentUser.put("cityName", cityName);
 
-                        //Failurelistener
-                        myRef.child("users").child(user.getUid()).setValue(userInformation).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d("Fehler: ", "" + e);
-                            }
-                        });
+                        db.collection("users").document(userID)
+                                .set(currentUser)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+
+                                        Log.d("AddingUser", "DocumentSnapshot added with ID: " + userID);
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(CreateAccountActivity.this, "Error: " + e,
+                                                Toast.LENGTH_LONG).show();
+                                        return;
+                                    }
+                                });
 
                         //Writing into Authentication-Database
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -193,24 +212,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                     }
                 }
             });
-        //}
     }
 
-    //Adding AuthListener on Start
-    /*
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    //Removing AuthListener
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
-    */
 }

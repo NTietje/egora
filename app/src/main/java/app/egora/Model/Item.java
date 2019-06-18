@@ -7,6 +7,7 @@ public class Item {
     private String downloadUrl;
     private String ownerId;
     private String itemId;
+    private String communityName;
 
     public Item(){
 
@@ -15,6 +16,7 @@ public class Item {
         this.downloadUrl = "NA";
         this.ownerId = "NA";
         this.itemId = "NA";
+        this.communityName = "NA";
 
     }
 
@@ -26,6 +28,14 @@ public class Item {
         this.description = description;
         this.downloadUrl = downloadUrl;
         this.ownerId = ownerId;
+    }
+    public Item(String name, String description, String downloadUrl, String ownerId, String itemId, String communityName){
+        this.itemId = itemId;
+        this.name = name;
+        this.description = description;
+        this.downloadUrl = downloadUrl;
+        this.ownerId = ownerId;
+        this.communityName = communityName;
     }
 
     public Item(String itemId, String ownerId){
@@ -71,5 +81,13 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCommunityName() {
+        return communityName;
+    }
+
+    public void setCommunityName(String name) {
+        this.communityName = communityName;
     }
 }

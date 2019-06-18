@@ -6,24 +6,28 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.firebase.ui.database.FirebaseListAdapter;
-import com.firebase.ui.database.FirebaseListOptions;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+
+import javax.annotation.Nullable;
 
 import app.egora.Login.LoginActivity;
 import app.egora.Messenger.MessengerActivity;
@@ -32,25 +36,32 @@ import app.egora.Model.UserInformation;
 import app.egora.ProfileActivity;
 import app.egora.R;
 import app.egora.Utils.FirebaseMethods;
+import app.egora.Utils.ItemAdapter;
 
 public class HomeActivity extends AppCompatActivity {
 
-    ListView listView;
-    FirebaseListAdapter adapter;
+    private RecyclerView recyclerView;
+
+
     ImageView itemImage;
 
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mDatabase;
+    private FirebaseFirestore db;
     private DatabaseReference mRef;
     private DatabaseReference mItemRef;
     private DatabaseReference mUserRef;
+    private DocumentReference userRef;
+    private ItemAdapter adapter;
+
 
     private FirebaseMethods mFirebaseMethods;
     private UserInformation currentUser;
     private String currentCommunity;
-    private TextView noGroupText;
+    private TextView noCommunityTextView;
+
 
 
     //Konstruktor (wird benötigt)
@@ -71,50 +82,16 @@ public class HomeActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        setupFirebaseAuth();
+        db = FirebaseFirestore.getInstance();
+        setupFirebaseModuls();
 
 
-        //Zuordnung der Firebaseverbindungen
-
-        mRef = mDatabase.getReference();
-
-        //Listview Daten vorbereiten
-        listView = findViewById(R.id.items_listView);
-
-        Query query = mRef.child("items").child("Default");
-
-
-
-        FirebaseListOptions<Item> options = new FirebaseListOptions.Builder<Item>()
-                .setLayout(R.layout.item_information)
-                .setQuery(query, Item.class)
-                .build();
-
-        //ListViewAdapter
-        adapter = new FirebaseListAdapter(options) {
-            @Override
-            protected void populateView(@NonNull View v, @NonNull Object model, int position) {
-                Item item = (Item) model;
-
-                TextView itemName = v.findViewById(R.id.item_listView_name);
-                TextView itemDescription = v.findViewById(R.id.item_listView_description);
-                itemImage = v.findViewById(R.id.item_listView_imageView);
-                Picasso.get().load(item.getDownloadUrl()).fit().into(itemImage);
-
-
-                itemName.setText(item.getName());
-                itemDescription.setText(item.getDescription());
-
-            }
-        };
-        listView.setAdapter(adapter);
-        noGroupText = findViewById(R.id.textview_no_group);
-        noGroupText.setVisibility(View.INVISIBLE);
-
-
-
-
-
+        //RecyclerView
+        recyclerView = findViewById(R.id.items_recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        noCommunityTextView = findViewById(R.id.textview_no_group);
+        noCommunityTextView.setVisibility(View.INVISIBLE);
 
         //Button zum Hinzufügen von Items
         FloatingActionButton addButton = findViewById(R.id.add_object_button);
@@ -134,9 +111,6 @@ public class HomeActivity extends AppCompatActivity {
         bottomNav.getMenu().getItem(1).setChecked(true);
 
         //Textview bei keiner Gruppe
-
-
-
     }
 
 
@@ -165,18 +139,11 @@ public class HomeActivity extends AppCompatActivity {
     };
 
     //Methode um Firebase und die Listener vorzubereiten
-    private void setupFirebaseAuth() {
+    private void setupFirebaseModuls() {
         Log.d("Firebase: ", "setupFirebaseAuth: setting up firebase auth.");
 
+
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance();
-        mRef = mDatabase.getReference();
-        mUserRef = mDatabase.getReference().child("users");
-        mItemRef = mDatabase.getReference().child("items");
-        currentUser = new UserInformation();
-
-        mFirebaseMethods = new FirebaseMethods(this);
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -188,69 +155,49 @@ public class HomeActivity extends AppCompatActivity {
 
                 } else {
                     // User is signed out
+                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
-                // ...
             }
         };
 
+        currentUser = new UserInformation();
 
-        //Listener um den ListView upzudaten
-        mUserRef.addValueEventListener(new ValueEventListener() {
+        userRef = db.collection("users").document(mAuth.getUid());
+        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                //Löschen des Adapters
-                listView.setAdapter(null);
+                userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        currentUser = documentSnapshot.toObject(UserInformation.class);
+                        String userId = mAuth.getUid().toString();
 
-                //Momentane Community wird abgefragt
-                String userID = mAuth.getUid().toString();
-                currentUser = dataSnapshot.child(userID).getValue(UserInformation.class);
-                currentCommunity = currentUser.getCommunityName();
+                        //Checking if Community exists
+                        if (currentUser.getCommunityName() != null) {
 
-                //
-                if(currentCommunity != null){
-                    noGroupText.setVisibility(View.INVISIBLE);
-                    Query query = mItemRef.child(currentCommunity);
-                    Log.d("Update durch Listener: " , "" + currentCommunity);
+                            //Updating View and adding RecyclerViewAdapter
+                            currentCommunity = currentUser.getCommunityName();
+                            noCommunityTextView.setVisibility(View.INVISIBLE);
+                            Query query = db.collection("items").whereEqualTo("communityName", currentCommunity);
 
+                            FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Item>()
+                                    .setQuery(query, Item.class)
+                                    .build();
 
-
-                    FirebaseListOptions<Item> options = new FirebaseListOptions.Builder<Item>()
-                            .setLayout(R.layout.item_information)
-                            .setQuery(query, Item.class)
-                            .build();
-
-                    //ListViewAdapter
-                    adapter = new FirebaseListAdapter(options) {
-                        @Override
-                        protected void populateView(@NonNull View v, @NonNull Object model, int position) {
-                            Item item = (Item) model;
-
-                            TextView itemName = v.findViewById(R.id.item_listView_name);
-                            TextView itemDescription = v.findViewById(R.id.item_listView_description);
-                            itemImage = v.findViewById(R.id.item_listView_imageView);
-                            Picasso.get().load(item.getDownloadUrl()).fit().into(itemImage);
-
-
-                            itemName.setText(item.getName());
-                            itemDescription.setText(item.getDescription());
-
+                            adapter = new ItemAdapter(options);
+                            recyclerView.setAdapter(adapter);
+                            adapter.startListening();
+                        } else {
+                            //Show No Community TextView
+                            noCommunityTextView = findViewById(R.id.textview_no_group);
+                            noCommunityTextView.setVisibility(View.VISIBLE);
                         }
-                    };
-                    listView.setAdapter(adapter);
-                    adapter.startListening();
-                }
-                else{
-                    noGroupText = findViewById(R.id.textview_no_group);
-                    noGroupText.setVisibility(View.VISIBLE);
-                }
 
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+                    }
+                });
             }
         });
     }
@@ -259,7 +206,9 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        adapter.startListening();
+        if(adapter != null){
+            adapter.startListening();
+        }
         mAuth.addAuthStateListener(mAuthListener);
     }
 

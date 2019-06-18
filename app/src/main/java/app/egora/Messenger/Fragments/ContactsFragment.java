@@ -2,22 +2,13 @@ package app.egora.Messenger.Fragments;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.firebase.ui.database.FirebaseListAdapter;
-import com.firebase.ui.database.FirebaseListOptions;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-
-import app.egora.Model.UserInformation;
 import app.egora.R;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -26,7 +17,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ContactsFragment extends Fragment {
 
     ListView listView;
-    FirebaseListAdapter adapter;
 
 
     public ContactsFragment() {
@@ -35,11 +25,14 @@ public class ContactsFragment extends Fragment {
 
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contacts, container, false);
+        /*
         listView = view.findViewById(R.id.contacts_listView);
         Query query = FirebaseDatabase.getInstance().getReference().child("users");
         FirebaseListOptions<UserInformation> options = new FirebaseListOptions.Builder<UserInformation>()
@@ -63,18 +56,21 @@ public class ContactsFragment extends Fragment {
             }
         };
         listView.setAdapter(adapter);
+        */
         return view;
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        adapter.startListening();
+
+        //adapter.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        adapter.stopListening();
+        //adapter.stopListening();
     }
 }
