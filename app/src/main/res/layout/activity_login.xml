@@ -29,26 +29,26 @@
         <EditText
             android:id="@+id/logEmail"
             style="@style/EgoraEditText"
-            android:hint="E-Mail"
+            android:hint="@string/email"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/logPassword"
             style="@style/EgoraEditText"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/buttonLogin"
             style="@style/EgoraButton"
             android:layout_marginTop="@dimen/marginButtonToEditText"
-            android:text="Log In" />
+            android:text="@string/login" />
 
         <TextView
             android:id="@+id/or"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:text="or"
+            android:text="@string/or"
             android:textSize="18sp"
             android:layout_marginTop="20dp" />
 
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:text="Register now!"
+            android:text="@string/registernow"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:text="Forgot your password?"
+            android:text="@string/forgetpassword"
             android:textSize="18sp"
             android:layout_marginTop="30dp" />
 

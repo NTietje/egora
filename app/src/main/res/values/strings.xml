@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">egora</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">E-Mail</string>
+    <string name="password">Password</string>
+    <string name="passwordRep">Repeat Password</string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="street">Streetname</string>
+    <string name="housenumber">Housenumber</string>
+    <string name="city">City</string>
+    <string name="login">Log In</string>
+    <string name="register">Register</string>
+    <string name="or">or</string>
+    <string name="registernow">Register now!</string>
+    <string name="forgetpassword">Forgot your password?</string>
 </resources>
