@@ -1,94 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login.LoginActivity">
+    tools:context=".Login.CreateAccountActivity" >
 
-    <TextView
-        android:id="@+id/titleLoginView"
-        android:layout_width="206dp"
-        android:layout_height="126dp"
-        android:layout_marginTop="44dp"
-        android:fontFamily="sans-serif-thin"
-        android:text="@string/app_name"
-        android:textColor="@color/colorPrimary"
-        android:typeface="normal"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/logEmail"
-        style="@style/EgoraEditText"
-        android:hint="E-Mail"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleLoginView" />
-
-    <EditText
-        android:id="@+id/logPassword"
-        style="@style/EgoraEditText"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logEmail" />
-
-    <Button
-        android:id="@+id/buttonLogin"
-        style="@style/EgoraButton"
-        android:layout_marginTop="@dimen/marginButtonToEditText"
-        android:text="Log In"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logPassword" />
-
-    <TextView
-        android:id="@+id/textRegister"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="Register Now!"
-        android:textColor="@color/colorPrimary"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:gravity="center"
+        tools:ignore="Autofill" >
 
-    <TextView
-        android:id="@+id/or"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginTop="476dp"
-        android:text="or"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/titleLoginView"
+            android:layout_width="206dp"
+            android:layout_height="126dp"
+            android:layout_marginTop="28dp"
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/app_name"
+            android:textColor="@color/colorPrimary"
+            android:typeface="normal"
+            app:autoSizeTextType="uniform" />
 
-    <TextView
-        android:id="@+id/textForgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="552dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="Forgot your password?"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/logEmail"
+            style="@style/EgoraEditText"
+            android:hint="E-Mail"
+            android:inputType="textEmailAddress" />
 
-</android.support.constraint.ConstraintLayout>
+        <EditText
+            android:id="@+id/logPassword"
+            style="@style/EgoraEditText"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/buttonLogin"
+            style="@style/EgoraButton"
+            android:layout_marginTop="@dimen/marginButtonToEditText"
+            android:text="Log In" />
+
+        <TextView
+            android:id="@+id/or"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:text="or"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/textRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Register now!"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Forgot your password?"
+            android:textSize="18sp"
+            android:layout_marginTop="30dp" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,181 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login.CreateAccountActivity">
+    tools:context=".Login.CreateAccountActivity" >
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center" >
 
-        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="75dp">
+        <TextView
+            android:id="@+id/titleRegisterView"
+            android:layout_width="206dp"
+            android:layout_height="126dp"
+            android:layout_marginTop="28dp"
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/app_name"
+            android:textColor="@color/colorPrimary"
+            android:typeface="normal"
+            app:autoSizeTextType="uniform" />
 
-            <TextView
-                android:id="@+id/titleRegisterView"
-                android:layout_width="206dp"
-                android:layout_height="126dp"
-                android:layout_marginTop="56dp"
-                android:fontFamily="sans-serif-thin"
-                android:text="@string/app_name"
-                android:textColor="@color/colorPrimary"
-                android:typeface="normal"
-                app:autoSizeTextType="uniform"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/regEmail"
+            style="@style/EgoraEditText"
+            android:layout_marginTop="24dp"
+            android:hint="E-Mail"
+            android:inputType="textEmailAddress" />
 
-            <EditText
-                android:id="@+id/regEmail"
-                android:layout_width="320dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="40dp"
-                android:background="#D8D8D8"
-                android:ellipsize="end"
-                android:hint="E-Mail"
-                android:inputType="text"
-                android:lines="1"
-                android:maxLines="1"
-                android:paddingLeft="20dp"
-                android:scrollHorizontally="true"
-                android:textColor="@color/darkTextColor"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/titleRegisterView" />
+        <EditText
+            android:id="@+id/regPassword"
+            style="@style/EgoraEditText"
+            android:hint="Password"
+            android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/regPassword"
-                android:layout_width="320dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="@dimen/marginEditText"
-                android:background="#D8D8D8"
-                android:hint="Password"
-                android:paddingLeft="20dp"
-                android:textColor="@color/darkTextColor"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.505"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/regEmail" />
+        <EditText
+            android:id="@+id/regPasswordRepeat"
+            style="@style/EgoraEditText"
+            android:hint="Repeat Password"
+            android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/regPasswordRepeat"
-                android:layout_width="320dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="@dimen/marginEditText"
-                android:background="#D8D8D8"
-                android:hint="Repeat Password"
-                android:paddingLeft="20dp"
-                android:textColor="@color/darkTextColor"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.494"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/regPassword" />
+        <EditText
+            android:id="@+id/regFirstName"
+            style="@style/EgoraEditText"
+            android:hint="Firstname"
+            android:inputType="text" />
 
-            <EditText
-                android:id="@+id/regFirstName"
-                android:layout_width="320dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="@dimen/marginEditText"
-                android:background="#D8D8D8"
-                android:hint="Firstname"
-                android:paddingLeft="20dp"
-                android:textColor="@color/darkTextColor"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.494"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/regPasswordRepeat" />
+        <EditText
+            android:id="@+id/regLastName"
+            style="@style/EgoraEditText"
+            android:hint="Lastname"
+            android:inputType="text" />
 
-            <EditText
-                android:id="@+id/regLastName"
-                android:layout_width="320dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="@dimen/marginEditText"
-                android:background="#D8D8D8"
-                android:hint="Lastname"
-                android:paddingLeft="20dp"
-                android:textColor="@color/darkTextColor"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.472"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/regFirstName" />
+        <EditText
+            android:id="@+id/regStreetName"
+            style="@style/EgoraEditText"
+            android:hint="Streetname"
+            android:inputType="text" />
 
-            <EditText
-                android:id="@+id/regStreetName"
-                android:layout_width="320dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="@dimen/marginEditText"
-                android:background="#D8D8D8"
-                android:hint="Streetname"
-                android:paddingLeft="20dp"
-                android:textColor="@color/darkTextColor"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.472"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/regLastName" />
+        <EditText
+            android:id="@+id/regHouseNumber"
+            style="@style/EgoraEditText"
+            android:hint="Housenumber"
+            android:inputType="text" />
 
-            <EditText
-                android:id="@+id/regHouseNumber"
-                android:layout_width="320dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="@dimen/marginEditText"
-                android:background="#D8D8D8"
-                android:hint="Housenumber"
-                android:paddingLeft="20dp"
-                android:textColor="@color/darkTextColor"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.472"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/regStreetName" />
+        <EditText
+            android:id="@+id/regCityName"
+            style="@style/EgoraEditText"
+            android:hint="City" />
 
-            <EditText
-                android:id="@+id/regCityName"
-                android:layout_width="320dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="@dimen/marginEditText"
-                android:background="#D8D8D8"
-                android:hint="City"
-                android:paddingLeft="20dp"
-                android:textColor="@color/darkTextColor"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.472"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/regHouseNumber" />
+        <Button
+            android:id="@+id/buttonRegister"
+            style="@style/EgoraButton"
+            android:layout_marginTop="@dimen/marginButtonToEditText"
+            android:text="Register"
+            android:layout_marginBottom="@dimen/marginToBottom" />
 
-            <Button
-                android:id="@+id/buttonRegister"
-                style="@android:style/Widget.Material.Light.Button.Borderless"
-                android:layout_width="322dp"
-                android:layout_height="72dp"
-                android:layout_marginTop="@dimen/marginButtonToEditText"
-                android:background="@color/colorPrimary"
-                android:fontFamily="sans-serif"
-                android:text="Register"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.483"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/regCityName" />
+    </LinearLayout>
 
-        </android.support.constraint.ConstraintLayout>
-
-    </ScrollView>
-
-</LinearLayout>
+</ScrollView>
