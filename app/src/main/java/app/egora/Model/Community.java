@@ -18,8 +18,11 @@ public class Community {
         this.description = desc;
         this.key = key;
         this.privacyMode = privacyMode;
-        lastActivity = new Date();
         userIDs = new ArrayList<>();
+    }
+
+    public void setUserList(ArrayList<String> userList) {
+        userIDs = userList;
     }
 
     public void addUser(String userID) {

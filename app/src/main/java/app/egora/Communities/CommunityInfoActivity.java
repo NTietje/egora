@@ -3,15 +3,27 @@ package app.egora.Communities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.shashank.sony.fancytoastlib.FancyToast;
+
+import app.egora.ItemManagement.HomeActivity;
 import app.egora.R;
 
 public class CommunityInfoActivity extends AppCompatActivity {
+
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private String name;
+    private Boolean mode;
+    private String key;
+    private EditText keyEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,44 +32,61 @@ public class CommunityInfoActivity extends AppCompatActivity {
         if(getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Community Info");
         }
+        db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         TextView communityNameText = findViewById(R.id.communityName_Info);
         TextView descText = findViewById(R.id.communityDesc_Info);
-        EditText keyEdit = findViewById(R.id.editKey_Info);
+        keyEdit = findViewById(R.id.editKey_Info);
         Button joinButton = findViewById(R.id.buttonJoin);
 
         Intent intent = getIntent();
-        communityNameText.setText(intent.getStringExtra("name"));
-        Boolean mode = intent.getExtras().getBoolean("mode");
+        name = intent.getStringExtra("name");
+        communityNameText.setText(name);
+        mode = intent.getExtras().getBoolean("mode");
         String desc = intent.getStringExtra("desc");
-        String key;
+        key = intent.getStringExtra("key");
 
         if (desc != null) {
             if (!desc.isEmpty()) {
                 descText.setText(desc);
             }
         }
-
         else {
             descText.setVisibility(View.GONE);
         }
 
-        if (mode) {
-            key = intent.getStringExtra("key");
-        }
-        else {
+        if (!mode) {
             keyEdit.setVisibility(View.GONE);
         }
 
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("join", "joined community"); // nur zum Testen
-                //Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                //startActivity(intent);
+                if(mode) {
+                    if(keyEdit.getText().toString().toLowerCase().equals(key.toLowerCase())) {
+                        joinCommunity();
+                    }
+                    else {
+                        FancyToast.makeText(CommunityInfoActivity.this,"The key isn't correct", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                    }
+                }
+                else {
+                    joinCommunity();
+                }
+
             }
         });
 
     }
 
+    private void joinCommunity() {
+        db.collection("users").document(mAuth.getCurrentUser().getUid()).update("community", name);
+        db.collection("communities").document(name).update("userIDs", FieldValue.arrayUnion(mAuth.getCurrentUser().getUid()));
+        FancyToast.makeText(CommunityInfoActivity.this,"You joined " + name, FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+        Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+        startActivity(intent);
+        finish();
+        CommunitiesActivity.getInstance().finish();
+    }
 }

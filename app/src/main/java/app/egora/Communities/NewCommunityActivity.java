@@ -1,5 +1,6 @@
 package app.egora.Communities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,22 +21,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 
+import java.util.Date;
+
+import app.egora.ItemManagement.HomeActivity;
 import app.egora.Login.CreateAccountActivity;
 import app.egora.R;
 import app.egora.Model.Community;
 
 public class NewCommunityActivity extends AppCompatActivity {
-
-    private static class UserPost{
-        String userID;
-        private UserPost(String userID) {
-            this.userID = userID;
-        }
-    }
 
     // Declaration Firebase
     private FirebaseDatabase database;
@@ -103,6 +101,7 @@ public class NewCommunityActivity extends AppCompatActivity {
                                 else {
                                     //create new community
                                     final Community community = new Community(name, desc, key, keyCheckBox.isChecked());
+                                    community.setLastActivity(new Date());
                                     mAuth.signInWithEmailAndPassword("n@gmail.com", "nana2014").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -127,6 +126,11 @@ public class NewCommunityActivity extends AppCompatActivity {
                                             //set communityname in usercollection
                                             db.collection("users").document(mAuth.getCurrentUser().getUid()).update("community", community.getName());
 
+                                            //finish this activity and CommunitiesActivity
+                                            Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                            CommunitiesActivity.getInstance().finish();
                                         }
                                     });
                                 }

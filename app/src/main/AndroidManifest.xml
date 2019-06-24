@@ -47,6 +47,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Messenger.MessageActivity" />
+        <activity android:name=".ItemManagement.AddingItem"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity android:name=".Login.CreateAccountActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ItemManagement.HomeActivity" />
+        <activity android:name=".Messenger.MessengerActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Communities.NewCommunityActivity"></activity>
         <activity android:name=".Communities.CommunityInfoActivity"></activity>
         <activity android:name=".Communities.CommunitiesActivity">

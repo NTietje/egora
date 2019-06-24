@@ -1,21 +1,30 @@
 package app.egora.Communities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 import app.egora.Model.CommunitiesListViewAdapter;
 import app.egora.R;
@@ -24,9 +33,12 @@ import app.egora.Model.Community;
 
 public class CommunitiesActivity extends AppCompatActivity {
 
+    static CommunitiesActivity communitiesActivity;
+
     //Declaration Firebase
     private FirebaseDatabase database;
     private DatabaseReference myRef;
+    private FirebaseFirestore db;
 
     //Declaration
     private ListView listView;
@@ -41,28 +53,42 @@ public class CommunitiesActivity extends AppCompatActivity {
         if(getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Communities");
         }
-
+        communitiesActivity = this;
         FloatingActionButton addButton = findViewById(R.id.addCommunityButton);
 
         //Initialisation Firebase
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
+        db = FirebaseFirestore.getInstance();
 
         communities = new ArrayList<>();
         listView = findViewById(R.id.communitiesListView);
 
-        Community a = new Community("Eilbek-Viertel", "Beschreibung bla", "0110", true);
-        Community b = new Community("Otto-Srtraße 4", "Wir sind eine nette Gemeinde!", "0110", true);
-        Community c = new Community("Richardstr.86 Hamburg", leer, leer, false);
-        Community d = new Community("Grünes Haus", "Hallo ihr Lieben :)", leer, false);
-        Community[] communityArray = {a,b,c,d,b,c,d,a,c,a};
-        communities.addAll(Arrays.asList(communityArray));
+        db.collection("communities")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String name = document.get("name").toString();
+                                String desc = document.get("description").toString();
+                                String key = document.get("key").toString();
+                                Boolean privacyMode = (Boolean) document.get("privacyMode");
+                                Log.d("Communitie: ", name + ", " + desc + ", " + key + ", " + privacyMode.toString());
+                                communities.add(new Community(name, desc, key, privacyMode));
+                            }
+                            //pass communities to CommunitiesListViewAdapter
+                            adapter = new CommunitiesListViewAdapter(CommunitiesActivity.this, communities);
 
-        //pass communities to CommunitiesListViewAdapter
-        adapter = new CommunitiesListViewAdapter(this, communities);
+                            //bind the adapter to the listview
+                            listView.setAdapter(adapter);
 
-        //bind the adapter to the listview
-        listView.setAdapter(adapter);
+                        } else {
+                            Log.d("msg", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
         //Switch to NewCommunityActivity
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +127,10 @@ public class CommunitiesActivity extends AppCompatActivity {
         });
 
         return true;
+    }
+
+    public static CommunitiesActivity getInstance() {
+        return communitiesActivity;
     }
 
 }
