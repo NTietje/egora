@@ -8,6 +8,7 @@
     <uses-feature android:name="android.hardware.camera"
         android:required="true" />
 
+<!--
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -36,8 +37,9 @@
         <activity android:name=".Communities.NewCommunityActivity" />
         <activity android:name=".MainActivity" />
     </application>
+-->
 
-    <!-- for Community Testing
+    <!-- for Community Testing -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -55,6 +57,5 @@
             </intent-filter>
         </activity>
     </application>
-    -->
 
 </manifest>

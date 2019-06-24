@@ -1,21 +1,37 @@
 package app.egora.Model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Community {
     private String name;
-    private String desc;
+    private String description;
     private String key;
     private Boolean privacyMode;
     private Date lastActivity;
+    private ArrayList<String> userIDs;
 
     //Constructor
     public Community(String name, String desc, String key, Boolean privacyMode) {
         this.name = name;
-        this.desc = desc;
+        this.description = desc;
         this.key = key;
         this.privacyMode = privacyMode;
         lastActivity = new Date();
+        userIDs = new ArrayList<>();
+    }
+
+    public void addUser(String userID) {
+        userIDs.add(userID);
+    }
+
+    public void deleteUser(String userID) {
+        userIDs.remove(userID);
+    }
+
+    public List<String> getUserIDs() {
+        return userIDs;
     }
 
     public String getName() {
@@ -23,7 +39,7 @@ public class Community {
     }
 
     public String getDescription() {
-        return desc;
+        return description;
     }
 
     public String getKey() {
