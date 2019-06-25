@@ -3,8 +3,8 @@ package app.egora.Login;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import app.egora.ItemManagement.HomeActivity;
+import app.egora.Communities.CommunitiesActivity;
 import app.egora.R;
 
 public class CreateAccountActivity extends AppCompatActivity {
@@ -199,7 +199,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
 
                         //Changing Activity
-                        Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                        Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);
                         startActivity(intent);
                         finish();
 
