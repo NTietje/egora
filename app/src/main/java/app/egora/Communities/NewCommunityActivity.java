@@ -124,7 +124,7 @@ public class NewCommunityActivity extends AppCompatActivity {
                                                 });
 
                                             //set communityname in usercollection
-                                            db.collection("users").document(mAuth.getCurrentUser().getUid()).update("community", community.getName());
+                                            db.collection("users").document(mAuth.getCurrentUser().getUid()).update("communityName", community.getName());
 
                                             //finish this activity and CommunitiesActivity
                                             Intent intent = new Intent(getBaseContext(), HomeActivity.class);

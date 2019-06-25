@@ -81,7 +81,7 @@ public class CommunityInfoActivity extends AppCompatActivity {
     }
 
     private void joinCommunity() {
-        db.collection("users").document(mAuth.getCurrentUser().getUid()).update("community", name);
+        db.collection("users").document(mAuth.getCurrentUser().getUid()).update("communityName", name);
         db.collection("communities").document(name).update("userIDs", FieldValue.arrayUnion(mAuth.getCurrentUser().getUid()));
         FancyToast.makeText(CommunityInfoActivity.this,"You joined " + name, FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
         Intent intent = new Intent(getBaseContext(), HomeActivity.class);
