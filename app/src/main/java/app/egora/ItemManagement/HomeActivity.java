@@ -33,14 +33,14 @@ import app.egora.Login.LoginActivity;
 import app.egora.Messenger.MessengerActivity;
 import app.egora.Model.Item;
 import app.egora.Model.UserInformation;
-import app.egora.ProfileActivity;
+import app.egora.Profile.ProfileActivity;
 import app.egora.R;
 import app.egora.Utils.FirebaseMethods;
 import app.egora.Utils.ItemAdapter;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
+
 
 
     ImageView itemImage;
@@ -61,6 +61,7 @@ public class HomeActivity extends AppCompatActivity {
     private UserInformation currentUser;
     private String currentCommunity;
     private TextView noCommunityTextView;
+    private RecyclerView recyclerView;
 
 
 
@@ -181,6 +182,7 @@ public class HomeActivity extends AppCompatActivity {
                             //Updating View and adding RecyclerViewAdapter
                             currentCommunity = currentUser.getCommunityName();
                             noCommunityTextView.setVisibility(View.INVISIBLE);
+
                             Query query = db.collection("items").whereEqualTo("communityName", currentCommunity);
 
                             FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Item>()

@@ -1,0 +1,138 @@
+package app.egora.Profile.Fragments;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+
+import javax.annotation.Nullable;
+
+import app.egora.Model.Item;
+import app.egora.Model.UserInformation;
+import app.egora.R;
+import app.egora.Utils.ItemAdapter;
+
+public class MyItemsFragment extends Fragment {
+
+    private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
+    private DocumentReference userRef;
+    private ItemAdapter adapter;
+    private RecyclerView recyclerView;
+    private UserInformation currentUser;
+
+    private TextView testView;
+
+    public MyItemsFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+
+        View view = inflater.inflate(R.layout.fragment_my_items, container, false);
+        recyclerView = view.findViewById(R.id.my_items_recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        //Testing View
+        testView = view.findViewById(R.id.fragment_test_view);
+        testView.setText("Fragment geladen");
+        setupFirebaseModuls();
+
+        return view;
+
+
+    }
+
+    private void setupFirebaseModuls() {
+        Log.d("Firebase: ", "setupFirebaseAuth: setting up firebase auth.");
+
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+        currentUser = new UserInformation();
+
+
+
+        userRef = db.collection("users").document(mAuth.getUid());
+        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        currentUser = documentSnapshot.toObject(UserInformation.class);
+
+                        Log.d("User starting: " , currentUser.getCommunityName());
+                        String userId = mAuth.getUid().toString();
+
+                        //Checking if Community exists
+                        if (currentUser.getCommunityName() != null) {
+
+                            //Updating View and adding RecyclerViewAdapter
+                            Query query = db.collection("items").whereEqualTo("communityName", currentUser.getCommunityName());
+
+
+
+                            Log.d("User starting: " , mAuth.getUid());
+                            FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Item>()
+                                    .setQuery(query, Item.class)
+                                    .build();
+
+                            adapter = new ItemAdapter(options);
+                            recyclerView.setAdapter(adapter);
+                            adapter.startListening();
+                        } else {
+                            //Show No Community TextView
+                        }
+
+                    }
+                });
+            }
+        });
+    }
+
+    public void onStart() {
+        super.onStart();
+        if(adapter != null){
+            adapter.startListening();
+        }
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        /*if(adapter != null){
+            adapter.stopListening();
+        }
+        */
+    }
+
+
+}

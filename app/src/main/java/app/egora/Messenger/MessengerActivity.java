@@ -26,7 +26,7 @@ import app.egora.Login.LoginActivity;
 import app.egora.Messenger.Fragments.ChatsFragment;
 import app.egora.Messenger.Fragments.ContactsFragment;
 import app.egora.Model.UserInformation;
-import app.egora.ProfileActivity;
+import app.egora.Profile.ProfileActivity;
 import app.egora.R;
 import app.egora.Utils.SectionsPageAdapter;
 import de.hdodenhof.circleimageview.CircleImageView;

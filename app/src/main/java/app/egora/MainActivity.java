@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import app.egora.ItemManagement.HomeActivity;
 import app.egora.Messenger.MessengerActivity;
+import app.egora.Profile.ProfileActivity;
 
 public class MainActivity extends AppCompatActivity {
 

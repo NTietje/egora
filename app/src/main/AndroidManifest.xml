@@ -27,7 +27,7 @@
             android:configChanges="orientation|screenSize">
         </activity>
         <activity android:name=".Login.CreateAccountActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".Profile.ProfileActivity" />
         <activity android:name=".ItemManagement.HomeActivity" />
         <activity android:name=".Messenger.MessengerActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
