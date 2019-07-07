@@ -48,16 +48,11 @@ public class HomeActivity extends AppCompatActivity {
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseDatabase mDatabase;
     private FirebaseFirestore db;
-    private DatabaseReference mRef;
-    private DatabaseReference mItemRef;
-    private DatabaseReference mUserRef;
     private DocumentReference userRef;
     private ItemAdapter adapter;
 
 
-    private FirebaseMethods mFirebaseMethods;
     private UserInformation currentUser;
     private String currentCommunity;
     private TextView noCommunityTextView;
@@ -91,6 +86,8 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.items_recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
         noCommunityTextView = findViewById(R.id.textview_no_group);
         noCommunityTextView.setVisibility(View.INVISIBLE);
 

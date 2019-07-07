@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -195,6 +197,7 @@ public class AddingItem extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     if (task.isSuccessful()) {
+
                         Uri downloadUri = task.getResult();
                         downloadUrl = task.getResult().toString();
 
@@ -203,29 +206,46 @@ public class AddingItem extends AppCompatActivity {
                         newItem.put("description" , itemDescription);
                         newItem.put("downloadUrl", downloadUrl);
                         newItem.put("ownerId", ownerId);
-                        newItem.put("Id", itemId);
+                        newItem.put("itemId", itemId);
 
                         //OWNERCOMMUNITY MUSS NOCH ALLGEMEIN GESCHRIEBEN WERDEN
                         newItem.put("communityName", ownerCommunity);
 
                         db.collection("items").document(itemId)
-                                .set(newItem);
+                                .set(newItem).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
 
 
-                        progressDialog.hide();
+                                FancyToast.makeText(AddingItem.this,itemName + " was successfully uploaded!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                                progressDialog.dismiss();
+                                Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
 
-                        Intent intent = new Intent(getBaseContext(), HomeActivity.class);
-                        startActivity(intent);
-                        finish();
+
+
 
                     } else {
 
-                        Toast.makeText(AddingItem.this, "Something went wrong!", Toast.LENGTH_LONG).show();
+                        FancyToast.makeText(AddingItem.this,"Something went wrong!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                     }
                 }
             });
 
         }
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (progressDialog != null){
+
+        progressDialog.dismiss();
+        }
+    }
+
 }
 

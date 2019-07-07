@@ -29,15 +29,16 @@ import app.egora.Model.Item;
 import app.egora.Model.UserInformation;
 import app.egora.R;
 import app.egora.Utils.ItemAdapter;
+import app.egora.Utils.MyItemAdapter;
 
 public class MyItemsFragment extends Fragment {
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private DocumentReference userRef;
-    private ItemAdapter adapter;
-    private RecyclerView recyclerView;
+    private MyItemAdapter adapter;
     private UserInformation currentUser;
+    private RecyclerView recyclerView;
 
     private TextView testView;
 
@@ -56,14 +57,9 @@ public class MyItemsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.my_items_recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        //Testing View
-        testView = view.findViewById(R.id.fragment_test_view);
-        testView.setText("Fragment geladen");
         setupFirebaseModuls();
 
         return view;
-
 
     }
 
@@ -71,12 +67,11 @@ public class MyItemsFragment extends Fragment {
         Log.d("Firebase: ", "setupFirebaseAuth: setting up firebase auth.");
 
 
+
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
         currentUser = new UserInformation();
-
-
 
         userRef = db.collection("users").document(mAuth.getUid());
         userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -95,7 +90,7 @@ public class MyItemsFragment extends Fragment {
                         if (currentUser.getCommunityName() != null) {
 
                             //Updating View and adding RecyclerViewAdapter
-                            Query query = db.collection("items").whereEqualTo("communityName", currentUser.getCommunityName());
+                            Query query = db.collection("items").whereEqualTo("ownerId", mAuth.getUid());
 
 
 
@@ -104,7 +99,7 @@ public class MyItemsFragment extends Fragment {
                                     .setQuery(query, Item.class)
                                     .build();
 
-                            adapter = new ItemAdapter(options);
+                            adapter = new MyItemAdapter(options);
                             recyclerView.setAdapter(adapter);
                             adapter.startListening();
                         } else {

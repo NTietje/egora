@@ -45,7 +45,15 @@ public class ItemAdapter extends FirestoreRecyclerAdapter <Item, ItemAdapter.Ite
 
         TextView textViewItemName;
         TextView textViewitemDescription;
+
+        TextView textViewownerName;
+        String ownerId;
+        String ownerFirstName;
+        String ownerLastName;
+
+
         ImageView imageViewitemImage;
+
 
 
         public ItemHolder(@NonNull View itemView) {

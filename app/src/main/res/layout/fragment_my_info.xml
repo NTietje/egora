@@ -3,5 +3,71 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
 
+    <TextView
+        android:id="@+id/my_info_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="5dp"
+
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/my_info_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/my_info_name"
+
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/my_info_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/my_info_address"
+
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/dummyView"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/my_info_email"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/my_info_button_change_info"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/my_info_email"
+        android:layout_marginTop="25dp"
+        android:text="Change Info"
+        android:layout_toStartOf="@id/dummyView"
+        style="@style/EgoraButton"
+
+        />
+
+    <Button
+
+        android:id="@+id/my_info_button_change_community"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Change Community"
+        android:layout_below="@+id/my_info_email"
+        android:layout_toEndOf="@id/dummyView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        style="@style/EgoraButton"
+        />
+
+
 
 </RelativeLayout>

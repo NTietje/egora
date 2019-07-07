@@ -55,7 +55,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         setupViewPager();
 
-
         //BottomNavigation
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -110,13 +109,10 @@ public class ProfileActivity extends AppCompatActivity {
     }
     */
     private void setupViewPager (){
-
-
         //SectionsPageAdapter
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new MyItemsFragment(), "My Items");
         adapter.addFragment(new MyInfoFragment(), "My Info");
         myViewPager.setAdapter(adapter);
     }
-
 }

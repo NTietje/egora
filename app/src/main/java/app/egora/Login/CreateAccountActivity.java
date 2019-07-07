@@ -23,12 +23,14 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 import app.egora.Communities.CommunitiesActivity;
+import app.egora.Profile.ChangeInformationActivity;
 import app.egora.R;
 
 public class CreateAccountActivity extends AppCompatActivity {
@@ -39,9 +41,10 @@ public class CreateAccountActivity extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private ProgressDialog progressDialog;
+
 
     // Declaration UI Components
+    private ProgressDialog progressDialog;
     private Button buttonRegister;
     private EditText editEmail;
     private EditText editPassword;
@@ -121,30 +124,30 @@ public class CreateAccountActivity extends AppCompatActivity {
         final String cityName = editCityName.getText().toString().trim();
         final String imageURL = "default";
 
-            //Validating matching passwords
-            if(!password.equals(editRepeatedPassword.getText().toString().trim())){
-                progressDialog.dismiss();
-                Toast.makeText(this, "Passwords must match", Toast.LENGTH_LONG).show();
-                return;
-            }
-            //Validating Firstname
-            if(TextUtils.isEmpty(firstName)&& !Pattern.matches("[a-zA-Z]+",firstName)){
-                progressDialog.dismiss();
-                Toast.makeText(this, "Please insert a valid Firstname", Toast.LENGTH_LONG).show();
-                return;
-            }
-            //Validating Lastname
-            if(TextUtils.isEmpty(lastName)&& !Pattern.matches("[a-zA-Z]+",lastName)){
-                progressDialog.dismiss();
-                Toast.makeText(this, "Please insert a valid Lastname", Toast.LENGTH_LONG).show();
-                return;
-            }
-            //Validating Housenumber
-            if(!houseNumber.matches(".*\\d+.*")){
-                progressDialog.dismiss();
-                Toast.makeText(this, "Please insert a valid Housenumber", Toast.LENGTH_LONG).show();
-                return;
-            }
+        if(!password.equals(editRepeatedPassword.getText().toString().trim())){
+            progressDialog.dismiss();
+            FancyToast.makeText(CreateAccountActivity.this,"Passwords must match!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
+        //Validating Firstname
+        if(TextUtils.isEmpty(firstName)&& !Pattern.matches("[a-zA-Z]+",firstName)){
+            progressDialog.dismiss();
+
+            FancyToast.makeText(CreateAccountActivity.this,"Please insert a valid firstname!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
+        //Validating Lastname
+        if(TextUtils.isEmpty(lastName)&& !Pattern.matches("[a-zA-Z]+",lastName)){
+            progressDialog.dismiss();
+            FancyToast.makeText(CreateAccountActivity.this,"Please insert a valid lastname!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
+        //Validating Housenumber
+        if(!houseNumber.matches(".*\\d+.*")){
+            progressDialog.dismiss();
+            FancyToast.makeText(CreateAccountActivity.this,"Please insert a valid housenumber!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
 
             // Firebase registration
             mAuth.createUserWithEmailAndPassword(email, password)

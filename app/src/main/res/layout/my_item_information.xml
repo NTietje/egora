@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="1dp"
+    android:padding = "10dp"
+    android:id="@+id/my_item_relative_layout">
+
+
+    <ImageView
+
+        android:id="@+id/my_item_imageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="0dp"
+        android:contentDescription="Bild des Items" />
+
+
+    <TextView
+        android:id="@+id/my_item_textView_name"
+        android:layout_width="180dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="2dp"
+        android:layout_toEndOf="@+id/my_item_imageView"
+
+        android:layout_toStartOf="@+id/my_item_delete_icon"
+        />
+
+    <TextView
+        android:id="@+id/my_item_textView_description"
+        android:layout_width="180dp"
+        android:layout_height="75dp"
+        android:layout_below="@+id/my_item_textView_name"
+        android:layout_toStartOf="@+id/my_item_delete_icon"
+
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@+id/my_item_imageView" />
+
+
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="5dp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/my_item_delete_icon"
+        />
+
+</RelativeLayout>

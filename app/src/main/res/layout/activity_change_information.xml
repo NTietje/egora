@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login.CreateAccountActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:text="Blank fields won't be changed!"
+            app:autoSizeTextType="uniform"
+
+            />
+
+        <EditText
+            android:id="@+id/changePassword"
+            style="@style/EgoraEditText"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/changePasswordRepeat"
+            style="@style/EgoraEditText"
+            android:hint="Repeat Password"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/changeFirstName"
+            style="@style/EgoraEditText"
+            android:hint="Firstname"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/changeLastName"
+            style="@style/EgoraEditText"
+            android:hint="Lastname"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/changeStreetName"
+            style="@style/EgoraEditText"
+            android:hint="Streetname"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/changeHouseNumber"
+            style="@style/EgoraEditText"
+            android:hint="Housenumber"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/changeCityName"
+            style="@style/EgoraEditText"
+            android:hint="City" />
+
+        <Button
+            android:id="@+id/buttonChangeCommit"
+            style="@style/EgoraButton"
+            android:layout_marginTop="@dimen/marginButtonToEditText"
+            android:text="Commit changes"
+            android:layout_marginBottom="@dimen/marginToBottom" />
+
+    </LinearLayout>
+
+</ScrollView>
