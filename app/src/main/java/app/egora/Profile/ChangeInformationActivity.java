@@ -98,7 +98,6 @@ public class ChangeInformationActivity extends AppCompatActivity {
         final String password = editPassword.getText().toString().trim();
         final String firstName = editFirstName.getText().toString().trim();
         final String lastName = editLastName.getText().toString().trim();
-        final String displayName = "" + firstName + " " + lastName;
         final String houseNumber = editHouseNumber.getText().toString().trim();
         final String streetName = editStreetName.getText().toString().trim();
         final String cityName = editCityName.getText().toString().trim();
@@ -137,6 +136,7 @@ public class ChangeInformationActivity extends AppCompatActivity {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                         currentUser = documentSnapshot.toObject(UserInformation.class);
+                        //Updating Data mit Passwort
                         if(!isEmpty(editPassword)){
                             user.updatePassword(password).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -155,24 +155,23 @@ public class ChangeInformationActivity extends AppCompatActivity {
                                 }
                             });
                         }
+                        //Updating Data ohne Passwort
                         else if (isEmpty(editPassword) && (!isEmpty(editFirstName) || !isEmpty(editLastName) || !isEmpty(editStreetName) || !isEmpty(editHouseNumber) || !isEmpty(editCityName) )){
                             uploadChanges(firstName, lastName, streetName, houseNumber, cityName);
                         }
+
+                        //Keine Angaben getätigt
                         else {
                             FancyToast.makeText(ChangeInformationActivity.this,"You did not insert any information!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                            progressDialog.dismiss();
                         }
-
-
-
-                        Log.d("User starting: " , currentUser.getCommunityName());
-                        String userId = mAuth.getUid().toString();
-
 
                     }
                 });
             }
         });
     }
+
 
     private boolean isEmpty(EditText etText) {
         if (etText.getText().toString().trim().length() > 0)
@@ -181,8 +180,11 @@ public class ChangeInformationActivity extends AppCompatActivity {
         return true;
     }
 
+    //Uploading Firestore Data
     private void uploadChanges(String firstName, String lastName, String streetName, String houseNumber, String cityName){
         Map<String, Object> data = new HashMap<>();
+
+        //Prüfen der einzelnen Felder
         if(!firstName.equals("")){
             data.put("firstName", firstName);
         }
@@ -201,6 +203,8 @@ public class ChangeInformationActivity extends AppCompatActivity {
         if(!cityName.equals("")){
             data.put("cityName", cityName);
         }
+
+        //Starten des Uploads (Update der Werte)
         userRef.update(data).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

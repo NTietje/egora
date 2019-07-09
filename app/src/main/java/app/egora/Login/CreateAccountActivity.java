@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import app.egora.Communities.CommunitiesActivity;
+import app.egora.Communities.NewCommunityActivity;
 import app.egora.Profile.ChangeInformationActivity;
 import app.egora.R;
 
@@ -179,16 +180,13 @@ public class CreateAccountActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
 
-                                        Log.d("AddingUser", "DocumentSnapshot added with ID: " + userID);
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         progressDialog.dismiss();
-                                        Toast.makeText(CreateAccountActivity.this, "Error: " + e,
-                                                Toast.LENGTH_LONG).show();
-                                        return;
+                                        FancyToast.makeText(CreateAccountActivity.this,"Error: " + e, FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                                     }
                                 });
 
@@ -198,8 +196,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                                 .build();
                         user.updateProfile(profileUpdates);
                         progressDialog.dismiss();
-                        Toast.makeText(CreateAccountActivity.this, "Registration successful",
-                                Toast.LENGTH_LONG).show();
+
+                        FancyToast.makeText(CreateAccountActivity.this,"Your account was successfully created!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
 
                         //Changing Activity
                         Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);
@@ -210,8 +208,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                     //Show Exception-Message
                     else if(!task.isSuccessful()){
                         progressDialog.dismiss();
-                        Toast.makeText(CreateAccountActivity.this, task.getException().getMessage(),
-                                Toast.LENGTH_LONG).show();
+                        FancyToast.makeText(CreateAccountActivity.this,task.getException().getMessage(), FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                     }
                 }
             });

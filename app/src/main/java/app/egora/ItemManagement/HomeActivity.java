@@ -18,8 +18,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -35,7 +33,6 @@ import app.egora.Model.Item;
 import app.egora.Model.UserInformation;
 import app.egora.Profile.ProfileActivity;
 import app.egora.R;
-import app.egora.Utils.FirebaseMethods;
 import app.egora.Utils.ItemAdapter;
 
 public class HomeActivity extends AppCompatActivity {
@@ -79,7 +76,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         db = FirebaseFirestore.getInstance();
-        setupFirebaseModuls();
+        setupFirebaseModules();
 
 
         //RecyclerView
@@ -137,7 +134,7 @@ public class HomeActivity extends AppCompatActivity {
     };
 
     //Methode um Firebase und die Listener vorzubereiten
-    private void setupFirebaseModuls() {
+    private void setupFirebaseModules() {
         Log.d("Firebase: ", "setupFirebaseAuth: setting up firebase auth.");
 
 
@@ -182,9 +179,12 @@ public class HomeActivity extends AppCompatActivity {
 
                             Query query = db.collection("items").whereEqualTo("communityName", currentCommunity);
 
-                            FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Item>()
+
+                           FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Item>()
                                     .setQuery(query, Item.class)
                                     .build();
+
+
 
                             adapter = new ItemAdapter(options);
                             recyclerView.setAdapter(adapter);

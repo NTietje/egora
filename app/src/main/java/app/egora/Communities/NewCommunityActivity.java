@@ -20,13 +20,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import app.egora.ItemManagement.HomeActivity;
+import app.egora.Model.Item;
 import app.egora.R;
 import app.egora.Model.Community;
 
@@ -35,8 +41,14 @@ public class NewCommunityActivity extends AppCompatActivity {
     // Declaration Firebase
     private FirebaseDatabase database;
     private DatabaseReference myRef;
+    private DocumentReference itemRef;
+    private DocumentReference userRef;
+    private DocumentReference communityRef;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+
+    private List<Item> itemList;
+    private WriteBatch batch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +63,8 @@ public class NewCommunityActivity extends AppCompatActivity {
         myRef = database.getReference();
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+
+        itemList = new ArrayList<>();
 
         final CheckBox keyCheckBox = findViewById(R.id.keyCheckBox);
         final EditText keyEdit = findViewById(R.id.keyEdit);
@@ -99,37 +113,57 @@ public class NewCommunityActivity extends AppCompatActivity {
                                     //create new community
                                     final Community community = new Community(name, desc, key, keyCheckBox.isChecked());
                                     community.setLastActivity(new Date());
-                                    mAuth.signInWithEmailAndPassword("n@gmail.com", "nana2014").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            community.addUser(mAuth.getCurrentUser().getUid());
+                                    community.addUser(mAuth.getCurrentUser().getUid());
 
-                                            //set new community data in firestore
-                                            db.collection("communities").document(community.getName())
-                                                .set(community)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        FancyToast.makeText(NewCommunityActivity.this,"Created community", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                                    //set new community data in firestore
+                                    final DocumentReference communityRef = db.collection("communities").document(community.getName());
+                                    final DocumentReference userRef = db.collection("users").document(mAuth.getCurrentUser().getUid());
+
+                                    batch = db.batch();
+                                    batch.set(communityRef, community);
+
+                                    db.collection("items").whereEqualTo("ownerId" , mAuth.getUid()).get()
+                                            .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                                @Override
+                                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                    //Checking if the query is empty
+                                                    if(!queryDocumentSnapshots.isEmpty()){
+                                                        //Adding items to Arraylist
+                                                        for (DocumentSnapshot snapshot:queryDocumentSnapshots){
+
+                                                            itemList.add(snapshot.toObject(Item.class));
+                                                        }
                                                     }
-                                                })
-                                                .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        FancyToast.makeText(NewCommunityActivity.this,"Can't create community", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+
+                                                    //Adding items from Arraylist to the batch object
+                                                    for(Item item: itemList){
+                                                        itemRef = db.collection("items").document(item.getItemId());
+                                                        batch.update(itemRef, "communityName" , community.getName() );
                                                     }
-                                                });
 
-                                            //set communityname in usercollection
-                                            db.collection("users").document(mAuth.getCurrentUser().getUid()).update("communityName", community.getName());
+                                                    ////set communityname in usercollection and delete userId from community
+                                                    batch.update(userRef, "communityName" , community.getName());
 
-                                            //finish this activity and CommunitiesActivity
-                                            Intent intent = new Intent(getBaseContext(), HomeActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                            CommunitiesActivity.getInstance().finish();
-                                        }
-                                    });
+                                                    //Commiting the whole batch
+                                                    batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+
+                                                            //finish this activity and CommunitiesActivity
+                                                            Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                                                            startActivity(intent);
+                                                            finish();
+                                                            CommunitiesActivity.getInstance().finish();
+                                                        }
+                                                    })
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            FancyToast.makeText(NewCommunityActivity.this,"Can't create community", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                                                        }
+                                                    });
+                                                }
+                                            });
                                 }
                             }
                             else {

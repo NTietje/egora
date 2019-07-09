@@ -17,6 +17,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.shashank.sony.fancytoastlib.FancyToast;
 import com.squareup.picasso.Picasso;
 
@@ -27,10 +29,16 @@ import app.egora.R;
 public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter.ItemHolder> {
 
     private FirebaseFirestore db;
+    private FirebaseStorage storage;
     private DocumentReference itemRef;
+    private StorageReference storageReference;
+
+
+    private AlertDialog alertDialog;
 
     private String itemId;
     private String itemName;
+    private String itemUrl;
 
 
     public MyItemAdapter(@NonNull FirestoreRecyclerOptions<Item> options) {
@@ -47,6 +55,8 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
 
         itemId = model.getItemId();
         itemName = model.getName();
+        itemUrl = model.getDownloadUrl();
+
 
     }
 
@@ -57,6 +67,7 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
                 viewGroup, false);
 
         db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
 
         return new ItemHolder(v);
     }
@@ -81,6 +92,9 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
                 @Override
                 public void onClick(View v) {
 
+
+
+
                     //Creating AlertDialog-Options
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
@@ -88,19 +102,20 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
                             switch (which){
                                 case DialogInterface.BUTTON_POSITIVE:
                                     //Yes button clicked
-
-
-
                                     db.collection("items").document(itemId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-
-                                            FancyToast.makeText(itemView.getContext(),itemName.getText() + " was successfully removed!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                                            storageReference = storage.getReferenceFromUrl(itemUrl);
+                                            storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    FancyToast.makeText(itemView.getContext(),itemName.getText() + " was successfully removed!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                                                }
+                                            });
 
                                         }
                                     });
                                     break;
-
                                 case DialogInterface.BUTTON_NEGATIVE:
                                     //No button clicked
                                     break;
@@ -110,19 +125,20 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
 
                     //Initiating the Dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                    builder.setMessage("Are you sure you want to delete " + itemName.getText() + "?").setPositiveButton("Yes", dialogClickListener)
-                            .setNegativeButton("No", dialogClickListener).show();
+                    builder.setMessage("Are you sure you want to delete " + itemName.getText() + "?")
+                            .setNegativeButton("No", dialogClickListener).setPositiveButton("Yes", dialogClickListener);
+
+                    alertDialog = builder.create();
+
+                    if (alertDialog.isShowing() && alertDialog != null){
+                        alertDialog.dismiss();
+                    }
+                    alertDialog.show();
+
+
                 }
             });
 
-
-
-
-                    /* TextView itemName = v.findViewById(R.id.item_listView_name);
-                                    TextView itemDescription = v.findViewById(R.id.item_listView_description);
-                                    itemImage = v.findViewById(R.id.item_listView_imageView);
-                                    Picasso.get().load(item.getDownloadUrl()).fit().into(itemImage);
-                                    */
         }
     }
 

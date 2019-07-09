@@ -1,6 +1,5 @@
 package app.egora.Profile.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +21,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import javax.annotation.Nullable;
 
@@ -35,10 +36,12 @@ public class MyItemsFragment extends Fragment {
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
+
     private DocumentReference userRef;
     private MyItemAdapter adapter;
     private UserInformation currentUser;
     private RecyclerView recyclerView;
+
 
     private TextView testView;
 
@@ -73,7 +76,7 @@ public class MyItemsFragment extends Fragment {
 
         currentUser = new UserInformation();
 
-        userRef = db.collection("users").document(mAuth.getUid());
+        userRef = db.collection("users").document(mAuth.getCurrentUser().getUid());
         userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -86,13 +89,10 @@ public class MyItemsFragment extends Fragment {
                         Log.d("User starting: " , currentUser.getCommunityName());
                         String userId = mAuth.getUid().toString();
 
-                        //Checking if Community exists
-                        if (currentUser.getCommunityName() != null) {
+
 
                             //Updating View and adding RecyclerViewAdapter
                             Query query = db.collection("items").whereEqualTo("ownerId", mAuth.getUid());
-
-
 
                             Log.d("User starting: " , mAuth.getUid());
                             FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Item>()
@@ -102,9 +102,6 @@ public class MyItemsFragment extends Fragment {
                             adapter = new MyItemAdapter(options);
                             recyclerView.setAdapter(adapter);
                             adapter.startListening();
-                        } else {
-                            //Show No Community TextView
-                        }
 
                     }
                 });
