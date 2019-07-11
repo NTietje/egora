@@ -92,9 +92,6 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
                 @Override
                 public void onClick(View v) {
 
-
-
-
                     //Creating AlertDialog-Options
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override

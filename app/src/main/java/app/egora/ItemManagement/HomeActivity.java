@@ -93,8 +93,7 @@ public class HomeActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent = new Intent(getBaseContext(), AddingItem.class);
+                Intent intent = new Intent(getBaseContext(), AddingItem.class);
                 intent.putExtra("USER_COMMUNITY", currentCommunity);
                 startActivity(intent);
             }
@@ -183,8 +182,6 @@ public class HomeActivity extends AppCompatActivity {
                            FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Item>()
                                     .setQuery(query, Item.class)
                                     .build();
-
-
 
                             adapter = new ItemAdapter(options);
                             recyclerView.setAdapter(adapter);

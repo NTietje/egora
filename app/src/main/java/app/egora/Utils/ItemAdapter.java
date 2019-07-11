@@ -2,17 +2,22 @@ package app.egora.Utils;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
+import app.egora.ItemManagement.AddingItem;
+import app.egora.ItemManagement.ItemActivity;
 import app.egora.Model.Item;
 import app.egora.R;
 
@@ -26,10 +31,31 @@ public class ItemAdapter extends FirestoreRecyclerAdapter <Item, ItemAdapter.Ite
     @Override
     protected void onBindViewHolder(@NonNull ItemHolder holder, int position, @NonNull Item model) {
 
-        holder.textViewItemName.setText(model.getName());
-        holder.textViewitemDescription.setText(model.getDescription());
-        Picasso.get().load(model.getDownloadUrl()).fit().into(holder.imageViewitemImage);
+        final String itemName = model.getName();
+        final String itemDescription = model.getDescription();
+        final String ownerId = model.getOwnerId();
+        final String itemId = model.getItemId();
+        final String downloadUrl = model.getDownloadUrl();
+
+        holder.textViewItemName.setText(itemName);
+        holder.textViewitemDescription.setText(itemDescription);
+        Picasso.get().load(downloadUrl).fit().into(holder.imageViewitemImage);
         Log.d("ItemName: " , model.getName());
+
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                        Intent intent = new Intent(v.getContext(), ItemActivity.class);
+                        intent.putExtra("ITEM_ID", itemId);
+                        intent.putExtra("OWNER_ID", ownerId);
+                        intent.putExtra("DOWNLOAD_URL", downloadUrl);
+                        v.getContext().startActivity(intent);
+
+            }
+        });
+
+
 
     }
 
@@ -50,24 +76,25 @@ public class ItemAdapter extends FirestoreRecyclerAdapter <Item, ItemAdapter.Ite
         String ownerId;
         String ownerFirstName;
         String ownerLastName;
+        RelativeLayout relativeLayout;
+
 
 
         ImageView imageViewitemImage;
 
 
 
-        public ItemHolder(@NonNull View itemView) {
+        public ItemHolder(@NonNull final View itemView) {
             super(itemView);
+
+            relativeLayout = itemView.findViewById(R.id.item_information_layout);
             textViewItemName = itemView.findViewById(R.id.item_textView_name);
             textViewitemDescription = itemView.findViewById(R.id.item_textView_description);
             imageViewitemImage = itemView.findViewById(R.id.item_imageView);
 
 
-                    /* TextView itemName = v.findViewById(R.id.item_listView_name);
-                                    TextView itemDescription = v.findViewById(R.id.item_listView_description);
-                                    itemImage = v.findViewById(R.id.item_listView_imageView);
-                                    Picasso.get().load(item.getDownloadUrl()).fit().into(itemImage);
-                                    */
+
+
         }
     }
 }

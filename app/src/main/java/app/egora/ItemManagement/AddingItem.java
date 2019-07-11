@@ -46,9 +46,7 @@ public class AddingItem extends AppCompatActivity {
     private static final int pic_id = 123;
 
 
-    private FirebaseDatabase mDatabase;
     private FirebaseFirestore db;
-    private DatabaseReference mRef;
     private FirebaseAuth mAuth;
     private StorageReference mStorage;
     private ProgressDialog progressDialog;
@@ -79,12 +77,10 @@ public class AddingItem extends AppCompatActivity {
 
         //Firebase Komponenten laden
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance();
 
         //Verbindung mit Firebase
         mStorage = FirebaseStorage.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
-        mRef = mDatabase.getInstance().getReference();
 
         //Abfragen der Community aus dem Homescreen
         Intent intent = getIntent();
@@ -92,8 +88,6 @@ public class AddingItem extends AppCompatActivity {
         if(intent.getStringExtra("USER_COMMUNITY")!=null){
             ownerCommunity = intent.getStringExtra("USER_COMMUNITY");
         }
-
-
 
         //Zuweisung der Viewelemente
         progressDialog = new ProgressDialog(this);
