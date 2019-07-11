@@ -3,111 +3,168 @@ package app.egora.Messenger;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.firebase.ui.auth.data.model.User;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
-import androidx.viewpager.widget.ViewPager;
+
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import androidx.appcompat.widget.Toolbar;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
 
-import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
+import org.w3c.dom.Document;
+
+import java.util.ArrayList;
+
+import javax.annotation.Nullable;
+
+import app.egora.Communities.CommunitiesActivity;
 import app.egora.ItemManagement.HomeActivity;
 import app.egora.Login.LoginActivity;
-import app.egora.Messenger.Fragments.ChatsFragment;
-import app.egora.Messenger.Fragments.ContactsFragment;
+import app.egora.Model.Chat;
+import app.egora.Model.CommunitiesListViewAdapter;
+import app.egora.Model.Community;
+import app.egora.Model.Item;
+import app.egora.Model.Message;
 import app.egora.Model.UserInformation;
 import app.egora.ProfileActivity;
 import app.egora.R;
-import app.egora.Utils.SectionsPageAdapter;
-import de.hdodenhof.circleimageview.CircleImageView;
+import app.egora.Utils.ChatAdapter;
+import app.egora.Utils.FirestoreUtil;
+import app.egora.Utils.ItemAdapter;
+
 
 public class MessengerActivity extends AppCompatActivity {
 
-    private static final String TAG = "MessengerActivity";
-
-
+    ///Declaration Firebase
     private FirebaseAuth mAuth;
-    private Toolbar myToolbar;
-    private ViewPager myViewPager;
-    private TabLayout myTablayout;
-    private SectionsPageAdapter mySectionsPageAdapter;
-    private CircleImageView profileImage;
-    private TextView userName;
-    private FirebaseUser firebaseUser;
-    private DatabaseReference reference;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseFirestore db;
+    private DocumentReference userRef;
+    //private DocumentReference chatsRef;
 
-
-
+    //Declaration
+    private String currentUserID;
+    private RecyclerView recyclerView;
+    private ChatAdapter adapter;
+    private String otherUserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //Prüfung des Loginstatus
-        mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser() == null){
-            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messenger);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Messages");
+        }
+
+        FloatingActionButton testbutton = findViewById(R.id.addTestButton);
+        recyclerView = findViewById(R.id.messenger_recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),
+                DividerItemDecoration.VERTICAL));
+
+        //Firestore
+        db = FirebaseFirestore.getInstance();
+        //Login
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signInWithEmailAndPassword("n4@gmail.com", "nana2014"); //später entfernen ***********
+        currentUserID = FirestoreUtil.getCurrentUserID();
+
+        testbutton.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                  otherUserID = "bM3BoBky6cX9jiT7e65bLBR8IXR2";
+                  //otherUserID = "bM3BoBky6cX9jiT7e65bLBR8IXR2";
+                  db.collection("users").document(otherUserID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                      @Override
+                      public void onSuccess(DocumentSnapshot documentSnapshot) {
+                          UserInformation otherUser = documentSnapshot.toObject(UserInformation.class);
+                          String otherUserName = otherUser.getFullName();
 
 
-        //Setting up Toolbar and Database
-        profileImage = findViewById(R.id.profile_image);
-        userName = findViewById(R.id.username);
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid());
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+                              /*Message m1 = new Message(mAuth.getCurrentUser().getUid(), "hallo, ich bin user1");
+                              Message m2 = new Message(otherUserID, "hallo, ich bin user2");
+                              Message m3 = new Message(mAuth.getCurrentUser().getUid(), "Ist die Kommode noch da?");
+                              Message m4 = new Message(otherUserID, "Ja, ist noch da.");
+                              ArrayList<Message> list = new ArrayList<>();
+                              list.add(m1);
+                              list.add(m2);
+                              list.add(m3);
+                              list.add(m4);*/
+
+                              Chat chat = new Chat(mAuth.getCurrentUser().getUid(), otherUserID, otherUserName, "Akku Bohrer");
+                              //Chat chat = new Chat(otherUserID, mAuth.getCurrentUser().getDisplayName(), "Akku Bohrschrauber");
+                              //chat.setMessages(list);
+
+
+                              //set new chat in firestore
+                              DocumentReference chatsRef = db.collection("chats").document();
+                              String chatID = chatsRef.getId();
+                              chat.setChatID(chatID);
+
+                              //db.collection("communities").document(name).update("userIDs", FieldValue.arrayUnion(mAuth.getCurrentUser().getUid()));
+                              db.collection("chats").document(chatID).set(chat)
+                                      .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                          @Override
+                                          public void onSuccess(Void aVoid) {
+                                              FancyToast.makeText(MessengerActivity.this,"Chat erstellt",
+                                                      FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                                          }
+                                      })
+                                      .addOnFailureListener(new OnFailureListener() {
+                                          @Override
+                                          public void onFailure(@NonNull Exception e) {
+                                              FancyToast.makeText(MessengerActivity.this,"Chat wurde nicht erstellt",
+                                                      FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                                          }
+                                      });
 
 
 
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserInformation userInformation = dataSnapshot.getValue(UserInformation.class);
-                userName.setText(userInformation.getFullName());
-                if(userInformation.getImageURL().equals("default")){
-                    profileImage.setImageResource(R.mipmap.ic_launcher);
-                } else {
-                    Glide.with(MessengerActivity.this).load(userInformation.getImageURL()).into(profileImage);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+                      }
+                  });
+              }
+          });
 
         //Bottom Navigation Menu
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         bottomNav.getMenu().getItem(2).setChecked(true);
 
+        FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Chat>()
+                .setQuery(FirestoreUtil.getUserChatsQuery(currentUserID), Chat.class)
+                .build();
 
-        //myToolbar = (Toolbar) findViewById(R.id.);
-        getSupportActionBar().setTitle("egora");
-        myViewPager = (ViewPager) findViewById(R.id.main_messenger_viewpager);
-        setupViewPager(myViewPager);
-        mySectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
+        adapter = new ChatAdapter(options, MessengerActivity.this);
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
 
-        myTablayout = (TabLayout) findViewById(R.id.main_messenger_tabs);
-        myTablayout.setupWithViewPager(myViewPager);
     }
 
     //Toolbar Menu Hinzufügen
@@ -126,7 +183,6 @@ public class MessengerActivity extends AppCompatActivity {
             startActivity(new Intent (MessengerActivity.this, LoginActivity.class));
             finish();
             return true;
-
         }
         return false;
     }
@@ -150,18 +206,10 @@ public class MessengerActivity extends AppCompatActivity {
             }
 
             startActivity(intent);
-
             return true;
         }
 
     };
 
-    //Viewpager für Fragments
-    private void setupViewPager (ViewPager myViewPager){
-        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ChatsFragment(), "Chats");
-        adapter.addFragment(new ContactsFragment(), "Contacts");
-        myViewPager.setAdapter(adapter);
-    }
 
 }

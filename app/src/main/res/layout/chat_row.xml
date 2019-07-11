@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="105dp"
+    android:orientation="horizontal"
+    android:gravity="left"
+    android:paddingTop="10dp" >
+
+
+    <TextView
+        android:id="@+id/initials"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/circle"
+        android:gravity="center"
+        android:textSize="@dimen/mediumTextSize"
+        android:textColor="@color/white"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewUserName"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="15dp"
+                android:textSize="@dimen/mediumTextSize"
+                android:text="Andrea Roth."
+                android:lines="1" />
+
+            <TextView
+                android:id="@+id/textViewDate"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:paddingRight="30dp"
+                android:textSize="@dimen/smallTextSize"
+                android:textColor="@color/midGrey"
+                android:text="04.07.19"
+                android:textAlignment="textEnd"
+                android:lines="1" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewItemTitle"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            android:textSize="@dimen/smallTextSize"
+            android:textColor="@color/darkTextColor"
+            android:text="Borhschrauber mit Aufsätzen ..."
+            android:lines="1" />
+
+        <TextView
+            android:id="@+id/textViewLastMessage"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:paddingRight="15dp"
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/smallTextSize"
+            android:text="Hallo, vielen Dank. Beste Grüße Andrea"
+            android:lines="1" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

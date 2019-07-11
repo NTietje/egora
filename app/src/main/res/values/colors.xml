@@ -2,7 +2,10 @@
 <resources>
     <color name="colorPrimary">#00b981</color>
     <color name="colorPrimaryLight">#99ffe0</color>
+    <color name="chatLeft">#FFFFFF</color>
+    <color name="chatRight">#ccf1e5</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent2">#b90038</color>
     <color name="darkTextColor">#151515</color>
     <color name="white">#FFFFFF</color>
     <color name="colorTextDark">#151515</color>

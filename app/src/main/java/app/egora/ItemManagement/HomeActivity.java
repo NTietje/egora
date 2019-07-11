@@ -42,7 +42,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 
-
     ImageView itemImage;
 
     //Firebase
@@ -56,13 +55,10 @@ public class HomeActivity extends AppCompatActivity {
     private DocumentReference userRef;
     private ItemAdapter adapter;
 
-
     private FirebaseMethods mFirebaseMethods;
     private UserInformation currentUser;
     private String currentCommunity;
     private TextView noCommunityTextView;
-
-
 
     //Konstruktor (wird benötigt)
     public HomeActivity() {
