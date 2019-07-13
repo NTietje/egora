@@ -14,10 +14,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import app.egora.Communities.CommunitiesActivity;
 import app.egora.ItemManagement.HomeActivity;
 import app.egora.R;
 
@@ -26,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonLogin;
     private TextView linkRegisterNow;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private DocumentReference userRef;
 
     // wird noch nicht verwendet ******************************
     private EditText editEmail;
@@ -39,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         //Checking Loginstatus
         if(mAuth.getCurrentUser() != null){
@@ -103,13 +111,41 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    progressDialog.dismiss();
-                    Log.i("loginVerify", "Displayname:  " + mAuth.getCurrentUser().getDisplayName());
-                    //Enter Datenbank
-                    //finish activity
-                    Intent intent = new Intent(getBaseContext(), HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+
+                    userRef = db.collection("users").document(mAuth.getUid());
+                    userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            //Checking if Community exists
+                            if(!documentSnapshot.contains("communityName")){
+
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                            }
+                            else {
+                                //Checking if the current Community was in the changing state
+                                String userCommunity = documentSnapshot.get("communityName").toString();
+                                Log.d("UserCommunity: ", userCommunity);
+                                if(userCommunity.equals("changing") ){
+
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else {
+                                    //Sending the User to the homescreen
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                        }
+                    });
+
                 }
                 else {
                     progressDialog.dismiss();
