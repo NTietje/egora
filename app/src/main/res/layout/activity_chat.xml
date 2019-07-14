@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/lightGrey"
-    tools:context=".Messenger.MessageActivity">
+    tools:context=".Messenger.ChatActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom"
-
         />
 
     <RelativeLayout

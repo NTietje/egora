@@ -2,20 +2,14 @@ package app.egora.Utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import app.egora.Messenger.ChatActivity;
 import app.egora.Model.Chat;
 import app.egora.Model.Message;
@@ -32,14 +26,15 @@ public class ChatAdapter extends FirestoreRecyclerAdapter <Chat, ChatAdapter.Cha
 
     @Override
     protected void onBindViewHolder(@NonNull ChatHolder chatHolder, int position, @NonNull final Chat chatModel) {
-        //Message lastMessage = chatModel.getMessages().get((chatModel.getMessages().size()-1));
         final String initials = chatModel.getOtherUserName().replaceAll("^\\s*([a-zA-Z]).*\\s+([a-zA-Z])\\S+$", "$1$2");
+        //set chatholder ui content
         chatHolder.textViewUserName.setText(chatModel.getOtherUserName());
         chatHolder.textViewItemName.setText(chatModel.getItemTitle());
         chatHolder.textViewLastMessage.setText(chatModel.getLastMessageText());
         chatHolder.textViewDate.setText(Message.getDateStringOfDate(chatModel.getLastActivity()));
         chatHolder.textViewInitials.setText(initials);
 
+        //create ChatActivity on click
         chatHolder.getChatView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,9 +42,6 @@ public class ChatAdapter extends FirestoreRecyclerAdapter <Chat, ChatAdapter.Cha
                 intent.putExtra("chatid", chatModel.getChatID());
                 intent.putExtra("username", chatModel.getOtherUserName());
                 intent.putExtra("initials", initials);
-                /*Bundle bundle = new Bundle();
-                bundle.putSerializable("messages", chatModel.getMessages());
-                intent.putExtras(bundle);*/
                 mContext.startActivity(intent);
             }
         });

@@ -1,6 +1,5 @@
 package app.egora.Model;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Chat {

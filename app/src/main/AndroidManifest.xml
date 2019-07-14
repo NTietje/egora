@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-feature android:name="android.hardware.camera"
         android:required="true" />
-    <!--
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,7 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Messenger.MessageActivity" />
         <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,15 +28,15 @@
         <activity android:name=".Login.CreateAccountActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ItemManagement.HomeActivity" />
-        <activity android:name=".Messenger.MessengerActivity"
-                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Messenger.MessengerActivity" />
+        <activity android:name=".Messenger.ChatActivity" />
         <activity android:name=".Communities.CommunitiesActivity" />
         <activity android:name=".Communities.CommunityInfoActivity" />
         <activity android:name=".Communities.NewCommunityActivity" />
         <activity android:name=".MainActivity" />
-    </application>-->
+    </application>
 
-    <application
+    <!--<application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -52,7 +51,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+    </application>-->
 
 
 </manifest>

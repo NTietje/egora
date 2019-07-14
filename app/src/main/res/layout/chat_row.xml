@@ -36,7 +36,6 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="15dp"
                 android:textSize="@dimen/mediumTextSize"
-                android:text="Andrea Roth."
                 android:lines="1" />
 
             <TextView
@@ -46,7 +45,6 @@
                 android:paddingRight="30dp"
                 android:textSize="@dimen/smallTextSize"
                 android:textColor="@color/midGrey"
-                android:text="04.07.19"
                 android:textAlignment="textEnd"
                 android:lines="1" />
 
@@ -59,7 +57,6 @@
             android:paddingRight="15dp"
             android:textSize="@dimen/smallTextSize"
             android:textColor="@color/darkTextColor"
-            android:text="Borhschrauber mit Aufsätzen ..."
             android:lines="1" />
 
         <TextView
@@ -69,7 +66,6 @@
             android:paddingRight="15dp"
             android:layout_marginTop="5dp"
             android:textSize="@dimen/smallTextSize"
-            android:text="Hallo, vielen Dank. Beste Grüße Andrea"
             android:lines="1" />
 
     </LinearLayout>

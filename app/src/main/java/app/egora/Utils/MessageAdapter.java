@@ -1,7 +1,6 @@
 package app.egora.Utils;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.Query;
-import com.shashank.sony.fancytoastlib.FancyToast;
 
-import app.egora.Messenger.ChatActivity;
-import app.egora.Messenger.MessageActivity;
-import app.egora.Model.Chat;
 import app.egora.Model.Message;
 import app.egora.R;
 

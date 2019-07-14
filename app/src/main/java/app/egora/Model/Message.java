@@ -1,10 +1,8 @@
 package app.egora.Model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 public class Message implements Serializable {
     private String sendingUser;
@@ -23,7 +21,6 @@ public class Message implements Serializable {
         this.sendingUser = sendingUser;
         this.text = text;
         date = new Date();
-        //date2 = new Date(time.getTime());
     }
 
     public String getText() {
