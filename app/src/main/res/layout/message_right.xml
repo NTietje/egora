@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+     >
+
+    <TextView
+        android:id="@+id/message_initials"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/circle"
+        android:gravity="center"
+        android:textSize="@dimen/mediumTextSize"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="240dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_toRightOf="@id/message_initials"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/message_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:maxWidth="290dp"
+            android:layout_gravity="right"
+            android:textSize="@dimen/smallTextSize"
+            android:background="@drawable/message"
+            android:backgroundTint="@color/chatRight"
+            />
+
+        <TextView
+            android:id="@+id/message_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:textSize="12sp"
+            />
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

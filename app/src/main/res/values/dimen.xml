@@ -8,7 +8,7 @@
     <dimen name="rectangleDefaultWidth">310dp</dimen>
     <dimen name="rectangleDefaultHeight">68dp</dimen>
     <dimen name="rectangleDefaultPaddingLeft">20dp</dimen>
-    <dimen name="smallTextSize">15sp</dimen>
+    <dimen name="smallTextSize">16sp</dimen>
     <dimen name="mediumTextSize">20sp</dimen>
     <dimen name="largeTextSize">22sp</dimen>
     <dimen name="titleTextSize">24sp</dimen>

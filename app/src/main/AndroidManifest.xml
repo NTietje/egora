@@ -5,9 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-feature
-        android:name="android.hardware.camera"
+    <uses-feature android:name="android.hardware.camera"
         android:required="true" />
 
     <application
@@ -17,10 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".ItemManagement.ItemActivity">
+        <activity android:name=".ItemManagement.ItemActivity">
         </activity>
-        <activity android:name=".Messenger.MessageActivity" />
         <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,16 +24,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ItemManagement.AddingItem"
-            android:configChanges="orientation|screenSize"></activity>
+        <activity android:name=".ItemManagement.AddingItem"
+            android:configChanges="orientation|screenSize">
+        </activity>
         <activity android:name=".Login.CreateAccountActivity" />
         <activity android:name=".Profile.ProfileActivity" />
         <activity android:name=".Profile.ChangeInformationActivity" />
         <activity android:name=".ItemManagement.HomeActivity" />
-        <activity
-            android:name=".Messenger.MessengerActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Messenger.MessengerActivity" />
+        <activity android:name=".Messenger.ChatActivity" />
         <activity android:name=".Communities.CommunitiesActivity" />
         <activity android:name=".Communities.CommunityInfoActivity" />
         <activity android:name=".Communities.NewCommunityActivity" />
