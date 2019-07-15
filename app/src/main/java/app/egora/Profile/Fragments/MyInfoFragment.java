@@ -89,9 +89,6 @@ private AlertDialog alertDialog;
 
         settingView();
 
-
-
-
         buttonChangeInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +101,6 @@ private AlertDialog alertDialog;
         buttonChangeCommunity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //Creating AlertDialog-Options
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
@@ -146,9 +142,9 @@ private AlertDialog alertDialog;
                                                         Intent intent = new Intent(getActivity().getBaseContext(), CommunitiesActivity.class);
                                                         startActivity(intent);
 
-
                                                     }
                                                 });
+
                                             }
                                         });
 

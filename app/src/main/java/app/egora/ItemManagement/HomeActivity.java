@@ -56,7 +56,6 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
 
-
     //Konstruktor (wird benötigt)
     public HomeActivity() {
 
@@ -64,7 +63,6 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
 
         //Prüfung des Loginstatus
         mAuth = FirebaseAuth.getInstance();
@@ -176,8 +174,7 @@ public class HomeActivity extends AppCompatActivity {
                             currentCommunity = currentUser.getCommunityName();
                             noCommunityTextView.setVisibility(View.INVISIBLE);
 
-                            Query query = db.collection("items").whereEqualTo("communityName", currentCommunity);
-
+                           Query query = db.collection("items").whereEqualTo("communityName", currentCommunity);
 
                            FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Item>()
                                     .setQuery(query, Item.class)
@@ -186,6 +183,7 @@ public class HomeActivity extends AppCompatActivity {
                             adapter = new ItemAdapter(options);
                             recyclerView.setAdapter(adapter);
                             adapter.startListening();
+
                         } else {
                             //Show No Community TextView
                             noCommunityTextView = findViewById(R.id.textview_no_group);

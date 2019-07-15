@@ -97,7 +97,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         editHouseNumber = findViewById(R.id.regHouseNumber);
         editCityName = findViewById(R.id.regCityName);
 
-
         //editPhoneNumber = findViewById(R.id.regPhoneNumber);
         progressDialog = new ProgressDialog(this);
 
@@ -138,7 +137,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             return;
         }
         //Validating Lastname
-        if(TextUtils.isEmpty(lastName)&& !Pattern.matches("[a-zA-Z]+",lastName)){
+        if(TextUtils.isEmpty(lastName)&& !Pattern.matches("[a-zA-Z]+" + "[.]",lastName)){
             progressDialog.dismiss();
             FancyToast.makeText(CreateAccountActivity.this,"Please insert a valid lastname!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
@@ -158,7 +157,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
 
                     if(task.isSuccessful()){
-
                         mAuth.signInWithEmailAndPassword(email, password);
                         FirebaseUser user = mAuth.getCurrentUser();
 

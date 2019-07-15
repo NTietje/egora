@@ -110,7 +110,6 @@ public class AddingItem extends AppCompatActivity {
                         = new Intent(MediaStore
                         .ACTION_IMAGE_CAPTURE);
 
-
                 //Starten der Activität mit Rückgabe der BildID
                 startActivityForResult(camera_intent, pic_id);
             }
@@ -122,7 +121,6 @@ public class AddingItem extends AppCompatActivity {
             public void onClick(View v) {
 
                     registerItem();
-
             }
         });
 
@@ -131,6 +129,7 @@ public class AddingItem extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AddingItem.this, AddingItem.class));
+                finish();
             }
         });
     }
@@ -140,12 +139,9 @@ public class AddingItem extends AppCompatActivity {
                                     int resultCode,
                                     Intent data) {
         if (requestCode == pic_id) {
-
             photo = (Bitmap) data.getExtras()
                     .get("data");
             editImageView.setImageBitmap(photo);
-
-
         }
     }
 
@@ -165,7 +161,6 @@ public class AddingItem extends AppCompatActivity {
 
             DocumentReference itemRef = db.collection("items").document();
             itemId = itemRef.getId();
-
             final StorageReference filePath = mStorage.child("Item_Images").child(itemId);
 
             //Upload des Bildes
@@ -219,11 +214,7 @@ public class AddingItem extends AppCompatActivity {
                             }
                         });
 
-
-
-
                     } else {
-
                         FancyToast.makeText(AddingItem.this,"Something went wrong!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                     }
                 }
@@ -236,7 +227,6 @@ public class AddingItem extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         if (progressDialog != null){
-
         progressDialog.dismiss();
         }
     }
