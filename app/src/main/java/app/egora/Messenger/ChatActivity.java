@@ -6,15 +6,23 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.shashank.sony.fancytoastlib.FancyToast;
+
+import app.egora.Communities.CommunityInfoActivity;
+import app.egora.Model.Chat;
 import app.egora.R;
 import app.egora.Utils.FirestoreUtil;
 import app.egora.Utils.MessageAdapter;
@@ -26,6 +34,10 @@ public class ChatActivity extends AppCompatActivity {
     private ImageButton sendButton;
     private EditText textToSend;
     private String chatID;
+    private String otherChatID;
+    private String itemName;
+    private String otherUserID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +46,9 @@ public class ChatActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         chatID = intent.getStringExtra("chatid");
+        otherChatID = intent.getStringExtra("otherchatid");
+        itemName = intent.getStringExtra("itemname");
+        otherUserID = intent.getStringExtra("otheruserid");
         String otherUserName = intent.getStringExtra("username");
         String initials = intent.getStringExtra("initials");
 
@@ -82,11 +97,14 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+
+
         //Button Listener
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirestoreUtil.createAndSendMessage(chatID, textToSend.getText().toString(), recyclerView, adapter);
+                String message = textToSend.getText().toString();
+                FirestoreUtil.send(otherUserID, chatID, otherChatID, itemName, message, recyclerView);
                 textToSend.getText().clear();
             }
         });
@@ -104,7 +122,7 @@ public class ChatActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.delete_chat:
-                FirestoreUtil.deleteChatDocument(chatID);
+                FirestoreUtil.deleteChat(chatID, otherChatID);
                 finish();
                 return true;
         }

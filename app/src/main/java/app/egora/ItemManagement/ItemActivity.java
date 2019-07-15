@@ -11,19 +11,28 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.shashank.sony.fancytoastlib.FancyToast;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.sql.Ref;
 
+import app.egora.Communities.CommunityInfoActivity;
 import app.egora.Login.LoginActivity;
+import app.egora.Messenger.ChatActivity;
+import app.egora.Model.Chat;
 import app.egora.Model.Item;
+import app.egora.Model.UserInformation;
 import app.egora.R;
+import app.egora.Utils.FirestoreUtil;
 
 public class ItemActivity extends AppCompatActivity {
 
@@ -40,6 +49,7 @@ public class ItemActivity extends AppCompatActivity {
     private TextView textViewItemName;
     private TextView textViewItemDescription;
     private ImageView imageViewPicture;
+    private Button buttonContact;
 
     private Item item;
     private String downloadUrl;
@@ -66,12 +76,14 @@ public class ItemActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
 
+
         //Binding view-elements
         textViewOwnerName = findViewById(R.id.item_activity_owner_name);
         textViewOwnerAddress = findViewById(R.id.item_activity_owner_address);
         textViewItemName = findViewById(R.id.item_activity_name);
         textViewItemDescription = findViewById(R.id.item_activity_description);
         imageViewPicture = findViewById(R.id.item_activity_imageView);
+        buttonContact = findViewById(R.id.item_activity_button_contact);
 
         //Loading extra data
         Intent intent = getIntent();
@@ -88,8 +100,6 @@ public class ItemActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-
                         ownerName = documentSnapshot.get("firstName").toString() + " " + documentSnapshot.get("lastName").toString();
                         ownerAddress = documentSnapshot.get("streetName").toString() + " " + documentSnapshot.get("houseNumber").toString() + " , " + documentSnapshot.get("cityName").toString();
                         textViewOwnerName.setText(ownerName);
@@ -111,7 +121,8 @@ public class ItemActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        textViewItemName.setText(documentSnapshot.get("name").toString());
+                        itemName = documentSnapshot.get("name").toString();
+                        textViewItemName.setText(itemName);
                         textViewItemDescription.setText(documentSnapshot.get("description").toString());
 
                         Picasso.get().load(downloadUrl).fit().into(imageViewPicture);
@@ -126,11 +137,53 @@ public class ItemActivity extends AppCompatActivity {
             }
         });
 
+        buttonContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // chat A
+                Chat chat = new Chat(FirestoreUtil.getCurrentUserID(), ownerId, ownerName, itemName);
+                // chat B
+                final Chat itemOwnerChat = new Chat(ownerId, FirestoreUtil.getCurrentUserID(), FirestoreUtil.getCurrentUserName(), itemName);
 
+                //set chat IDs
+                DocumentReference chatsRef = db.collection("chats").document();
 
+                final String chatID = chatsRef.getId(); // chat A Id
+                Log.d("chat", chatID);
+                chat.setChatID(chatID);
+                itemOwnerChat.setOtherChatID(chatID); // chat A saved in chat B
 
+                db.collection("chats").document(chatID).set(chat)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            DocumentReference chatsRef = db.collection("chats").document();
+                            String ownerChatID = chatsRef.getId(); // chat B Id
+                            Log.d("chatowner", ownerChatID);
+                            itemOwnerChat.setChatID(ownerChatID);
+                            db.collection("chats").document(chatID).update("otherChatID", ownerChatID);
 
+                            db.collection("chats").document(ownerChatID).set(itemOwnerChat);
 
+                            final String initials = ownerName.replaceAll("^\\s*([a-zA-Z]).*\\s+([a-zA-Z])\\S+$", "$1$2");
+                            Intent intent = new Intent(ItemActivity.this, ChatActivity.class);
+                            intent.putExtra("chatid", chatID);
+                            intent.putExtra("itemname", itemName);
+                            intent.putExtra("otheruserid", ownerId);
+                            intent.putExtra("otherchatid", ownerChatID);
+                            intent.putExtra("username", ownerName);
+                            intent.putExtra("initials", initials);
+                            ItemActivity.this.startActivity(intent);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            FancyToast.makeText(ItemActivity.this,"Error Item 1: " + e.toString(), FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                        }
+                    });
+            }
+        });
 
     }
 

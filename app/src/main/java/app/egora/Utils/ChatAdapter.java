@@ -40,6 +40,9 @@ public class ChatAdapter extends FirestoreRecyclerAdapter <Chat, ChatAdapter.Cha
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, ChatActivity.class);
                 intent.putExtra("chatid", chatModel.getChatID());
+                intent.putExtra("otherchatid", chatModel.getOtherChatID());
+                intent.putExtra("otheruserid", chatModel.getOtherUserID());
+                intent.putExtra("itemname", chatModel.getItemTitle());
                 intent.putExtra("username", chatModel.getOtherUserName());
                 intent.putExtra("initials", initials);
                 mContext.startActivity(intent);

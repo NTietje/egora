@@ -8,7 +8,7 @@
     android:id="@+id/item_activity_layout">
 
         <Button
-            android:id="@+id/item_activity_button_contact_owner"
+            android:id="@+id/item_activity_button_contact"
             style="@style/EgoraButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

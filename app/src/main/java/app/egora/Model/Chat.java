@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Chat {
     private String chatID;
+    private String otherChatID;
     private String userID;
     private String otherUserID;
     private String otherUserName;
@@ -16,6 +17,7 @@ public class Chat {
     //Constructor for Firebase
     public Chat(){
         this.chatID = "NA";
+        this.otherChatID = "NA";
         this.userID = "NA";
         this.otherUserID = "NA";
         this.otherUserName = "NA";
@@ -31,6 +33,7 @@ public class Chat {
         this.otherUserID = otherUserID;
         this.otherUserName = otherUserName;
         this.itemTitle = itemTitle;
+        this.otherChatID = "";
         this.lastMessageText = "";
         this.lastActivity = new Date();
     }
@@ -97,5 +100,13 @@ public class Chat {
 
     public void setUserID(String username) {
         this.userID = username;
+    }
+
+    public String getOtherChatID() {
+        return otherChatID;
+    }
+
+    public void setOtherChatID(String otherChatID) {
+        this.otherChatID = otherChatID;
     }
 }
