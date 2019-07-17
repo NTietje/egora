@@ -125,7 +125,7 @@ public class ItemActivity extends AppCompatActivity {
                         textViewItemName.setText(itemName);
                         textViewItemDescription.setText(documentSnapshot.get("description").toString());
 
-                        Picasso.get().load(downloadUrl).fit().into(imageViewPicture);
+                        Picasso.get().load(downloadUrl).centerCrop().resize(300,300).into(imageViewPicture);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override

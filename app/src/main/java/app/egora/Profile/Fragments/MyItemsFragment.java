@@ -49,7 +49,6 @@ public class MyItemsFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,15 +60,11 @@ public class MyItemsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         setupFirebaseModuls();
-
         return view;
 
     }
 
     private void setupFirebaseModuls() {
-        Log.d("Firebase: ", "setupFirebaseAuth: setting up firebase auth.");
-
-
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -85,16 +80,11 @@ public class MyItemsFragment extends Fragment {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                         currentUser = documentSnapshot.toObject(UserInformation.class);
-
-                        Log.d("User starting: " , currentUser.getCommunityName());
                         String userId = mAuth.getUid().toString();
-
-
 
                             //Updating View and adding RecyclerViewAdapter
                             Query query = db.collection("items").whereEqualTo("ownerId", mAuth.getUid());
 
-                            Log.d("User starting: " , mAuth.getUid());
                             FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Item>()
                                     .setQuery(query, Item.class)
                                     .build();
@@ -108,23 +98,5 @@ public class MyItemsFragment extends Fragment {
             }
         });
     }
-
-    public void onStart() {
-        super.onStart();
-        if(adapter != null){
-            adapter.startListening();
-        }
-    }
-
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        /*if(adapter != null){
-            adapter.stopListening();
-        }
-        */
-    }
-
 
 }

@@ -142,6 +142,7 @@ public class AddingItem extends AppCompatActivity {
             photo = (Bitmap) data.getExtras()
                     .get("data");
             editImageView.setImageBitmap(photo);
+
         }
     }
 
