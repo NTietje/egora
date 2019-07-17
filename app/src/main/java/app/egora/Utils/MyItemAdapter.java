@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -36,10 +37,6 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
 
     private AlertDialog alertDialog;
 
-    private String itemId;
-    private String itemName;
-    private String itemUrl;
-
 
     public MyItemAdapter(@NonNull FirestoreRecyclerOptions<Item> options) {
         super(options);
@@ -48,16 +45,16 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
     @Override
     protected void onBindViewHolder(@NonNull ItemHolder holder, int position, @NonNull Item model) {
 
+        //Filling View
         holder.itemName.setText(model.getName());
         holder.itemDescription.setText(model.getDescription());
-        Picasso.get().load(model.getDownloadUrl()).fit().into(holder.itemPicture);
+        Picasso.get().load(model.getDownloadUrl()).centerCrop().resize(100, 100).into(holder.itemPicture);
         Picasso.get().load(R.drawable.ic_delete).resize(75,75).into(holder.deleteIcon);
 
-        itemId = model.getItemId();
-        itemName = model.getName();
-        itemUrl = model.getDownloadUrl();
-
-
+        //Setting ItemHolderValues
+        holder.setItemIdHolder(model.getItemId());
+        holder.setItemUrl(model.getDownloadUrl());
+        holder.setItemName(model.getName());
     }
 
     @NonNull
@@ -69,28 +66,37 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
 
+
         return new ItemHolder(v);
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
+
         TextView itemName;
         TextView itemDescription;
         ImageView deleteIcon;
         ImageView itemPicture;
-
+        DatabaseReference databaseReference;
+        StorageReference storageReference;
+        String itemIdHolder;
+        String itemUrlHolder;
+        String itemNameHolder;
 
         public ItemHolder(@NonNull final View itemView) {
             super(itemView);
 
-
+            //Binding View
             itemName = itemView.findViewById(R.id.my_item_textView_name);
             itemDescription = itemView.findViewById(R.id.my_item_textView_description);
             itemPicture = itemView.findViewById(R.id.my_item_imageView);
             deleteIcon = itemView.findViewById(R.id.my_item_delete_icon);
+
+            //Deletion Listener
             deleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
 
                     //Creating AlertDialog-Options
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -99,17 +105,16 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
                             switch (which){
                                 case DialogInterface.BUTTON_POSITIVE:
                                     //Yes button clicked
-                                    db.collection("items").document(itemId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    db.collection("items").document(itemIdHolder).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            storageReference = storage.getReferenceFromUrl(itemUrl);
+                                            storageReference = storage.getReferenceFromUrl(itemUrlHolder);
                                             storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     FancyToast.makeText(itemView.getContext(),itemName.getText() + " was successfully removed!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
                                                 }
                                             });
-
                                         }
                                     });
                                     break;
@@ -137,7 +142,21 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
             });
 
         }
+
+        //Setters für Itemholder (so the values dont get mixed up)
+        public void setItemIdHolder(String itemId){
+            itemIdHolder = itemId;
+        }
+
+        public void setItemUrl(String itemUrl){
+            itemUrlHolder = itemUrl;
+        }
+
+        public void setItemName (String itemName){
+            itemNameHolder = itemName;
+        }
+
     }
 
-
 }
+
