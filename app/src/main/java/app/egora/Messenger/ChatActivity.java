@@ -19,15 +19,21 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import app.egora.Communities.CommunityInfoActivity;
 import app.egora.Model.Chat;
 import app.egora.R;
 import app.egora.Utils.FirestoreUtil;
 import app.egora.Utils.MessageAdapter;
 
 public class ChatActivity extends AppCompatActivity {
+
+    private  FirebaseFirestore db;
 
     private MessageAdapter adapter;
     private RecyclerView recyclerView;
@@ -37,6 +43,7 @@ public class ChatActivity extends AppCompatActivity {
     private String otherChatID;
     private String itemName;
     private String otherUserID;
+    private boolean isAtBottom;
 
 
     @Override
@@ -44,6 +51,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        db = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
         chatID = intent.getStringExtra("chatid");
         otherChatID = intent.getStringExtra("otherchatid");
@@ -65,11 +73,37 @@ public class ChatActivity extends AppCompatActivity {
         send.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.midGrey), PorterDuff.Mode.SRC_ATOP);
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setReverseLayout(true);
+        //linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
         recyclerView = findViewById(R.id.chat_recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new MessageAdapter(ChatActivity.this, chatID, initials);
+
+        RecyclerView.AdapterDataObserver observer = new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                if (isAtBottom) {
+                    recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
+                }
+            }
+        };
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (!recyclerView.canScrollVertically(1)) {
+                    isAtBottom = true;
+                } else {
+                    isAtBottom = false;
+                }
+            }
+        });
+
+        adapter.registerAdapterDataObserver(observer);
         recyclerView.setAdapter(adapter);
         adapter.startListening();
 
@@ -97,14 +131,15 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-
-
         //Button Listener
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String message = textToSend.getText().toString();
-                FirestoreUtil.send(otherUserID, chatID, otherChatID, itemName, message, recyclerView);
+                //FirestoreUtil util = new FirestoreUtil();
+                //String returnString = util.send2(otherUserID, chatID, otherChatID, itemName, message);
+                //Log.d("deb2", "returnStringCHAT: " + returnString);
+                sendMessage(message);
                 textToSend.getText().clear();
             }
         });
@@ -127,6 +162,48 @@ public class ChatActivity extends AppCompatActivity {
                 return true;
         }
         return false;
+    }
+
+    private void sendMessage(final String message) {
+        db.collection("chats").document(chatID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                String id = documentSnapshot.get("otherChatID").toString();
+                if(id.equals("none")) {
+                    createDeletetChat(message);
+                }
+                else {
+                    FirestoreUtil.createAndSendMessage(chatID, otherChatID, message);
+                }
+            }
+        });
+    }
+
+    private void createDeletetChat(final String message) {
+        final Chat newChat = new Chat(otherUserID, FirestoreUtil.getCurrentUserID(), FirestoreUtil.getCurrentUserName(), itemName);
+        DocumentReference chatsRef = db.collection("chats").document();
+        otherChatID = chatsRef.getId();
+        newChat.setChatID(otherChatID);
+        newChat.setOtherChatID(chatID);
+        db.collection("chats").document(chatID).update("otherChatID", otherChatID)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        db.collection("chats").document(otherChatID).set(newChat)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        FirestoreUtil.createAndSendMessage(otherChatID, chatID, message);
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        FancyToast.makeText(ChatActivity.this,e.toString(), FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                                    }
+                                });
+                    }
+                });
     }
 
 }
