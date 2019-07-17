@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_margin="1dp"
-    android:padding = "10dp"
+    android:padding="10dp"
     android:id="@+id/item_information_layout">
 
 
@@ -20,18 +20,24 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:id="@+id/item_textView_name"
         android:layout_marginStart="110dp"
+        android:textSize="@dimen/smallTextSize"
+        android:minLines="1"
+        android:maxLines="2"
+        android:textColor="@color/darkTextColor"
         android:layout_alignStart="@id/item_imageView"
         />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
         android:id="@+id/item_textView_description"
         android:layout_below="@+id/item_textView_name"
-        android:layout_marginTop="2dp"
+        android:textSize="@dimen/smallTextSize"
+        android:maxLines="3"
+        android:layout_marginTop="5dp"
         android:layout_marginStart="110dp"
         android:layout_alignStart="@id/item_imageView"
 

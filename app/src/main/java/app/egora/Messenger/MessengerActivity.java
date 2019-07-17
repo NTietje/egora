@@ -52,44 +52,6 @@ public class MessengerActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),
                 DividerItemDecoration.VERTICAL));
 
-        FloatingActionButton testbutton = findViewById(R.id.addTestButton);
-
-        //Für die Erstellung des Chats bei ItemView verwenden
-        testbutton.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View view) {
-
-                  final String otherUserID = "bM3BoBky6cX9jiT7e65bLBR8IXR2";
-                  //otherUserID = "bM3BoBky6cX9jiT7e65bLBR8IXR2";
-                  db.collection("users").document(otherUserID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                      @Override
-                      public void onSuccess(DocumentSnapshot documentSnapshot) {
-                          UserInformation otherUser = documentSnapshot.toObject(UserInformation.class);
-                          String otherUserName = otherUser.getFullName();
-                          Chat chat = new Chat(FirestoreUtil.getCurrentUserID(), otherUserID, otherUserName, "Akku Bohrer");
-
-                          //set new chat in firestore
-                          DocumentReference chatsRef = db.collection("chats").document();
-                          String chatID = chatsRef.getId();
-                          chat.setChatID(chatID);
-
-                          //db.collection("communities").document(name).update("userIDs", FieldValue.arrayUnion(mAuth.getCurrentUser().getUid()));
-                          db.collection("chats").document(chatID).set(chat)
-                                  .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                      @Override
-                                      public void onSuccess(Void aVoid) {
-                                      }
-                                  })
-                                  .addOnFailureListener(new OnFailureListener() {
-                                      @Override
-                                      public void onFailure(@NonNull Exception e) {
-                                      }
-                                  });
-                      }
-                  });
-              }
-          });
-
         //Bottom Navigation Menu
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);

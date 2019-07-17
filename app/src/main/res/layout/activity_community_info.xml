@@ -20,7 +20,6 @@
             android:id="@+id/communityName_Info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Community Name"
             android:textColor="@color/colorPrimary"
             android:textSize="26sp"
             android:layout_marginTop="20dp"/>
@@ -30,7 +29,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="sdhjfih dfbgua sjhdbfgbjsndhhhhh sdhfffffffjfih djbgua fgh ajsnd sjfih djhfbgua sjhdbfghjb ajsnd"
             android:textSize="20sp" />
 
     </LinearLayout>

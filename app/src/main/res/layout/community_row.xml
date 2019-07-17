@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:paddingRight="15dp"
         android:textSize="18sp"
-        android:text="Richardstraße 86 22089 Hamburg"
         android:minLines="1"
         android:maxLines="2"
         />

@@ -20,7 +20,7 @@
         android:id="@+id/descEdit"
         style="@style/EgoraEditField"
         android:layout_marginTop="@dimen/marginEditText"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:gravity="top"
         android:hint="Write a description for joining users"
         tools:ignore="Autofill"
