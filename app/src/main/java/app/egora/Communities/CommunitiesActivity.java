@@ -23,7 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-import app.egora.Model.CommunitiesListViewAdapter;
+import app.egora.Utils.CommunitiesListViewAdapter;
 import app.egora.R;
 import app.egora.Model.Community;
 
