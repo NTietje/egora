@@ -56,6 +56,7 @@ public class AddingItem extends AppCompatActivity {
     private String ownerCommunity;
     private Item item;
     private String downloadUrl;
+    private Boolean tookPicture;
 
     private ImageView editImageView;
     private EditText editItemName;
@@ -73,6 +74,7 @@ public class AddingItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_item);
         db = FirebaseFirestore.getInstance();
+        tookPicture = false;
 
 
         //Firebase Komponenten laden
@@ -112,6 +114,7 @@ public class AddingItem extends AppCompatActivity {
 
                 //Starten der Activität mit Rückgabe der BildID
                 startActivityForResult(camera_intent, pic_id);
+
             }
         });
 
@@ -142,7 +145,7 @@ public class AddingItem extends AppCompatActivity {
             photo = (Bitmap) data.getExtras()
                     .get("data");
             editImageView.setImageBitmap(photo);
-
+            tookPicture = true;
         }
     }
 
@@ -156,8 +159,8 @@ public class AddingItem extends AppCompatActivity {
 
         progressDialog.show();
 
-
-        if (!TextUtils.isEmpty(itemName) && !TextUtils.isEmpty(itemDescription) && !TextUtils.isEmpty(ownerCommunity)) {
+        //&& !TextUtils.isEmpty(itemDescription) && !TextUtils.isEmpty(ownerCommunity)
+        if (!TextUtils.isEmpty(itemName) && tookPicture ) {
             //Erstellung einer einzigartigen ID
 
             DocumentReference itemRef = db.collection("items").document();
@@ -216,11 +219,23 @@ public class AddingItem extends AppCompatActivity {
                         });
 
                     } else {
+                        progressDialog.dismiss();
                         FancyToast.makeText(AddingItem.this,"Something went wrong!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                     }
                 }
             });
 
+        } else {
+            progressDialog.dismiss();
+            if(TextUtils.isEmpty(itemName) && tookPicture){
+                FancyToast.makeText(AddingItem.this,"Insert a name!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            }
+            else if(!tookPicture && !TextUtils.isEmpty(itemName)){
+                FancyToast.makeText(AddingItem.this,"Insert a picture!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            }
+            else{
+                FancyToast.makeText(AddingItem.this,"Insert picture and name!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            }
         }
     }
 
