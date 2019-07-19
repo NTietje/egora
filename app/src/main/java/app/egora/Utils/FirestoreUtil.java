@@ -10,6 +10,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import app.egora.ItemManagement.ItemActivity;
@@ -48,7 +50,28 @@ public class FirestoreUtil {
     }
 
     public static void deleteChat(String chatID, String otherChatID) {
+
+        //delete messages in subcollection of chatID
+        db.collection("chats").document(chatID).collection("messages").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        WriteBatch batch = db.batch();
+                        if(!queryDocumentSnapshots.isEmpty()){
+                            //Delete every message
+                            for (DocumentSnapshot snapshot:queryDocumentSnapshots){
+                                String mes = snapshot.getReference().getId();
+                                batch.delete(snapshot.getReference());
+                            }
+                        }
+                        batch.commit();
+                    }
+                });
+
+        //change ID in otherChat document to "none"
         db.collection("chats").document(otherChatID).update("otherChatID", "none");
+
+        //delete chat document of chatID
         db.collection("chats").document(chatID)
                 .delete()
                 .addOnFailureListener(new OnFailureListener() {

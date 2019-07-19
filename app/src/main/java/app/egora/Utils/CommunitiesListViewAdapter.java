@@ -1,4 +1,4 @@
-package app.egora.Model;
+package app.egora.Utils;
 
 import android.content.Context;
 import android.content.Intent;

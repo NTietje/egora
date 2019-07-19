@@ -100,6 +100,7 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
                             switch (which){
                                 case DialogInterface.BUTTON_POSITIVE:
                                     //Yes button clicked
+
                                     db.collection("items").document(itemId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {

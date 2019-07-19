@@ -1,5 +1,6 @@
 package app.egora.Messenger;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -143,6 +145,7 @@ public class ChatActivity extends AppCompatActivity {
                 textToSend.getText().clear();
             }
         });
+
     }
 
     //Toolbar Menu Hinzufügen
@@ -157,11 +160,41 @@ public class ChatActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.delete_chat:
-                FirestoreUtil.deleteChat(chatID, otherChatID);
-                finish();
+                deleteDialog();
                 return true;
         }
         return false;
+    }
+
+    private void deleteDialog() {
+        //Creating AlertDialog-Options
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //Yes button clicked
+                        FirestoreUtil.deleteChat(chatID, otherChatID);
+                        finish();
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        //Initiating the Dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
+        builder.setMessage("Are you sure you want to delete the whole Chat?")
+                .setNegativeButton("No", dialogClickListener).setPositiveButton("Yes", dialogClickListener);
+
+        AlertDialog alertDialog = builder.create();
+
+        if (alertDialog.isShowing() && alertDialog != null){
+            alertDialog.dismiss();
+        }
+        alertDialog.show();
     }
 
     private void sendMessage(final String message) {
