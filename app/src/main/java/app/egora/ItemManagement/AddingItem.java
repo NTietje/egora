@@ -12,9 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
@@ -61,6 +63,7 @@ public class AddingItem extends AppCompatActivity {
     private ImageView editImageView;
     private EditText editItemName;
     private EditText editItemDescription;
+    private Spinner spinner;
     private Button buttonReset;
     private Button buttonItemInsert;
     private Uri mImageUri;
@@ -95,11 +98,21 @@ public class AddingItem extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         editItemName = findViewById(R.id.item_name);
         editItemDescription = findViewById(R.id.item_description);
+        spinner = findViewById(R.id.item_category_spinner);
         buttonReset = findViewById(R.id.button_reset_item);
         buttonItemInsert = findViewById(R.id.button_insert_item);
 
         //Zuweisung des ImageViews
         editImageView = (ImageView) findViewById(R.id.item_imageView);
+
+        //Laden des KategorieArrays
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.item_categories, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
 
         //Onclick-Listener für Bildaufnahme
         editImageView.setOnClickListener(new View.OnClickListener() {
@@ -155,12 +168,13 @@ public class AddingItem extends AppCompatActivity {
 
         final String itemName = editItemName.getText().toString().trim();
         final String itemDescription = editItemDescription.getText().toString().trim();
+        final String category = spinner.getSelectedItem().toString();
         final String ownerId = mAuth.getCurrentUser().getUid();
 
         progressDialog.show();
 
         //&& !TextUtils.isEmpty(itemDescription) && !TextUtils.isEmpty(ownerCommunity)
-        if (!TextUtils.isEmpty(itemName) && tookPicture ) {
+        if (!TextUtils.isEmpty(itemName) && tookPicture && !category.equals("Kategorie")  ) {
             //Erstellung einer einzigartigen ID
 
             DocumentReference itemRef = db.collection("items").document();
@@ -197,6 +211,7 @@ public class AddingItem extends AppCompatActivity {
                         Map<String, Object> newItem = new HashMap<>();
                         newItem.put("name", itemName);
                         newItem.put("description" , itemDescription);
+                        newItem.put("category" , category);
                         newItem.put("downloadUrl", downloadUrl);
                         newItem.put("ownerId", ownerId);
                         newItem.put("itemId", itemId);
@@ -227,14 +242,18 @@ public class AddingItem extends AppCompatActivity {
 
         } else {
             progressDialog.dismiss();
-            if(TextUtils.isEmpty(itemName) && tookPicture){
+            if(TextUtils.isEmpty(itemName) && tookPicture && !category.equals("Kategorie")){
                 FancyToast.makeText(AddingItem.this,"Insert a name!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
-            else if(!tookPicture && !TextUtils.isEmpty(itemName)){
+            else if(!tookPicture && !TextUtils.isEmpty(itemName) && !category.equals("Kategorie") ){
                 FancyToast.makeText(AddingItem.this,"Insert a picture!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
+
+            else if(tookPicture && !TextUtils.isEmpty(itemName) && category.equals("Kategorie")){
+                FancyToast.makeText(AddingItem.this,"Choose a category for your item!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            }
             else{
-                FancyToast.makeText(AddingItem.this,"Insert picture and name!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                FancyToast.makeText(AddingItem.this,"Insert the item information first!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         }
     }

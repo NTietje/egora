@@ -8,6 +8,7 @@ public class Item {
     private String ownerId;
     private String itemId;
     private String communityName;
+    private String category;
 
     public Item(){
 
@@ -89,5 +90,13 @@ public class Item {
 
     public void setCommunityName(String name) {
         this.communityName = communityName;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

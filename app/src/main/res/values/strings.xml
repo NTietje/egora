@@ -14,4 +14,15 @@
     <string name="registernow">Register now!</string>
     <string name="forgetpassword">Forgot your password?</string>
     <string name="title_activity_item">ItemActivity</string>
+    <string-array name="item_categories">
+        <item>Kategorie</item>
+        <item>Basteln</item>
+        <item>Elektronik &amp; Zubehör</item>
+        <item>Garten &amp; Grill</item>
+        <item>Handwerken</item>
+        <item>Küche &amp; Haushalt</item>
+        <item>Sport &amp; Freizeit</item>
+        <item>Sonstiges</item>
+    </string-array>
 </resources>
+

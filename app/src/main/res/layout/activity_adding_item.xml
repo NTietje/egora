@@ -36,11 +36,22 @@
                     android:layout_centerHorizontal="true"
                     tools:ignore="Autofill" />
 
+                <Spinner
+                    android:id="@+id/item_category_spinner"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/item_name"
+                    android:layout_centerHorizontal="true"
+
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="3dp"
+                />
+
                 <EditText
                     android:id="@+id/item_description"
                     style="@style/EgoraEditField"
                     android:layout_height="120dp"
-                    android:layout_below="@+id/item_name"
+                    android:layout_below="@+id/item_category_spinner"
                     android:layout_marginTop="10dp"
                     android:layout_centerHorizontal="true"
                     android:gravity="top"

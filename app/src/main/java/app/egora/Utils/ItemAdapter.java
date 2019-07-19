@@ -16,7 +16,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.squareup.picasso.Picasso;
 
-import app.egora.ItemManagement.AddingItem;
 import app.egora.ItemManagement.ItemActivity;
 import app.egora.Model.Item;
 import app.egora.R;
@@ -43,7 +42,7 @@ public class ItemAdapter extends FirestoreRecyclerAdapter <Item, ItemAdapter.Ite
                 .load(downloadUrl)
                 .centerCrop()
                 .resize(100,100)
-                .into(holder.imageViewitemImage);
+                .into(holder.imageViewItemImage);
         Log.d("ItemName: " , model.getName());
 
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -81,10 +80,7 @@ public class ItemAdapter extends FirestoreRecyclerAdapter <Item, ItemAdapter.Ite
         String ownerFirstName;
         String ownerLastName;
         RelativeLayout relativeLayout;
-
-
-
-        ImageView imageViewitemImage;
+        ImageView imageViewItemImage;
 
 
 
@@ -94,9 +90,7 @@ public class ItemAdapter extends FirestoreRecyclerAdapter <Item, ItemAdapter.Ite
             relativeLayout = itemView.findViewById(R.id.item_information_layout);
             textViewItemName = itemView.findViewById(R.id.item_textView_name);
             textViewitemDescription = itemView.findViewById(R.id.item_textView_description);
-            imageViewitemImage = itemView.findViewById(R.id.item_imageView);
-
-
+            imageViewItemImage = itemView.findViewById(R.id.item_imageView);
 
 
         }
