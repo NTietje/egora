@@ -29,55 +29,55 @@
             android:id="@+id/regEmail"
             style="@style/EgoraEditText"
             android:layout_marginTop="24dp"
-            android:hint="E-Mail"
+            android:hint="@string/email"
             android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/regPassword"
             style="@style/EgoraEditText"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/regPasswordRepeat"
             style="@style/EgoraEditText"
-            android:hint="Repeat Password"
+            android:hint="@string/passwordRep"
             android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/regFirstName"
             style="@style/EgoraEditText"
-            android:hint="Firstname"
+            android:hint="@string/firstname"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/regLastName"
             style="@style/EgoraEditText"
-            android:hint="Lastname"
+            android:hint="@string/lastname"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/regStreetName"
             style="@style/EgoraEditText"
-            android:hint="Streetname"
+            android:hint="@string/city"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/regHouseNumber"
             style="@style/EgoraEditText"
-            android:hint="Housenumber"
+            android:hint="@string/housenumber"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/regCityName"
             style="@style/EgoraEditText"
-            android:hint="City" />
+            android:hint="@string/city" />
 
         <Button
             android:id="@+id/buttonRegister"
             style="@style/EgoraButton"
             android:layout_marginTop="@dimen/marginButtonToEditText"
-            android:text="Register"
+            android:text="@string/register"
             android:layout_marginBottom="@dimen/marginToBottom" />
 
     </LinearLayout>

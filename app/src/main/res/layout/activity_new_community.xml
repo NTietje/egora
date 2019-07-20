@@ -12,7 +12,7 @@
     <EditText
         android:id="@+id/communityNameEdit"
         style="@style/EgoraEditText"
-        android:hint="Communityname"
+        android:hint="@string/communityName"
         tools:ignore="Autofill"
         android:inputType="text" />
 

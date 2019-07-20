@@ -124,28 +124,44 @@ public class CreateAccountActivity extends AppCompatActivity {
         final String cityName = editCityName.getText().toString().trim();
         final String imageURL = "default";
 
+        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            progressDialog.dismiss();
+            FancyToast.makeText(CreateAccountActivity.this,"Gebe eine gültige Email an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
         if(!password.equals(editRepeatedPassword.getText().toString().trim())){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Passwords must match!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Passwörter müssen übereinstimmen!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
         //Validating Firstname
-        if(TextUtils.isEmpty(firstName)&& !Pattern.matches("[a-zA-Z]+",firstName)){
+        if(TextUtils.isEmpty(firstName)|| !Pattern.matches("^[a-zA-Z]*$" ,firstName)){
             progressDialog.dismiss();
 
-            FancyToast.makeText(CreateAccountActivity.this,"Please insert a valid firstname!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gebe einen gültigen Vornamen an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
         //Validating Lastname
-        if(TextUtils.isEmpty(lastName)&& !Pattern.matches("[a-zA-Z]+" + "[.]",lastName)){
+        if(TextUtils.isEmpty(lastName)|| !Pattern.matches("^[a-zA-Z-.]*$",lastName)){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Please insert a valid lastname!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gebe einen gültigen Nachnamen an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
+        if(TextUtils.isEmpty(lastName)|| Pattern.matches("^[a-zA-Z]*$",streetName)){
+            progressDialog.dismiss();
+            FancyToast.makeText(CreateAccountActivity.this,"Gebe einen gültigen Straßennamen an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
+
         //Validating Housenumber
         if(!houseNumber.matches(".*\\d+.*")){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Please insert a valid housenumber!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gebe eine gültige Hausnummer an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
+        if(TextUtils.isEmpty(lastName)|| Pattern.matches("^[a-zA-Z]*$" ,cityName)){
+            progressDialog.dismiss();
+            FancyToast.makeText(CreateAccountActivity.this,"Gebe einen gültigen Straßennamen an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
 
@@ -184,7 +200,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         progressDialog.dismiss();
-                                        FancyToast.makeText(CreateAccountActivity.this,"Error: " + e, FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                                        FancyToast.makeText(CreateAccountActivity.this,"Fehler: " + e, FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                                     }
                                 });
 
@@ -195,7 +211,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                         user.updateProfile(profileUpdates);
                         progressDialog.dismiss();
 
-                        FancyToast.makeText(CreateAccountActivity.this,"Your account was successfully created!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                        FancyToast.makeText(CreateAccountActivity.this,"Dein Account wurde erfolgreich angelegt", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
 
                         //Changing Activity
                         Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);
@@ -212,4 +228,5 @@ public class CreateAccountActivity extends AppCompatActivity {
             });
     }
 
-}
+
+    }

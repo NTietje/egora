@@ -131,7 +131,7 @@ public class ItemActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
 
-                String error = "Connection problem";
+                String error = "Verbindungsprobleme!";
                 textViewItemName.setText(error);
                 textViewItemDescription.setText(error);
             }
@@ -179,7 +179,7 @@ public class ItemActivity extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            FancyToast.makeText(ItemActivity.this,"Error Item 1: " + e.toString(), FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                            FancyToast.makeText(ItemActivity.this,"Fehler Gegenstand 1: " + e.toString(), FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                         }
                     });
             }

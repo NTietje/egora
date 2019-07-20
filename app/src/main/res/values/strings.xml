@@ -1,18 +1,24 @@
 <resources>
     <string name="app_name">egora</string>
     <string name="email">E-Mail</string>
-    <string name="password">Password</string>
-    <string name="passwordRep">Repeat Password</string>
-    <string name="firstname">First Name</string>
-    <string name="lastname">Last Name</string>
-    <string name="street">Streetname</string>
-    <string name="housenumber">Housenumber</string>
-    <string name="city">City</string>
-    <string name="login">Log In</string>
-    <string name="register">Register</string>
-    <string name="or">or</string>
-    <string name="registernow">Register now!</string>
-    <string name="forgetpassword">Forgot your password?</string>
+    <string name="password">Passwort</string>
+    <string name="passwordRep">Passwort wiederholen</string>
+    <string name="firstname">Vorname</string>
+    <string name="lastname">Nachname</string>
+    <string name="street">Straße</string>
+    <string name="housenumber">Hausnummer</string>
+    <string name="city">Stadt</string>
+    <string name="login">Einloggen</string>
+    <string name="register">Registrieren</string>
+    <string name="or">oder</string>
+    <string name="registernow">Registriere dich!</string>
+    <string name="forgetpassword">Passwort vergessen?</string>
+    <string name="confirm">Bestätigen</string>
+    <string name="address">Adresse: </string>
+
+
+    <string name="communityName">Name der Community</string>
+    <string name="owner">Besitzer: </string>
     <string name="title_activity_item">ItemActivity</string>
     <string-array name="item_categories">
         <item>Kategorie</item>

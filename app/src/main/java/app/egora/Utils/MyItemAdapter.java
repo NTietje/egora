@@ -108,7 +108,7 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
                                             storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
-                                                    FancyToast.makeText(itemView.getContext(),itemName.getText() + " was successfully removed!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                                                    FancyToast.makeText(itemView.getContext(),itemName.getText() + " wurde erfolgreich gelöscht!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
                                                 }
                                             });
                                         }
@@ -123,8 +123,8 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
 
                     //Initiating the Dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                    builder.setMessage("Are you sure you want to delete " + itemName.getText() + "?")
-                            .setNegativeButton("No", dialogClickListener).setPositiveButton("Yes", dialogClickListener);
+                    builder.setMessage("Willst du " + itemName.getText() + " wirklich löschen ?")
+                            .setNegativeButton("Nein", dialogClickListener).setPositiveButton("Ja", dialogClickListener);
 
                     alertDialog = builder.create();
 

@@ -43,7 +43,7 @@
             android:id="@+id/editKey_Info"
             style="@style/EgoraEditText"
             android:layout_marginTop="@dimen/marginButtonToEditText"
-            android:hint="Key"
+            android:hint="Schlüssel"
             tools:ignore="Autofill"
             android:inputType="text"/>
 
@@ -51,7 +51,7 @@
             android:id="@+id/buttonJoin"
             style="@style/EgoraButton"
             android:layout_marginTop="@dimen/marginButtonToEditText"
-            android:text="Join" />
+            android:text="Beitreten" />
     </LinearLayout>
 
 </LinearLayout>

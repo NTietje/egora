@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import app.egora.Communities.CommunitiesActivity;
 import app.egora.ItemManagement.HomeActivity;
@@ -67,7 +69,6 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("login", "login button clicked"); // nur zum Testen
                 // hier Login mit Firebase Auth ausführen
                 userLogin();
 
@@ -78,7 +79,6 @@ public class LoginActivity extends AppCompatActivity {
         linkRegisterNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("register", "switch to registerview"); // nur zum Testen
                 Intent intent = new Intent(getBaseContext(), CreateAccountActivity.class);
                 startActivity(intent);
                 finish();
@@ -93,63 +93,61 @@ public class LoginActivity extends AppCompatActivity {
         String password = editPassword.getText().toString().trim();
 
         //Validating Inputs
-        if(TextUtils.isEmpty(email)){
-            Toast.makeText(this, "Please insert a valid email address", Toast.LENGTH_LONG).show();
+        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            Toast.makeText(this, "Gebe eine gültige Email an", Toast.LENGTH_LONG).show();
             return;
         }
         else if (TextUtils.isEmpty(password)){
-            Toast.makeText(this, "Please insert a Password", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Gebe ein Passwort ein", Toast.LENGTH_LONG).show();
             return;
         }
 
         //Showing Dialog
-        progressDialog.setMessage("Logging in...");
+        progressDialog.setMessage("Logge ein...");
         progressDialog.show();
 
         //Sign-In
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+            public void onSuccess(AuthResult authResult) {
+                userRef = db.collection("users").document(mAuth.getUid());
+                userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        //Checking if Community exists
+                        if(!documentSnapshot.contains("communityName")){
 
-                    userRef = db.collection("users").document(mAuth.getUid());
-                    userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            //Checking if Community exists
-                            if(!documentSnapshot.contains("communityName")){
+                            progressDialog.dismiss();
+                            Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else {
+                            //Checking if the current Community was in the changing state
+                            String userCommunity = documentSnapshot.get("communityName").toString();
+                            if(userCommunity.equals("changing") ){
 
-                                    progressDialog.dismiss();
-                                    Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                progressDialog.dismiss();
+                                Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);
+                                startActivity(intent);
+                                finish();
                             }
                             else {
-                                //Checking if the current Community was in the changing state
-                                String userCommunity = documentSnapshot.get("communityName").toString();
-                                Log.d("UserCommunity: ", userCommunity);
-                                if(userCommunity.equals("changing") ){
-
-                                    progressDialog.dismiss();
-                                    Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                                else {
-                                    //Sending the User to the homescreen
-                                    progressDialog.dismiss();
-                                    Intent intent = new Intent(getBaseContext(), HomeActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
+                                //Sending the User to the homescreen
+                                progressDialog.dismiss();
+                                Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+                                startActivity(intent);
+                                finish();
                             }
                         }
-                    });
-                }
-                else {
-                    progressDialog.dismiss();
-                    Toast.makeText(LoginActivity.this, "Something went wrong!", Toast.LENGTH_LONG).show();
-                }
+                    }
+                });
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                FancyToast.makeText(LoginActivity.this,"Fehler: " + e, FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         });
 

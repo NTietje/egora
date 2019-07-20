@@ -84,35 +84,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     };
 
-    /*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        super.onOptionsItemSelected(item);
-
-        if(item.getItemId() == R.id.main_logout){
-            //Logout Methode
-            logoutUser();
-        }
-
-        else if(item.getItemId() == R.id.main_show_user_profile){
-            //Show user
-        }
-        return true;
-    }
-
-    public boolean logoutUser(){
-        mAuth.signOut();
-        Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-        startActivity(intent);
-        finish();
-        return true;
-    }
-    */
     private void setupViewPager (){
         //SectionsPageAdapter
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new MyItemsFragment(), "My Items");
-        adapter.addFragment(new MyInfoFragment(), "My Info");
+        adapter.addFragment(new MyItemsFragment(), "Meine Items");
+        adapter.addFragment(new MyInfoFragment(), "Meine Infos");
         myViewPager.setAdapter(adapter);
     }
 }

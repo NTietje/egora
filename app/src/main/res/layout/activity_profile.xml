@@ -17,13 +17,13 @@
             android:id="@+id/profile_tabs_items"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Items" />
+            android:text="Meine Items" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/profile_tabs_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Info" />
+            android:text="Meine Info" />
 
     </com.google.android.material.tabs.TabLayout>
 

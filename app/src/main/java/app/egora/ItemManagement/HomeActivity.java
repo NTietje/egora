@@ -3,6 +3,8 @@ package app.egora.ItemManagement;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +27,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import javax.annotation.Nullable;
 
@@ -53,7 +56,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private UserInformation currentUser;
     private String currentCommunity;
-    private TextView noCommunityTextView;
     private RecyclerView recyclerView;
 
 
@@ -85,8 +87,6 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),
                 DividerItemDecoration.VERTICAL));
 
-        noCommunityTextView = findViewById(R.id.textview_no_group);
-        noCommunityTextView.setVisibility(View.INVISIBLE);
 
         //Button zum Hinzufügen von Items
         FloatingActionButton addButton = findViewById(R.id.add_object_button);
@@ -134,8 +134,6 @@ public class HomeActivity extends AppCompatActivity {
 
     //Methode um Firebase und die Listener vorzubereiten
     private void setupFirebaseModules() {
-        Log.d("Firebase: ", "setupFirebaseAuth: setting up firebase auth.");
-
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -174,7 +172,6 @@ public class HomeActivity extends AppCompatActivity {
 
                             //Updating View and adding RecyclerViewAdapter
                             currentCommunity = currentUser.getCommunityName();
-                            noCommunityTextView.setVisibility(View.INVISIBLE);
 
                            Query query = db.collection("items").whereEqualTo("communityName", currentCommunity);
 
@@ -186,14 +183,15 @@ public class HomeActivity extends AppCompatActivity {
                             recyclerView.setAdapter(adapter);
                             adapter.startListening();
 
-                        } else {
-                            //Show No Community TextView
-                            noCommunityTextView = findViewById(R.id.textview_no_group);
-                            noCommunityTextView.setVisibility(View.VISIBLE);
                         }
-
                     }
                 });
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                FancyToast.makeText(HomeActivity.this,"Fehler: " + e.toString(), FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         });
     }
