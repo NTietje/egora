@@ -154,7 +154,7 @@ public class AddingItem extends AppCompatActivity {
     protected void onActivityResult(int requestCode,
                                     int resultCode,
                                     Intent data) {
-        if (requestCode == pic_id) {
+        if (requestCode == pic_id  && resultCode == RESULT_OK) {
             photo = (Bitmap) data.getExtras()
                     .get("data");
             editImageView.setImageBitmap(photo);
