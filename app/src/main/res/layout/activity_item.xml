@@ -7,88 +7,88 @@
     android:layout_height="match_parent"
     android:id="@+id/item_activity_layout">
 
-        <Button
-            android:id="@+id/item_activity_button_contact"
-            style="@style/EgoraButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_alignParentBottom="true"
-            android:text="Contact owner"
-            />
+    <Button
+        android:id="@+id/item_activity_button_contact"
+        style="@style/EgoraButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentBottom="true"
+        android:text="Contact owner"
+        />
 
-        <ImageView
-            android:id="@+id/item_activity_imageView"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_centerHorizontal="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+    <ImageView
+        android:id="@+id/item_activity_imageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/item_activity_name"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_below="@+id/item_activity_imageView"
-            android:layout_margin="5dp"
-            android:layout_marginBottom="3dp"
-            app:autoSizeTextType="uniform" />
+    <TextView
+        android:id="@+id/item_activity_name"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/item_activity_imageView"
+        android:layout_margin="5dp"
+        android:layout_marginBottom="3dp"
+        app:autoSizeTextType="uniform" />
 
-        <TextView
+    <TextView
 
-            android:id="@+id/item_activity_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/item_activity_name"
-            android:layout_margin="5dp"
-            app:autoSizeTextType="uniform" />
+        android:id="@+id/item_activity_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_activity_name"
+        android:layout_margin="5dp"
+        app:autoSizeTextType="uniform" />
 
-        <TextView
+    <TextView
 
-            android:id="@+id/item_activity_owner_name_layout"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/item_activity_description"
-            android:layout_margin="3dp"
-            android:text="Owner: "
-            app:autoSizeTextType="uniform" />
+        android:id="@+id/item_activity_owner_name_layout"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_activity_description"
+        android:layout_margin="3dp"
+        android:text="Owner: "
+        app:autoSizeTextType="uniform" />
 
-        <TextView
+    <TextView
 
-            android:id="@+id/item_activity_owner_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/item_activity_description"
-            android:layout_margin="3dp"
-            android:layout_toEndOf="@+id/item_activity_owner_name_layout"
-            app:autoSizeTextType="uniform"
-            tools:layout_editor_absoluteX="70dp" />
+        android:id="@+id/item_activity_owner_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_activity_description"
+        android:layout_margin="3dp"
+        android:layout_toEndOf="@+id/item_activity_owner_name_layout"
+        app:autoSizeTextType="uniform"
+        tools:layout_editor_absoluteX="70dp" />
 
-        <TextView
+    <TextView
 
-            android:id="@+id/item_activity_owner_address_layout"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/item_activity_owner_name_layout"
-            android:layout_margin="3dp"
-            android:text="Address: "
-            app:autoSizeTextType="uniform" />
+        android:id="@+id/item_activity_owner_address_layout"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_activity_owner_name_layout"
+        android:layout_margin="3dp"
+        android:text="Address: "
+        app:autoSizeTextType="uniform" />
 
-        <TextView
+    <TextView
 
-            android:id="@+id/item_activity_owner_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/item_activity_owner_name"
-            android:layout_margin="3dp"
-            android:layout_toEndOf="@+id/item_activity_owner_address_layout"
-            app:autoSizeTextType="uniform"
-            tools:layout_editor_absoluteX="70dp" />
+        android:id="@+id/item_activity_owner_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_activity_owner_name"
+        android:layout_margin="3dp"
+        android:layout_toEndOf="@+id/item_activity_owner_address_layout"
+        app:autoSizeTextType="uniform"
+        tools:layout_editor_absoluteX="70dp" />
 
 
-    </RelativeLayout>
+</RelativeLayout>
 
 

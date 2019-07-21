@@ -47,9 +47,8 @@ public class CommunitiesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_communities_overview);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Communities");
-        }
+
+
         communitiesActivity = this;
         FloatingActionButton addButton = findViewById(R.id.addCommunityButton);
 
@@ -101,7 +100,7 @@ public class CommunitiesActivity extends AppCompatActivity {
     //Search function filters communities by name
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu_communities, menu);
         MenuItem myActionMenuItem = menu.findItem(R.id.community_search);
         SearchView searchView = (SearchView) myActionMenuItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
