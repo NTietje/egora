@@ -209,7 +209,7 @@ public class ChangeInformationActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 progressDialog.dismiss();
-                FancyToast.makeText(ChangeInformationActivity.this,"Updated your information!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                FancyToast.makeText(ChangeInformationActivity.this,"Informationen wurden geändert!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
                 Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
                 startActivity(intent);
                 finish();
@@ -218,7 +218,7 @@ public class ChangeInformationActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 progressDialog.dismiss();
-                FancyToast.makeText(ChangeInformationActivity.this,"Something went wrong!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                FancyToast.makeText(ChangeInformationActivity.this,"Fehler: " + e, FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         });
 

@@ -137,7 +137,7 @@ private AlertDialog alertDialog;
                                                 batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
-                                                        FancyToast.makeText(view.getContext(),"You successfully left your community!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                                                        FancyToast.makeText(view.getContext(),"Du hast erfolgreiche deine Community verlassen", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
 
                                                         Intent intent = new Intent(getActivity().getBaseContext(), CommunitiesActivity.class);
                                                         startActivity(intent);
@@ -164,8 +164,8 @@ private AlertDialog alertDialog;
                 //Initiating the Dialog
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setMessage("Are you sure you want to change your community?")
-                        .setNegativeButton("No", dialogClickListener).setPositiveButton("Yes", dialogClickListener);
+                builder.setMessage("Bist du sicher, dass du die Community "+ currentUser.getCommunityName() + " verlassen willst?")
+                        .setNegativeButton("Nein", dialogClickListener).setPositiveButton("Ja", dialogClickListener);
 
 
                 alertDialog = builder.create();
@@ -202,14 +202,6 @@ private AlertDialog alertDialog;
                         textViewName.setText(userName);
                         textViewAddress.setText(userAddress);
                         textViewEmail.setText(userEmail);
-
-
-
-
-
-                        Log.d("User starting: " , currentUser.getCommunityName());
-                        String userId = mAuth.getUid().toString();
-
 
                     }
                 });

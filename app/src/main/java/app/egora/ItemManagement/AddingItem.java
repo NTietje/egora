@@ -154,7 +154,7 @@ public class AddingItem extends AppCompatActivity {
     protected void onActivityResult(int requestCode,
                                     int resultCode,
                                     Intent data) {
-        if (requestCode == pic_id) {
+        if (requestCode == pic_id  && resultCode == RESULT_OK) {
             photo = (Bitmap) data.getExtras()
                     .get("data");
             editImageView.setImageBitmap(photo);
@@ -164,7 +164,7 @@ public class AddingItem extends AppCompatActivity {
 
     //Methode um die Itemdaten an Firebase zu übergeben
     private void registerItem() {
-        progressDialog.setMessage("Uploading Item...");
+        progressDialog.setMessage("Lade hoch...");
 
         final String itemName = editItemName.getText().toString().trim();
         final String itemDescription = editItemDescription.getText().toString().trim();
@@ -225,7 +225,7 @@ public class AddingItem extends AppCompatActivity {
                             public void onSuccess(Void aVoid) {
 
 
-                                FancyToast.makeText(AddingItem.this,itemName + " was successfully uploaded!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                                FancyToast.makeText(AddingItem.this,itemName + " wurde erfolgreich hochgeladen!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
                                 progressDialog.dismiss();
                                 Intent intent = new Intent(getBaseContext(), HomeActivity.class);
                                 startActivity(intent);
@@ -235,7 +235,7 @@ public class AddingItem extends AppCompatActivity {
 
                     } else {
                         progressDialog.dismiss();
-                        FancyToast.makeText(AddingItem.this,"Something went wrong!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                        FancyToast.makeText(AddingItem.this,"Da lief etwas schief!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                     }
                 }
             });
@@ -243,17 +243,17 @@ public class AddingItem extends AppCompatActivity {
         } else {
             progressDialog.dismiss();
             if(TextUtils.isEmpty(itemName) && tookPicture && !category.equals("Kategorie")){
-                FancyToast.makeText(AddingItem.this,"Insert a name!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                FancyToast.makeText(AddingItem.this,"Gebe einen Namen ein!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
             else if(!tookPicture && !TextUtils.isEmpty(itemName) && !category.equals("Kategorie") ){
-                FancyToast.makeText(AddingItem.this,"Insert a picture!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                FancyToast.makeText(AddingItem.this,"Nehme ein Foto auf!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
 
             else if(tookPicture && !TextUtils.isEmpty(itemName) && category.equals("Kategorie")){
-                FancyToast.makeText(AddingItem.this,"Choose a category for your item!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                FancyToast.makeText(AddingItem.this,"Wähle eine Kategorie aus!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
             else{
-                FancyToast.makeText(AddingItem.this,"Insert the item information first!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                FancyToast.makeText(AddingItem.this,"Du musst zuerst Informationen eingeben!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         }
     }

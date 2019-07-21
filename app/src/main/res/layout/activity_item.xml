@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_alignParentBottom="true"
-        android:text="Contact owner"
+        android:text="Besitzer anschreiben"
         />
 
     <ImageView
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/item_activity_description"
         android:layout_margin="3dp"
-        android:text="Owner: "
+        android:text="@string/owner"
         app:autoSizeTextType="uniform" />
 
     <TextView
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/item_activity_owner_name_layout"
         android:layout_margin="3dp"
-        android:text="Address: "
+        android:text="@string/address"
         app:autoSizeTextType="uniform" />
 
     <TextView
@@ -88,7 +88,7 @@
         app:autoSizeTextType="uniform"
         tools:layout_editor_absoluteX="70dp" />
 
-
 </RelativeLayout>
+
 
 

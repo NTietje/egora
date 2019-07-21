@@ -17,7 +17,7 @@
             android:layout_width="300dp"
             android:layout_height="30dp"
             android:layout_marginTop="15dp"
-            android:text="Blank fields won't be changed!"
+            android:text="Freie Felder werden nicht editiert!"
             app:autoSizeTextType="uniform"
 
             />
@@ -25,49 +25,49 @@
         <EditText
             android:id="@+id/changePassword"
             style="@style/EgoraEditText"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/changePasswordRepeat"
             style="@style/EgoraEditText"
-            android:hint="Repeat Password"
+            android:hint="@string/passwordRep"
             android:inputType="textPassword" />
 
         <EditText
             android:id="@+id/changeFirstName"
             style="@style/EgoraEditText"
-            android:hint="Firstname"
+            android:hint="@string/firstname"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/changeLastName"
             style="@style/EgoraEditText"
-            android:hint="Lastname"
+            android:hint="@string/lastname"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/changeStreetName"
             style="@style/EgoraEditText"
-            android:hint="Streetname"
+            android:hint="@string/street"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/changeHouseNumber"
             style="@style/EgoraEditText"
-            android:hint="Housenumber"
+            android:hint="@string/housenumber"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/changeCityName"
             style="@style/EgoraEditText"
-            android:hint="City" />
+            android:hint="@string/street" />
 
         <Button
             android:id="@+id/buttonChangeCommit"
             style="@style/EgoraButton"
             android:layout_marginTop="@dimen/marginButtonToEditText"
-            android:text="Commit changes"
+            android:text="@string/confirm"
             android:layout_marginBottom="@dimen/marginToBottom" />
 
     </LinearLayout>

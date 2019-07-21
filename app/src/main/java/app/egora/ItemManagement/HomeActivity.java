@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +14,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,9 +21,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.TextView;
-
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,11 +31,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-
+import com.shashank.sony.fancytoastlib.FancyToast;
 import javax.annotation.Nullable;
-
 import app.egora.Login.LoginActivity;
 import app.egora.Messenger.MessengerActivity;
 import app.egora.Model.Item;
@@ -49,12 +40,9 @@ import app.egora.Model.UserInformation;
 import app.egora.Profile.ProfileActivity;
 import app.egora.R;
 import app.egora.Utils.FilterableItemAdapter;
-import app.egora.Utils.ItemAdapter;
+
 
 public class HomeActivity extends AppCompatActivity {
-
-
-
 
     ImageView itemImage;
 
@@ -66,10 +54,8 @@ public class HomeActivity extends AppCompatActivity {
     //private ItemAdapter adapter;
     private FilterableItemAdapter filterAdapter;
 
-
     private UserInformation currentUser;
     private String currentCommunity;
-    private TextView noCommunityTextView;
     private RecyclerView recyclerView;
     private String category;
     private String searchText;
@@ -115,11 +101,9 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),
                 DividerItemDecoration.VERTICAL));
 
+
         db = FirebaseFirestore.getInstance();
         setupFirebaseModules();
-
-        noCommunityTextView = findViewById(R.id.textview_no_group);
-        noCommunityTextView.setVisibility(View.INVISIBLE);
 
         //Button zum Hinzufügen von Items
         FloatingActionButton addButton = findViewById(R.id.add_object_button);
@@ -167,19 +151,14 @@ public class HomeActivity extends AppCompatActivity {
 
     //Methode um Firebase und die Listener vorzubereiten
     private void setupFirebaseModules() {
-        Log.d("Firebase: ", "setupFirebaseAuth: setting up firebase auth.");
-
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-
-
                 if (user != null) {
                     // User is signed in
-
                 } else {
                     // User is signed out
                     Intent intent = new Intent(getBaseContext(), LoginActivity.class);
@@ -190,7 +169,6 @@ public class HomeActivity extends AppCompatActivity {
         };
 
         currentUser = new UserInformation();
-
         userRef = db.collection("users").document(mAuth.getUid());
         userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -207,7 +185,6 @@ public class HomeActivity extends AppCompatActivity {
 
                             //Updating View and adding RecyclerViewAdapter
                             currentCommunity = currentUser.getCommunityName();
-                            noCommunityTextView.setVisibility(View.INVISIBLE);
 
                             //Get item data from firestore
                             Query query = db.collection("items").whereEqualTo("communityName", currentCommunity);
@@ -220,14 +197,15 @@ public class HomeActivity extends AppCompatActivity {
                                 }
                             });
 
-                        } else {
-                            //Show No Community TextView
-                            noCommunityTextView = findViewById(R.id.textview_no_group);
-                            noCommunityTextView.setVisibility(View.VISIBLE);
                         }
-
                     }
                 });
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                FancyToast.makeText(HomeActivity.this,"Fehler: " + e.toString(), FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         });
     }
