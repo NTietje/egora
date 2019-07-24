@@ -5,31 +5,109 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/table_name"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:text="Name"
+        android:layout_alignParentLeft="true"
+        />
+
+    <TextView
         android:id="@+id/my_info_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="5dp"
-        android:layout_centerHorizontal="true"
+        android:layout_toEndOf="@+id/table_name"
+        />
+
+    <TextView
+        android:id="@+id/my_info_table_address"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/table_name"
+        android:text="@string/address"
+        android:layout_alignParentLeft="true"
         />
 
     <TextView
         android:id="@+id/my_info_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/my_info_name"
-        android:layout_centerHorizontal="true"
+        android:layout_toEndOf="@+id/my_info_table_address"
+        />
+
+    <TextView
+        android:id="@+id/my_info_table_email"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/my_info_table_address"
+        android:text="@string/email"
+        android:layout_alignParentLeft="true"
         />
 
     <TextView
         android:id="@+id/my_info_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="5dp"
+
+        android:layout_toEndOf="@+id/my_info_table_email"
         android:layout_below="@+id/my_info_address"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/my_info_table_community"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/my_info_table_email"
+        android:text="@string/communityName"
+        android:layout_alignParentLeft="true"
+        />
+
+    <TextView
+        android:id="@+id/my_info_community"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/my_info_email"
+        android:layout_toEndOf="@+id/my_info_table_community"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/my_info_table_community_key"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/my_info_table_community"
+        android:text="@string/communityKey"
+        android:layout_alignParentLeft="true"
+        />
+
+    <TextView
+        android:id="@+id/my_info_commmunity_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/my_info_table_community_key"
+        android:layout_below="@+id/my_info_community"
         android:layout_centerHorizontal="true"
         />
 
@@ -37,15 +115,17 @@
         android:id="@+id/dummyView"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/my_info_email"
+        android:layout_below="@id/my_info_commmunity_key"
         android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"/>
+
+
 
     <Button
         android:id="@+id/my_info_button_change_info"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_below="@+id/my_info_email"
+        android:layout_below="@+id/my_info_commmunity_key"
         android:layout_marginTop="25dp"
         android:text="Editiere Info"
         android:layout_toStartOf="@id/dummyView"
@@ -57,7 +137,7 @@
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:text="Wechsle Community"
-        android:layout_below="@+id/my_info_email"
+        android:layout_below="@+id/my_info_commmunity_key"
         android:layout_toEndOf="@id/dummyView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"

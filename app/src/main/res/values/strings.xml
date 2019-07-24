@@ -13,15 +13,15 @@
     <string name="registernow">Hier registrieren</string>
     <string name="forgetpassword">Passwort vergessen?</string>
     <string name="confirm">Bestätigen</string>
-    <string name="address">Adresse: </string>
+    <string name="address">Adresse</string>
     <string name="myitems">Meine Items</string>
     <string name="myinfo">Meine Daten</string>
     <string name="contactOwner">Besitzer schreiben</string>
     <string name="message">Nachricht</string>
-
-
-    <string name="communityName">Name der Community</string>
-    <string name="owner">Besitzer: </string>
+    <string name="communityName">Communityname</string>
+    <string name="userName">Name</string>
+    <string name="communityKey">Schlüssel</string>
+    <string name="owner">Besitzer</string>
     <string name="title_activity_item">ItemActivity</string>
 </resources>
 

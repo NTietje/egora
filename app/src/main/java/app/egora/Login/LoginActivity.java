@@ -52,6 +52,10 @@ public class LoginActivity extends AppCompatActivity {
 
         //Checking Loginstatus
         if(mAuth.getCurrentUser() != null){
+
+            Intent intent = new Intent(getBaseContext(), HomeActivity.class);
+            startActivity(intent);
+            finish();
             //Sprung zur Datenbankactivity
         }
         getSupportActionBar().hide(); // hide the app title bar
@@ -82,6 +86,28 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), CreateAccountActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        linkForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View v) {
+                if(!android.util.Patterns.EMAIL_ADDRESS.matcher(editEmail.getText().toString().trim()).matches()){
+                    progressDialog.dismiss();
+                    FancyToast.makeText(LoginActivity.this,"Gebe eine gültige Email an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                    return;
+                }
+                else {
+
+                    mAuth.sendPasswordResetEmail(editEmail.getText().toString().trim())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                FancyToast.makeText(LoginActivity.this,"Dein Passwort wurde dir an deine Email geschickt!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                             }
+                        });
+                }
             }
         });
 

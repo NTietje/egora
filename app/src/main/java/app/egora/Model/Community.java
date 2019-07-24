@@ -13,6 +13,10 @@ public class Community {
     private ArrayList<String> userIDs;
 
     //Constructor
+    public Community (){
+
+    }
+
     public Community(String name, String desc, String key, Boolean privacyMode) {
         this.name = name;
         this.description = desc;
