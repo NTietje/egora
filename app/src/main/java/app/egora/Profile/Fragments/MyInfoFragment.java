@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -36,6 +38,7 @@ import javax.annotation.Nullable;
 
 import app.egora.Communities.CommunitiesActivity;
 import app.egora.Login.LoginActivity;
+import app.egora.Model.Community;
 import app.egora.Model.Item;
 import app.egora.Model.UserInformation;
 import app.egora.Profile.ChangeInformationActivity;
@@ -52,11 +55,16 @@ public class MyInfoFragment extends Fragment {
     private DocumentReference communityRef;
     private CollectionReference itemCol;
     private UserInformation currentUser;
+    private Community community;
 
-private AlertDialog alertDialog;
+    private AlertDialog alertDialog;
+
     private TextView textViewName;
     private TextView textViewAddress;
     private TextView textViewEmail;
+    private TextView textViewCommunityName;
+    private TextView textViewCommunityKey;
+    private TextView textViewTableCommunityKey;
     private Button buttonChangeInfo;
     private Button buttonChangeCommunity;
 
@@ -79,6 +87,10 @@ private AlertDialog alertDialog;
         textViewName = view.findViewById(R.id.my_info_name);
         textViewAddress = view.findViewById(R.id.my_info_address);
         textViewEmail = view.findViewById(R.id.my_info_email);
+        textViewCommunityName = view.findViewById(R.id.my_info_community);
+        textViewCommunityKey = view.findViewById(R.id.my_info_commmunity_key);
+        textViewTableCommunityKey = view.findViewById(R.id.my_info_table_community_key);
+        textViewTableCommunityKey.setVisibility(View.INVISIBLE);
 
         buttonChangeInfo = view.findViewById(R.id.my_info_button_change_info);
         buttonChangeCommunity = view.findViewById(R.id.my_info_button_change_community);
@@ -155,8 +167,6 @@ private AlertDialog alertDialog;
 
                 };
 
-
-
                 //Initiating the Dialog
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
@@ -198,7 +208,21 @@ private AlertDialog alertDialog;
                         textViewName.setText(userName);
                         textViewAddress.setText(userAddress);
                         textViewEmail.setText(userEmail);
+                        communityRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if(documentSnapshot.toObject(Community.class) != null) {
 
+                                    community = documentSnapshot.toObject(Community.class);
+                                    textViewCommunityName.setText(community.getName());
+                                    if(!community.getKey().isEmpty()){
+
+                                        textViewCommunityKey.setText(community.getKey());
+                                        textViewTableCommunityKey.setVisibility(View.VISIBLE);
+                                    }
+                                }
+                            }
+                        });
                     }
                 });
             }
