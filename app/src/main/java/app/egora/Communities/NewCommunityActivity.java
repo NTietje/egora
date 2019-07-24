@@ -55,7 +55,7 @@ public class NewCommunityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_community);
         if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Create Community");
+            getSupportActionBar().setTitle("Erstelle eine Community");
         }
 
         //Initialisation Firebase
@@ -92,10 +92,10 @@ public class NewCommunityActivity extends AppCompatActivity {
                 final String key = ((EditText)findViewById(R.id.keyEdit)).getText().toString().trim();
 
                 if (name.isEmpty()) {
-                    FancyToast.makeText(NewCommunityActivity.this,"Give your community a name!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                    FancyToast.makeText(NewCommunityActivity.this,"Gib deiner Community einen Namen.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                 }
                 else if (keyCheckBox.isChecked() && key.length() < 4) {
-                    FancyToast.makeText(NewCommunityActivity.this,"Your key must be at least 4 characters long!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                    FancyToast.makeText(NewCommunityActivity.this,"Der Key muss mindestens 4 Zeichen lang sein.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                 }
                 else {
                     //Create community if name doesn't already exist
@@ -107,7 +107,7 @@ public class NewCommunityActivity extends AppCompatActivity {
                                 DocumentSnapshot document = task.getResult();
                                 //check if the name exists
                                 if (document.exists()) {
-                                    FancyToast.makeText(NewCommunityActivity.this,"This community name already exists!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                                    FancyToast.makeText(NewCommunityActivity.this,"Eine Community mit diesem Namen existiert bereits.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                                 }
                                 else {
                                     //create new community
@@ -159,16 +159,14 @@ public class NewCommunityActivity extends AppCompatActivity {
                                                     .addOnFailureListener(new OnFailureListener() {
                                                         @Override
                                                         public void onFailure(@NonNull Exception e) {
-                                                            FancyToast.makeText(NewCommunityActivity.this,"Can't create community", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                                                            FancyToast.makeText(NewCommunityActivity.this,"Die Community konnte nicht erstellt werden.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                                                         }
                                                     });
                                                 }
                                             });
                                 }
                             }
-                            else {
-                                Log.d("failed", "get failed");
-                            }
+
                         }
                     });
 

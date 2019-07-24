@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
     android:layout_marginTop="10dp"
-     >
+    >
 
     <TextView
         android:id="@+id/message_initials"
@@ -39,6 +41,7 @@
             android:textSize="@dimen/smallTextSize"
             android:background="@drawable/message"
             android:backgroundTint="@color/chatRight"
+            android:textColor="@color/midDarkTextColor"
             />
 
         <TextView
@@ -51,8 +54,6 @@
             />
 
     </LinearLayout>
-
-
 
 
 </RelativeLayout>

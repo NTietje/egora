@@ -14,6 +14,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +34,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.shashank.sony.fancytoastlib.FancyToast;
+
+import java.util.ArrayList;
+
 import javax.annotation.Nullable;
 import app.egora.Login.LoginActivity;
 import app.egora.Messenger.MessengerActivity;
@@ -61,7 +66,6 @@ public class HomeActivity extends AppCompatActivity {
     private String searchText;
     private Spinner spinnerCategory;
     private SearchView searchView;
-    private String[] categories;
 
 
     //Konstruktor (wird benötigt)
@@ -83,16 +87,12 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         getSupportActionBar().hide();
 
-        category = "Alle";
-        searchText = "";
+        db = FirebaseFirestore.getInstance();
 
+        loadCategories();
         Toolbar toolbar = findViewById(R.id.search_toolbar);
         searchView = findViewById(R.id.item_search2);
         spinnerCategory = findViewById(R.id.item_category2);
-        categories =  new String[]{"Alle", "Basteln", "Elektronik & Zubehör", "Garten & Grill", "Handwerken", "Küche & Haushalt", "Sport & Freizeit", "Sonstiges"};
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, categories);
-        spinnerCategory.setAdapter(spinnerAdapter);
 
         //RecyclerView
         recyclerView = findViewById(R.id.items_recyclerView);
@@ -101,8 +101,6 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),
                 DividerItemDecoration.VERTICAL));
 
-
-        db = FirebaseFirestore.getInstance();
         setupFirebaseModules();
 
         //Button zum Hinzufügen von Items
@@ -237,8 +235,26 @@ public class HomeActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-
     }
+
+    private void loadCategories() {
+        db.collection("basedata").document("categories").get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        ArrayList<String> categories = (ArrayList<String>) documentSnapshot.get("categories");
+                        Log.d("deb9", categories.toString());
+                        setSpinnerCategories(categories);
+                    }
+                });
+    }
+
+    private void setSpinnerCategories(ArrayList<String> categories) {
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_dropdown_item_1line, categories);
+        spinnerCategory.setAdapter(spinnerAdapter);
+    }
+
 
     /*@Override
     protected void onStart() {

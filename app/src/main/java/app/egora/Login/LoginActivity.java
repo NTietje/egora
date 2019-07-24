@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         //Showing Dialog
-        progressDialog.setMessage("Logge ein...");
+        progressDialog.setMessage("Login ...");
         progressDialog.show();
 
         //Sign-In

@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="Lösche Chat"
+        android:title="Chat löschen"
         android:id="@+id/delete_chat"
         >
     </item>

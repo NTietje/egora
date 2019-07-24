@@ -59,7 +59,7 @@
         <EditText
             android:id="@+id/regStreetName"
             style="@style/EgoraEditText"
-            android:hint="@string/city"
+            android:hint="@string/street"
             android:inputType="text" />
 
         <EditText

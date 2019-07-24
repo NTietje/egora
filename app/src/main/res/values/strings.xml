@@ -10,25 +10,18 @@
     <string name="city">Stadt</string>
     <string name="login">Einloggen</string>
     <string name="register">Registrieren</string>
-    <string name="or">oder</string>
-    <string name="registernow">Registriere dich!</string>
+    <string name="registernow">Hier registrieren</string>
     <string name="forgetpassword">Passwort vergessen?</string>
     <string name="confirm">Bestätigen</string>
     <string name="address">Adresse: </string>
+    <string name="myitems">Meine Items</string>
+    <string name="myinfo">Meine Daten</string>
+    <string name="contactOwner">Besitzer schreiben</string>
+    <string name="message">Nachricht</string>
 
 
     <string name="communityName">Name der Community</string>
     <string name="owner">Besitzer: </string>
     <string name="title_activity_item">ItemActivity</string>
-    <string-array name="item_categories">
-        <item>Kategorie</item>
-        <item>Basteln</item>
-        <item>Elektronik &amp; Zubehör</item>
-        <item>Garten &amp; Grill</item>
-        <item>Handwerken</item>
-        <item>Küche &amp; Haushalt</item>
-        <item>Sport &amp; Freizeit</item>
-        <item>Sonstiges</item>
-    </string-array>
 </resources>
 

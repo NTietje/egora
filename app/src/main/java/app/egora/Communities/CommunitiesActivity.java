@@ -71,7 +71,6 @@ public class CommunitiesActivity extends AppCompatActivity {
                                 String desc = document.get("description").toString();
                                 String key = document.get("key").toString();
                                 Boolean privacyMode = (Boolean) document.get("privacyMode");
-                                Log.d("Communitie: ", name + ", " + desc + ", " + key + ", " + privacyMode.toString());
                                 communities.add(new Community(name, desc, key, privacyMode));
                             }
                             //pass communities to CommunitiesListViewAdapter
@@ -79,9 +78,6 @@ public class CommunitiesActivity extends AppCompatActivity {
 
                             //bind the adapter to the listview
                             listView.setAdapter(adapter);
-
-                        } else {
-                            Log.d("msg", "Error getting documents: ", task.getException());
                         }
                     }
                 });

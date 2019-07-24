@@ -83,7 +83,7 @@ public class CommunityInfoActivity extends AppCompatActivity {
                         joinCommunity();
                     }
                     else {
-                        FancyToast.makeText(CommunityInfoActivity.this,"The key isn't correct", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                        FancyToast.makeText(CommunityInfoActivity.this,"Der Key stimmt nicht überein.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                     }
                 }
                 else {
@@ -131,7 +131,7 @@ public class CommunityInfoActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 //Changing to Home View
-                                FancyToast.makeText(CommunityInfoActivity.this,"You joined " + name, FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                                FancyToast.makeText(CommunityInfoActivity.this,"Du bist '" + name + "' beigetreten.", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
                                 Intent intent = new Intent(getBaseContext(), HomeActivity.class);
                                 startActivity(intent);
                                 finish();

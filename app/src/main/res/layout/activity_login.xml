@@ -45,15 +45,8 @@
             android:text="@string/login" />
 
         <TextView
-            android:id="@+id/or"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:text="@string/or"
-            android:textSize="18sp"
-            android:layout_marginTop="20dp" />
-
-        <TextView
             android:id="@+id/textRegister"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -70,7 +63,7 @@
             android:focusable="true"
             android:text="@string/forgetpassword"
             android:textSize="18sp"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="40dp" />
 
     </LinearLayout>
 

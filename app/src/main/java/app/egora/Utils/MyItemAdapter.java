@@ -32,9 +32,7 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
     private DocumentReference itemRef;
     private StorageReference storageReference;
 
-
     private AlertDialog alertDialog;
-
 
     public MyItemAdapter(@NonNull FirestoreRecyclerOptions<Item> options) {
         super(options);
@@ -42,12 +40,10 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
 
     @Override
     protected void onBindViewHolder(@NonNull ItemHolder holder, int position, @NonNull Item model) {
-
         //Filling View
         holder.itemName.setText(model.getName());
         holder.itemDescription.setText(model.getDescription());
         Picasso.get().load(model.getDownloadUrl()).centerCrop().resize(100, 100).into(holder.itemPicture);
-        Picasso.get().load(R.drawable.ic_delete).resize(75,75).into(holder.deleteIcon);
 
         //Setting ItemHolderValues
         holder.setItemId(model.getItemId());
@@ -59,17 +55,12 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.my_item_information,
                 viewGroup, false);
-
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
-
-
         return new ItemHolder(v);
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
-
-
         TextView itemName;
         TextView itemDescription;
         ImageView deleteIcon;
@@ -123,11 +114,10 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
 
                     //Initiating the Dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
-                    builder.setMessage("Willst du " + itemName.getText() + " wirklich löschen ?")
+                    builder.setMessage("Willst du '" + itemName.getText() + "' wirklich löschen?")
                             .setNegativeButton("Nein", dialogClickListener).setPositiveButton("Ja", dialogClickListener);
 
                     alertDialog = builder.create();
-
                     if (alertDialog.isShowing() && alertDialog != null){
                         alertDialog.dismiss();
                     }
@@ -145,7 +135,6 @@ public class MyItemAdapter extends FirestoreRecyclerAdapter <Item, MyItemAdapter
         public void setItemUrl(String itemUrl){
             this.itemUrl = itemUrl;
         }
-
 
     }
 

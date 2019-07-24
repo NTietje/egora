@@ -37,6 +37,7 @@
             android:background="@drawable/message"
             android:backgroundTint="@color/chatLeft"
             android:maxWidth="240dp"
+            android:textColor="@color/midDarkTextColor"
             />
 
         <TextView
@@ -47,10 +48,10 @@
             android:maxWidth="240dp"
             android:layout_gravity="right"
             android:textSize="12sp"
+            android:textColor="@color/midGrey"
             />
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

@@ -10,6 +10,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -23,7 +24,7 @@
 
     <style name="EgoraEditText">
         <item name="android:background">@drawable/textedit_egora_default</item>
-        <item name="android:textColor">@color/colorTextDark</item>
+        <item name="android:textColor">@color/darkTextColor</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">@dimen/mediumTextSize</item>
         <item name="android:radius">10dp</item>
@@ -49,7 +50,7 @@
 
     <style name="EgoraEditField">
         <item name="android:background">@drawable/textfield_egora_default</item>
-        <item name="android:textColor">@color/colorTextDark</item>
+        <item name="android:textColor">@color/darkTextColor</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">@dimen/mediumTextSize</item>
         <item name="android:layout_width">@dimen/rectangleDefaultWidth</item>

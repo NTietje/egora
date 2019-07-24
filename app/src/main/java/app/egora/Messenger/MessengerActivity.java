@@ -42,9 +42,7 @@ public class MessengerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messenger);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Messages");
-        }
+        getSupportActionBar().hide();
 
         recyclerView = findViewById(R.id.messenger_recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -72,19 +70,6 @@ public class MessengerActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.options_menu, menu);
         return true;
-    }
-
-    //Toolbar Menu - Funktionen (Logout)
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.main_logout:
-            FirestoreUtil.signOut();
-            startActivity(new Intent (MessengerActivity.this, LoginActivity.class));
-            finish();
-            return true;
-        }
-        return false;
     }
 
     //Bottom Navigationsbar

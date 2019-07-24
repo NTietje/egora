@@ -45,7 +45,6 @@ import app.egora.Utils.MyItemAdapter;
 
 public class MyInfoFragment extends Fragment {
 
-
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
     private DocumentReference userRef;
@@ -63,12 +62,9 @@ private AlertDialog alertDialog;
 
     private List<Item> itemList;
 
-
-
     public MyInfoFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

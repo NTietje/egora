@@ -75,7 +75,6 @@ public class ChatActivity extends AppCompatActivity {
         send.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.midGrey), PorterDuff.Mode.SRC_ATOP);
 
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        //linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         recyclerView = findViewById(R.id.chat_recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -186,8 +185,8 @@ public class ChatActivity extends AppCompatActivity {
 
         //Initiating the Dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
-        builder.setMessage("Are you sure you want to delete the whole Chat?")
-                .setNegativeButton("No", dialogClickListener).setPositiveButton("Yes", dialogClickListener);
+        builder.setMessage("Bist du sicher, dass du den gesamten Chat löschen möchtest?")
+                .setNegativeButton("Nein", dialogClickListener).setPositiveButton("Ja", dialogClickListener);
 
         AlertDialog alertDialog = builder.create();
 

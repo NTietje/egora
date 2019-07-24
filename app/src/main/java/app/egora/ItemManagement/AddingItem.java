@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -34,6 +36,7 @@ import com.google.firebase.storage.UploadTask;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,10 +46,8 @@ import app.egora.R;
 
 public class AddingItem extends AppCompatActivity {
 
-
     //Deklaration
     private static final int pic_id = 123;
-
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
@@ -72,13 +73,26 @@ public class AddingItem extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_item);
+        getSupportActionBar().hide();
         db = FirebaseFirestore.getInstance();
         tookPicture = false;
 
+        //Zuweisung der Viewelemente
+        spinner = findViewById(R.id.item_category_spinner);
+        progressDialog = new ProgressDialog(this);
+        editItemName = findViewById(R.id.item_name);
+        editItemDescription = findViewById(R.id.item_description);
+        buttonReset = findViewById(R.id.button_reset_item);
+        buttonItemInsert = findViewById(R.id.button_insert_item);
+
+        //Laden des KategorieArrays
+        loadCategories();
+
+        //Zuweisung des ImageViews
+        editImageView = (ImageView) findViewById(R.id.item_imageView);
 
         //Firebase Komponenten laden
         mAuth = FirebaseAuth.getInstance();
@@ -93,26 +107,6 @@ public class AddingItem extends AppCompatActivity {
         if(intent.getStringExtra("USER_COMMUNITY")!=null){
             ownerCommunity = intent.getStringExtra("USER_COMMUNITY");
         }
-
-        //Zuweisung der Viewelemente
-        progressDialog = new ProgressDialog(this);
-        editItemName = findViewById(R.id.item_name);
-        editItemDescription = findViewById(R.id.item_description);
-        spinner = findViewById(R.id.item_category_spinner);
-        buttonReset = findViewById(R.id.button_reset_item);
-        buttonItemInsert = findViewById(R.id.button_insert_item);
-
-        //Zuweisung des ImageViews
-        editImageView = (ImageView) findViewById(R.id.item_imageView);
-
-        //Laden des KategorieArrays
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.item_categories, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
 
         //Onclick-Listener für Bildaufnahme
         editImageView.setOnClickListener(new View.OnClickListener() {
@@ -256,6 +250,26 @@ public class AddingItem extends AppCompatActivity {
                 FancyToast.makeText(AddingItem.this,"Du musst zuerst Informationen eingeben!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             }
         }
+    }
+
+    private void loadCategories() {
+        db.collection("basedata").document("categories").get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        ArrayList<String> categories = (ArrayList<String>) documentSnapshot.get("categories");
+                        Log.d("deb9", categories.toString());
+                        setSpinnerCategories(categories);
+                    }
+                });
+    }
+
+    private void setSpinnerCategories(ArrayList<String> categories) {
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
+                R.layout.spinner_layout, categories);
+        categories.set(0, "Kategorie");
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_layout);
+        spinner.setAdapter(spinnerAdapter);
     }
 
     @Override

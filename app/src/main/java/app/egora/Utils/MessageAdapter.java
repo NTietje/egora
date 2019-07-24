@@ -22,10 +22,7 @@ public class MessageAdapter extends FirestoreRecyclerAdapter<Message, MessageAda
     public static final int MSG_LEFT = 0;
     public static final int MSG_RIGHT= 1;
 
-    private Message mMessage;
     private String initials;
-    private ViewGroup viewG;
-    private boolean loaded = false;
 
     public MessageAdapter(@NonNull Context context, String chatID, String initials) {
         super(new FirestoreRecyclerOptions.Builder<Message>()
@@ -79,17 +76,6 @@ public class MessageAdapter extends FirestoreRecyclerAdapter<Message, MessageAda
             dateView = messageView.findViewById(R.id.message_date);
         }
     }
-
-
-   /* public int getItemViewType(){
-        if(mMessage.getSendingUser().equals(FirestoreUtil.getCurrentUserID())) {
-            Log.d("user", "user of Mes: " + mMessage.getSendingUser());
-            return MSG_RIGHT;
-        }
-        else {
-            return  MSG_LEFT;
-        }
-    }*/
 
 
 }

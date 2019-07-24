@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="logoMarginTop">56dp</dimen>
-    <dimen name="marginEditText">12dp</dimen>
-    <dimen name="marginButtonToEditText">25dp</dimen>
+    <dimen name="marginEditText">10dp</dimen>
+    <dimen name="marginButtonToEditText">26dp</dimen>
     <dimen name="marginToBottom">70dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="rectangleDefaultWidth">330dp</dimen>
     <dimen name="rectangleDefaultHeight">60dp</dimen>
     <dimen name="rectangleDefaultPaddingLeft">20dp</dimen>
+    <dimen name="xsmallTextSize">14sp</dimen>
     <dimen name="smallTextSize">16sp</dimen>
     <dimen name="mediumTextSize">20sp</dimen>
     <dimen name="largeTextSize">22sp</dimen>

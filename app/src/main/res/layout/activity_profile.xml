@@ -2,14 +2,12 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-
+    android:layout_height="match_parent" >
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/profile_tabs"
+        app:tabIndicatorColor="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -17,13 +15,13 @@
             android:id="@+id/profile_tabs_items"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Meine Items" />
+            android:text="@string/myitems" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/profile_tabs_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Meine Info" />
+            android:text="@string/myinfo" />
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -38,12 +36,9 @@
             android:id="@+id/profile_viewpager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
         </androidx.viewpager.widget.ViewPager>
 
-
     </FrameLayout>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -53,6 +48,5 @@
         app:menu="@menu/button_navigation_main"
         android:background="@color/white"
         />
-
 
 </RelativeLayout>

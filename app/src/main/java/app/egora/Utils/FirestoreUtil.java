@@ -2,6 +2,7 @@ package app.egora.Utils;
 
 import android.util.Log;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -14,6 +15,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import java.util.ArrayList;
+
+import app.egora.ItemManagement.HomeActivity;
 import app.egora.ItemManagement.ItemActivity;
 import app.egora.Model.Chat;
 import app.egora.Model.Message;
@@ -23,12 +27,8 @@ public class FirestoreUtil {
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    private String newID;
-    private String returnString;
-
     public FirestoreUtil() {
-         newID = "none";
-         returnString = "null";
+
     }
 
     private static boolean exists;
@@ -48,6 +48,7 @@ public class FirestoreUtil {
     public static String getCurrentUserName() {
         return mAuth.getCurrentUser().getDisplayName();
     }
+
 
     public static void deleteChat(String chatID, String otherChatID) {
 
