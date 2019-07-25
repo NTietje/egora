@@ -77,17 +77,21 @@
                     <Button
                         android:id="@+id/button_reset_item"
                         style="@style/EgoraButton"
-                        android:layout_width="160dp"
-                        android:layout_below="@+id/item_description"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="0dp"
+                        android:layout_width="wrap_content"
                         android:backgroundTint="@color/colorAccent"
-                        android:text="Reset" />
+                        android:textSize="@dimen/smallTextSize"
+                        android:layout_weight="0.1"
+                        android:text="@string/reset" />
 
                     <Button
                         android:id="@+id/button_insert_item"
                         style="@style/EgoraButton"
-                        android:layout_width="160dp"
-                        android:text="Bestätigen" />
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/smallTextSize"
+                        android:text="@string/confirm" />
+
                 </LinearLayout>
 
             </RelativeLayout>

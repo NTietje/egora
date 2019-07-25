@@ -13,5 +13,5 @@
     <dimen name="mediumTextSize">20sp</dimen>
     <dimen name="largeTextSize">22dp</dimen>
     <dimen name="titleTextSize">24sp</dimen>
-    <dimen name="marginForRect">20dp</dimen>
+    <dimen name="marginForRect">25dp</dimen>
 </resources>

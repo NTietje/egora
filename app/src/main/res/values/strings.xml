@@ -31,5 +31,8 @@
     <string name="writeDescCommunity">Beschreibe die Community für beitretende Nutzer</string>
     <string name="create">erstellen</string>
     <string name="setKey">Erstelle einen Zugangscode für die Community</string>
+    <string name="join">Beitreten</string>
+    <string name="reset">Reset</string>
+
 </resources>
 

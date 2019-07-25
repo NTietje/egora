@@ -7,14 +7,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/item_activity_layout"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingTop="10dp"
     >
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:layout_above="@id/item_activity_button_contact"
         android:backgroundTint="@color/midGrey">
 
@@ -35,56 +35,78 @@
                 android:layout_height="wrap_content"
                 android:minLines="1"
                 android:maxLines="3"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="4dp"
                 android:layout_below="@+id/item_activity_imageView"
-                android:textColor="@color/darkTextColor"
+                android:textColor="@color/midDarkTextColor"
                 android:textSize="@dimen/mediumTextSize" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:src="@drawable/line"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/item_activity_name"
+                />
+
+            <TextView
+                android:id="@+id/item_activity_owner_name_layout"
+                android:layout_width="75dp"
+                android:layout_marginTop="12dp"
+                android:paddingLeft="10dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_activity_name"
+                android:text="@string/owner"
+                android:textSize="@dimen/smallTextSize"
+                />
+
+            <TextView
+                android:id="@+id/item_activity_owner_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:paddingRight="10dp"
+                android:layout_below="@+id/item_activity_name"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="15dp"
+                android:layout_toEndOf="@+id/item_activity_owner_name_layout"
+                android:textSize="@dimen/smallTextSize"
+                />
+
+            <TextView
+                android:id="@+id/item_activity_owner_address_layout"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:layout_below="@+id/item_activity_owner_name_layout"
+                android:text="@string/address"
+                android:textSize="@dimen/smallTextSize" />
+
+            <TextView
+                android:id="@+id/item_activity_owner_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="10dp"
+                android:layout_marginLeft="15dp"
+                android:lines="1"
+                android:layout_below="@+id/item_activity_owner_name"
+                android:layout_toEndOf="@+id/item_activity_owner_address_layout"
+                android:textSize="@dimen/smallTextSize" />
 
             <TextView
                 android:id="@+id/item_activity_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minLines="0"
-                android:layout_below="@+id/item_activity_name"
-                android:textColor="@color/midGrey"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/item_activity_owner_address_layout"
+                android:textColor="@color/midDarkTextColor"
                 android:textSize="@dimen/smallTextSize"
-                android:layout_marginBottom="3dp" />
-
-            <TextView
-                android:id="@+id/item_activity_owner_name_layout"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/item_activity_description"
-                android:text="@string/owner"
-                android:textSize="@dimen/smallTextSize"
-                android:layout_marginBottom="3dp" />
-
-            <TextView
-                android:id="@+id/item_activity_owner_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/item_activity_description"
-                android:layout_toEndOf="@+id/item_activity_owner_name_layout"
-                android:textSize="@dimen/smallTextSize"
-                android:layout_marginBottom="3dp" />
-
-            <TextView
-                android:id="@+id/item_activity_owner_address_layout"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/item_activity_owner_name_layout"
-                android:text="@string/address"
-                android:textSize="@dimen/smallTextSize"
-                android:layout_marginBottom="26dp" />
-
-            <TextView
-                android:id="@+id/item_activity_owner_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/item_activity_owner_name"
-                android:layout_toEndOf="@+id/item_activity_owner_address_layout"
-                android:textSize="@dimen/smallTextSize" />
+                android:layout_marginBottom="10dp" />
 
         </RelativeLayout>
 
@@ -97,7 +119,7 @@
         android:layout_marginTop="10dp"
         android:layout_alignParentBottom="true"
         android:text="@string/contactOwner"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         />
 
 </RelativeLayout>

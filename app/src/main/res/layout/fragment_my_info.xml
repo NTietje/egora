@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_toEndOf="@+id/profile_image"
+            android:lines="1"
             android:textColor="@color/midDarkTextColor"
             android:textSize="@dimen/largeTextSize" />
 
@@ -36,6 +37,7 @@
             android:layout_below="@id/my_info_firstname"
             android:layout_marginTop="3dp"
             android:layout_toEndOf="@+id/profile_image"
+            android:lines="1"
             android:textColor="@color/midDarkTextColor"
             android:textSize="@dimen/largeTextSize" />
 
@@ -58,10 +60,10 @@
             <RelativeLayout
                 android:id="@+id/rMyData"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="@dimen/marginForRect"
-                android:layout_marginRight="@dimen/marginForRect"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:background="@drawable/text_card"
                 android:layout_centerHorizontal="true"
                 >
@@ -96,13 +98,12 @@
 
                 <TextView
                     android:id="@+id/my_info_address"
-                    android:layout_width="240dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/titel_myData"
                     android:layout_marginTop="15dp"
                     android:layout_marginLeft="100dp"
-                    android:singleLine="true"
-                    android:scrollHorizontally="true"
+                    android:layout_marginRight="20dp"
                     android:textSize="@dimen/smallTextSize"
                     />
 
@@ -112,20 +113,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_below="@id/my_info_table_address"
+                    android:layout_below="@id/my_info_address"
                     android:textSize="@dimen/smallTextSize"
                     android:text="@string/email"
                     />
 
                 <TextView
                     android:id="@+id/my_info_email"
-                    android:layout_width="190dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/my_info_address"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="100dp"
-                    android:singleLine="true"
-                    android:scrollHorizontally="true"
+                    android:layout_marginRight="65dp"
                     android:textSize="@dimen/smallTextSize"
                     />
 
@@ -134,16 +134,17 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@drawable/circle"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="12dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="12dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_below="@id/my_info_address"
                     android:backgroundTint="@color/lightGrey"
                     android:src="@drawable/ic_edit_24dp"
                     android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:tint="@color/midDarkTextColor"
+
                     />
 
             </RelativeLayout>
@@ -151,10 +152,10 @@
             <RelativeLayout
                 android:id="@+id/rMyCommunity"
                 android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="@dimen/marginForRect"
-                android:layout_marginRight="@dimen/marginForRect"
-                android:layout_height="150dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/rMyData"
                 android:background="@drawable/text_card"
                 android:layout_centerHorizontal="true"
@@ -192,13 +193,12 @@
 
                 <TextView
                     android:id="@+id/my_info_community"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/titel_myCommunity"
                     android:layout_marginLeft="140dp"
                     android:layout_marginTop="15dp"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
+                    android:layout_marginRight="20dp"
                     android:textSize="@dimen/smallTextSize" />
 
                 <TextView
@@ -207,17 +207,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_below="@id/my_info_table_community"
+                    android:layout_below="@id/my_info_community"
                     android:textSize="@dimen/smallTextSize"
                     android:text="@string/communityKey"
                     />
 
                 <TextView
                     android:id="@+id/my_info_commmunity_key"
-                    android:layout_width="150dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="140dp"
+                    android:layout_marginRight="65dp"
                     android:singleLine="true"
                     android:scrollHorizontally="true"
                     android:textSize="@dimen/smallTextSize"
@@ -229,11 +230,11 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@drawable/circle"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="12dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="12dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_below="@id/my_info_community"
                     android:backgroundTint="@color/lightGrey"
                     android:src="@drawable/ic_exit_24dp"
                     android:padding="8dp"
@@ -248,7 +249,7 @@
                 style="@style/EgoraButton"
                 android:backgroundTint="@color/colorAccent"
                 android:layout_below="@id/rMyCommunity"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="100dp"
                 android:text="@string/logout" />

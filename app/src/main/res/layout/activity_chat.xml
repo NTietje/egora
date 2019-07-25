@@ -22,35 +22,30 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:layout_alignParentBottom="true"
-        android:padding="5dp"
-        >
+        android:padding="16dp" >
 
         <EditText
             android:id="@+id/chat_textToSend"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/chat_sendButton"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
             android:background="@android:color/transparent"
             android:hint="@string/message"
+            android:layout_marginRight="40dp"
             />
-
-        <ImageButton
-            android:id="@+id/chat_sendButton"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="@color/white"
-            android:tint="@color/colorPrimary"
-            android:src="@drawable/ic_send_24dp"
-            />
-
     </RelativeLayout>
 
+    <ImageButton
+        android:id="@+id/chat_sendButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/white"
+        android:tint="@color/colorPrimary"
+        android:src="@drawable/ic_send_24dp"
+        />
 
 </RelativeLayout>
