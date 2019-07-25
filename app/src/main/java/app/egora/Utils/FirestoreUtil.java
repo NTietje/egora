@@ -30,6 +30,8 @@ public class FirestoreUtil {
 
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private static FirebaseAuth.AuthStateListener mAuthListener;
+
 
     public FirestoreUtil() {
 
@@ -142,16 +144,22 @@ public class FirestoreUtil {
 
 
     public static void addAuthListener(final FirebaseAuth mAuth, final Activity activity){
-        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+        mAuthListener = new FirebaseAuth.AuthStateListener(){
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (mAuth.getCurrentUser() == null){
                     Intent intent = new Intent(activity.getBaseContext(), LoginActivity.class);
                     activity.startActivity(intent);
-
                 }
             }
-        });
+        };
+        FirebaseAuth.getInstance().addAuthStateListener(mAuthListener);
 
+    }
+
+    public static void removeAuthListener(){
+        if(mAuthListener != null) {
+            FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
+        }
     }
 }

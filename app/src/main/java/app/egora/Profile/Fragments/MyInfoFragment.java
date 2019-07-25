@@ -251,6 +251,7 @@ public class MyInfoFragment extends Fragment {
 
     @Override
     public void onStop() {
+        FirestoreUtil.removeAuthListener();
         super.onStop();
     }
 }
