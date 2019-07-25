@@ -25,7 +25,6 @@
     <style name="CustomTabText" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">@dimen/smallTextSize</item>
         <item name="android:fontFamily">sans-serif</item>
-
     </style>
 
     <style name="EgoraEditText">
@@ -34,7 +33,9 @@
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">@dimen/mediumTextSize</item>
         <item name="android:radius">10dp</item>
-        <item name="android:layout_width">@dimen/rectangleDefaultWidth</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">@dimen/marginForRect</item>
+        <item name="android:layout_marginRight">@dimen/marginForRect</item>
         <item name="android:layout_height">@dimen/rectangleDefaultHeight</item>
         <item name="android:maxLines">1</item>
         <item name="android:lines">1</item>
@@ -50,7 +51,9 @@
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">@dimen/mediumTextSize</item>
         <item name="android:radius">10dp</item>
-        <item name="android:layout_width">@dimen/rectangleDefaultWidth</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">@dimen/marginForRect</item>
+        <item name="android:layout_marginRight">@dimen/marginForRect</item>
         <item name="android:layout_height">@dimen/rectangleDefaultHeight</item>
     </style>
 
@@ -59,7 +62,9 @@
         <item name="android:textColor">@color/darkTextColor</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textSize">@dimen/mediumTextSize</item>
-        <item name="android:layout_width">@dimen/rectangleDefaultWidth</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">@dimen/marginForRect</item>
+        <item name="android:layout_marginRight">@dimen/marginForRect</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingTop">5dp</item>
     </style>
