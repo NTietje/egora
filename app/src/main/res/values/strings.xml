@@ -25,7 +25,7 @@
     <string name="myData">Meine Daten</string>
     <string name="myCommunity">Meine Community</string>
     <string name="logout">Abmelden</string>
-    <string name="confirm">Bestädtigen</string>
+    <string name="confirm">Bestätigen</string>
     <string name="none">keiner</string>
 
 </resources>
