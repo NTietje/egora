@@ -2,17 +2,44 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-    <TextView
-        android:id="@+id/table_name"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:text="Name"
-        android:layout_alignParentLeft="true"
-        />
+    <RelativeLayout
+        android:id="@+id/r1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/white"
+       >
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_person_24dp"
+            />
+
+        <TextView
+            android:id="@+id/my_info_firstname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/profile_image"
+            android:textColor="@color/midDarkTextColor"
+            android:textSize="@dimen/largeTextSize" />
+
+        <TextView
+            android:id="@+id/my_info_lastname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/my_info_firstname"
+            android:layout_marginTop="3dp"
+            android:layout_toEndOf="@+id/profile_image"
+            android:textColor="@color/midDarkTextColor"
+            android:textSize="@dimen/largeTextSize" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/my_info_name"
@@ -20,128 +47,219 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/table_name"
         />
 
-    <TextView
-        android:id="@+id/my_info_table_address"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/table_name"
-        android:text="@string/address"
-        android:layout_alignParentLeft="true"
-        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/r1"
+        android:layout_alignParentBottom="true" >
 
-    <TextView
-        android:id="@+id/my_info_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/my_info_name"
-        android:layout_toEndOf="@+id/my_info_table_address"
-        />
+        <RelativeLayout
+            android:id="@+id/r2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/r1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lightGrey">
 
-    <TextView
-        android:id="@+id/my_info_table_email"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/my_info_table_address"
-        android:text="@string/email"
-        android:layout_alignParentLeft="true"
-        />
+            <RelativeLayout
+                android:id="@+id/rMyData"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="20dp"
+                android:background="@drawable/text_card"
+                android:layout_centerHorizontal="true"
+                >
 
-    <TextView
-        android:id="@+id/my_info_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="5dp"
+                <TextView
+                    android:id="@+id/titel_myData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:padding="5dp"
+                    android:text="@string/myData"
+                    android:textSize="@dimen/mediumTextSize" />
 
-        android:layout_toEndOf="@+id/my_info_table_email"
-        android:layout_below="@+id/my_info_address"
-        android:layout_centerHorizontal="true"
-        />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginLeft="40dp"
+                    android:src="@drawable/line"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/titel_myData"
+                    />
 
-    <TextView
-        android:id="@+id/my_info_table_community"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/my_info_table_email"
-        android:text="@string/communityName"
-        android:layout_alignParentLeft="true"
-        />
+                <TextView
+                    android:id="@+id/my_info_table_address"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_below="@id/titel_myData"
+                    android:textSize="@dimen/smallTextSize"
+                    android:text="@string/address" />
 
-    <TextView
-        android:id="@+id/my_info_community"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/my_info_email"
-        android:layout_toEndOf="@+id/my_info_table_community"
-        android:layout_centerHorizontal="true"
-        />
+                <TextView
+                    android:id="@+id/my_info_address"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/titel_myData"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="100dp"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:textSize="@dimen/smallTextSize"
+                    />
 
-    <TextView
-        android:id="@+id/my_info_table_community_key"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/my_info_table_community"
-        android:text="@string/communityKey"
-        android:layout_alignParentLeft="true"
-        />
+                <TextView
+                    android:id="@+id/my_info_table_email"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_below="@id/my_info_table_address"
+                    android:textSize="@dimen/smallTextSize"
+                    android:text="@string/email"
+                    />
 
-    <TextView
-        android:id="@+id/my_info_commmunity_key"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/my_info_table_community_key"
-        android:layout_below="@+id/my_info_community"
-        android:layout_centerHorizontal="true"
-        />
+                <TextView
+                    android:id="@+id/my_info_email"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/my_info_address"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="100dp"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:textSize="@dimen/smallTextSize"
+                    />
 
-    <TextView
-        android:id="@+id/dummyView"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/my_info_commmunity_key"
-        android:layout_marginTop="25dp"
-        android:layout_centerHorizontal="true"/>
+                <ImageButton
+                    android:id="@+id/my_info_button_change_info"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circle"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="12dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp"
+                    android:backgroundTint="@color/lightGrey"
+                    android:src="@drawable/ic_edit_24dp"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:tint="@color/midDarkTextColor"
+                    />
 
+            </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/rMyCommunity"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_height="150dp"
+                android:layout_below="@+id/rMyData"
+                android:background="@drawable/text_card"
+                android:layout_centerHorizontal="true"
+                >
 
-    <Button
-        android:id="@+id/my_info_button_change_info"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/my_info_commmunity_key"
-        android:layout_marginTop="25dp"
-        android:text="Editiere Info"
-        android:layout_toStartOf="@id/dummyView"
-        style="@style/EgoraButton"
-        />
+                <TextView
+                    android:id="@+id/titel_myCommunity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/myCommunity"
+                    android:textSize="@dimen/mediumTextSize"
+                    android:layout_centerHorizontal="true"
+                    android:padding="5dp"
+                    />
 
-    <Button
-        android:id="@+id/my_info_button_change_community"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:text="Wechsle Community"
-        android:layout_below="@+id/my_info_commmunity_key"
-        android:layout_toEndOf="@id/dummyView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        style="@style/EgoraButton"
-        />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_marginLeft="40dp"
+                    android:src="@drawable/line"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/titel_myCommunity"
+                    />
+
+                <TextView
+                    android:id="@+id/my_info_table_community"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_below="@id/titel_myCommunity"
+                    android:textSize="@dimen/smallTextSize"
+                    android:text="@string/communityName"
+                    />
+
+                <TextView
+                    android:id="@+id/my_info_community"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/titel_myCommunity"
+                    android:layout_marginLeft="140dp"
+                    android:layout_marginTop="15dp"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:textSize="@dimen/smallTextSize" />
+
+                <TextView
+                    android:id="@+id/my_info_table_community_key"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_below="@id/my_info_table_community"
+                    android:textSize="@dimen/smallTextSize"
+                    android:text="@string/communityKey"
+                    />
+
+                <TextView
+                    android:id="@+id/my_info_commmunity_key"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="140dp"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:textSize="@dimen/smallTextSize"
+                    android:layout_below="@+id/my_info_community"
+                    />
+
+                <ImageButton
+                    android:id="@+id/my_info_button_change_community"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/circle"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="12dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp"
+                    android:backgroundTint="@color/lightGrey"
+                    android:src="@drawable/ic_exit_24dp"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:tint="@color/colorAccent"
+                    />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/button_logout"
+                style="@style/EgoraButton"
+                android:backgroundTint="@color/colorAccent"
+                android:layout_below="@id/rMyCommunity"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="100dp"
+                android:text="@string/logout" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
 
 </RelativeLayout>

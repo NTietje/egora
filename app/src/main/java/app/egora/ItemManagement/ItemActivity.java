@@ -3,6 +3,8 @@ package app.egora.ItemManagement;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -93,11 +95,6 @@ public class ItemActivity extends AppCompatActivity {
         itemId = intent.getStringExtra("ITEM_ID");
         downloadUrl = intent.getStringExtra("DOWNLOAD_URL");
 
-        if(ownerId.equals(FirestoreUtil.getCurrentUserID())) {
-            buttonContact.setBackgroundColor(this.getResources().getColor(R.color.midGrey));
-            buttonContact.setEnabled(false);
-        }
-
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
 
@@ -153,8 +150,11 @@ public class ItemActivity extends AppCompatActivity {
 
         //Disable contact button if owner is user
         if(ownerId.equals(FirestoreUtil.getCurrentUserID())) {
-            buttonContact.setBackgroundColor(this.getResources().getColor(R.color.midGrey));
             buttonContact.setEnabled(false);
+            Drawable background = getResources().getDrawable(R.drawable.button_egora_default);
+            background.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.lightGrey), PorterDuff.Mode.SRC_ATOP);
+            buttonContact.setBackground(background);
+
         }
         //owner ist not user: set button listener
         else {

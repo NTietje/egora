@@ -17,6 +17,7 @@
             android:layout_width="300dp"
             android:layout_height="30dp"
             android:layout_marginTop="15dp"
+            android:textColor="@color/colorAccent"
             android:text="Freie Felder werden nicht editiert!"
             app:autoSizeTextType="uniform"
 
@@ -61,7 +62,7 @@
         <EditText
             android:id="@+id/changeCityName"
             style="@style/EgoraEditText"
-            android:hint="@string/street" />
+            android:hint="@string/city" />
 
         <Button
             android:id="@+id/buttonChangeCommit"

@@ -11,6 +11,6 @@
     <dimen name="xsmallTextSize">14sp</dimen>
     <dimen name="smallTextSize">16sp</dimen>
     <dimen name="mediumTextSize">20sp</dimen>
-    <dimen name="largeTextSize">22sp</dimen>
+    <dimen name="largeTextSize">22dp</dimen>
     <dimen name="titleTextSize">24sp</dimen>
 </resources>

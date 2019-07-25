@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ import app.egora.Model.UserInformation;
 import app.egora.Profile.ChangeInformationActivity;
 import app.egora.Profile.ProfileActivity;
 import app.egora.R;
+import app.egora.Utils.FirestoreUtil;
 import app.egora.Utils.MyItemAdapter;
 
 public class MyInfoFragment extends Fragment {
@@ -59,14 +61,16 @@ public class MyInfoFragment extends Fragment {
 
     private AlertDialog alertDialog;
 
-    private TextView textViewName;
+    private TextView textViewFirstname;
+    private TextView textViewLastname;
     private TextView textViewAddress;
     private TextView textViewEmail;
     private TextView textViewCommunityName;
     private TextView textViewCommunityKey;
     private TextView textViewTableCommunityKey;
-    private Button buttonChangeInfo;
-    private Button buttonChangeCommunity;
+    private ImageButton buttonChangeInfo;
+    private ImageButton buttonChangeCommunity;
+    private Button buttonLogout;
 
     private List<Item> itemList;
 
@@ -82,25 +86,34 @@ public class MyInfoFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         itemList= new ArrayList<>();
 
-
         final View view = inflater.inflate(R.layout.fragment_my_info, container, false);
-        textViewName = view.findViewById(R.id.my_info_name);
+
+        textViewFirstname = view.findViewById(R.id.my_info_firstname);
+        textViewLastname = view.findViewById(R.id.my_info_lastname);
         textViewAddress = view.findViewById(R.id.my_info_address);
         textViewEmail = view.findViewById(R.id.my_info_email);
         textViewCommunityName = view.findViewById(R.id.my_info_community);
         textViewCommunityKey = view.findViewById(R.id.my_info_commmunity_key);
         textViewTableCommunityKey = view.findViewById(R.id.my_info_table_community_key);
-        textViewTableCommunityKey.setVisibility(View.INVISIBLE);
 
         buttonChangeInfo = view.findViewById(R.id.my_info_button_change_info);
         buttonChangeCommunity = view.findViewById(R.id.my_info_button_change_community);
+        buttonLogout = view.findViewById(R.id.button_logout);
 
         settingView();
+
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirestoreUtil.signOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         buttonChangeInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(getActivity(), ChangeInformationActivity.class);
                 startActivity(intent);
             }
@@ -170,7 +183,7 @@ public class MyInfoFragment extends Fragment {
                 //Initiating the Dialog
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setMessage("Bist du sicher, dass du die Community "+ currentUser.getCommunityName() + " verlassen willst?")
+                builder.setMessage("Bist du sicher, dass du die Community '"+ currentUser.getCommunityName() + "' verlassen willst?")
                         .setNegativeButton("Nein", dialogClickListener).setPositiveButton("Ja", dialogClickListener);
 
 
@@ -201,11 +214,11 @@ public class MyInfoFragment extends Fragment {
                         currentUser = documentSnapshot.toObject(UserInformation.class);
 
                         communityRef = db.collection("communities").document(currentUser.getCommunityName());
-                        String userName = "" + currentUser.getFirstName() +" " +currentUser.getLastName();
-                        String userAddress = "" + currentUser.getStreetName() +" " + currentUser.getHouseNumber() + " , " + currentUser.getCityName();
+                        String userAddress = "" + currentUser.getStreetName() +" " + currentUser.getHouseNumber() + ", " + currentUser.getCityName();
                         String userEmail = "" + currentUser.getEmail();
 
-                        textViewName.setText(userName);
+                        textViewFirstname.setText(currentUser.getFirstName());
+                        textViewLastname.setText(currentUser.getLastName());
                         textViewAddress.setText(userAddress);
                         textViewEmail.setText(userEmail);
                         communityRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -215,10 +228,10 @@ public class MyInfoFragment extends Fragment {
 
                                     community = documentSnapshot.toObject(Community.class);
                                     textViewCommunityName.setText(community.getName());
-                                    if(!community.getKey().isEmpty()){
 
+                                    textViewCommunityKey.setText(R.string.none);
+                                    if(!community.getKey().isEmpty()){
                                         textViewCommunityKey.setText(community.getKey());
-                                        textViewTableCommunityKey.setVisibility(View.VISIBLE);
                                     }
                                 }
                             }

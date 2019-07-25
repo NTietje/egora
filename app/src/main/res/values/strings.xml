@@ -14,14 +14,19 @@
     <string name="forgetpassword">Passwort vergessen?</string>
     <string name="myitems">Meine Anzeigen</string>
     <string name="address">Adresse</string>
-    <string name="myinfo">Meine Daten</string>
+    <string name="myinfo">Benutzerkonto</string>
     <string name="contactOwner">Besitzer schreiben</string>
     <string name="message">Nachricht</string>
-
-    <string name="communityName">Communityname</string>
+    <string name="communityName">Community</string>
     <string name="userName">Name</string>
-    <string name="communityKey">Schlüssel</string>
+    <string name="communityKey">Zugangscode</string>
     <string name="owner">Besitzer</string>
     <string name="title_activity_item">ItemActivity</string>
+    <string name="myData">Meine Daten</string>
+    <string name="myCommunity">Meine Community</string>
+    <string name="logout">Abmelden</string>
+    <string name="confirm">Bestädtigen</string>
+    <string name="none">keiner</string>
+
 </resources>
 

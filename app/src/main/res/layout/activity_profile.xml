@@ -11,8 +11,8 @@
         android:layout_height="55dp"
         app:tabBackground="@color/colorPrimary"
         app:tabIndicatorColor="@color/colorAccent"
-        app:tabTextColor="@color/white"
-        app:tabTextAppearance="@style/CustomTabText">
+        app:tabTextAppearance="@style/CustomTabText"
+        app:tabTextColor="@color/white">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/profile_tabs_items"

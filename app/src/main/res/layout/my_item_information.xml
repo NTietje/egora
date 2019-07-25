@@ -41,13 +41,18 @@
         android:layout_marginTop="6dp"
         android:layout_toEndOf="@+id/my_item_imageView" />
 
-    <ImageView
-        android:layout_height="50dp"
+    <ImageButton
+        android:id="@+id/my_item_delete_icon"
         android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="5dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/ic_delete_40dp"
-        android:id="@+id/my_item_delete_icon" />
+        android:background="@drawable/circle"
+        android:backgroundTint="@color/lightGrey"
+        android:src="@drawable/ic_delete_24dp"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        />
 
 </RelativeLayout>

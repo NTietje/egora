@@ -87,8 +87,8 @@ public class ProfileActivity extends AppCompatActivity {
     private void setupViewPager (){
         //SectionsPageAdapter
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new MyItemsFragment(), "Meine Items");
-        adapter.addFragment(new MyInfoFragment(), "Meine Infos");
+        adapter.addFragment(new MyItemsFragment(), getString(R.string.myitems));
+        adapter.addFragment(new MyInfoFragment(), getString(R.string.myinfo));
         myViewPager.setAdapter(adapter);
     }
 }
