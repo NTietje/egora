@@ -100,14 +100,15 @@ public class MyInfoFragment extends Fragment {
         buttonChangeCommunity = view.findViewById(R.id.my_info_button_change_community);
         buttonLogout = view.findViewById(R.id.button_logout);
 
+        FirestoreUtil.addAuthListener(mAuth, getActivity());
         settingView();
 
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirestoreUtil.signOut();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(getActivity(), LoginActivity.class);
+                //startActivity(intent);
             }
         });
 
@@ -242,6 +243,14 @@ public class MyInfoFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirestoreUtil.addAuthListener(mAuth, getActivity());
+    }
 
-
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 }

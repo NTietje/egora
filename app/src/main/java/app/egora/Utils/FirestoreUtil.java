@@ -1,5 +1,7 @@
 package app.egora.Utils;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 
 import app.egora.ItemManagement.HomeActivity;
 import app.egora.ItemManagement.ItemActivity;
+import app.egora.Login.LoginActivity;
 import app.egora.Model.Chat;
 import app.egora.Model.Message;
 
@@ -28,6 +32,7 @@ public class FirestoreUtil {
     private static FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public FirestoreUtil() {
+
 
     }
 
@@ -135,4 +140,18 @@ public class FirestoreUtil {
         mAuth.signOut();
     }
 
+
+    public static void addAuthListener(final FirebaseAuth mAuth, final Activity activity){
+        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (mAuth.getCurrentUser() == null){
+                    Intent intent = new Intent(activity.getBaseContext(), LoginActivity.class);
+                    activity.startActivity(intent);
+
+                }
+            }
+        });
+
+    }
 }
