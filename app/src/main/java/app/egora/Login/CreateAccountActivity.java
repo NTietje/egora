@@ -147,21 +147,21 @@ public class CreateAccountActivity extends AppCompatActivity {
             FancyToast.makeText(CreateAccountActivity.this,"Gebe einen gültigen Nachnamen an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
-        if(TextUtils.isEmpty(lastName)|| Pattern.matches("^[a-zA-Z]*$",streetName)){
+        if(TextUtils.isEmpty(streetName)|| !Pattern.matches("^[a-zA-Z]*$",streetName)){
             progressDialog.dismiss();
             FancyToast.makeText(CreateAccountActivity.this,"Gebe einen gültigen Straßennamen an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
 
         //Validating Housenumber
-        if(!houseNumber.matches(".*\\d+.*")){
+        if(TextUtils.isEmpty(houseNumber)||!houseNumber.matches(".*\\d+.*")){
             progressDialog.dismiss();
             FancyToast.makeText(CreateAccountActivity.this,"Gebe eine gültige Hausnummer an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
-        if(TextUtils.isEmpty(lastName)|| Pattern.matches("^[a-zA-Z]*$" ,cityName)){
+        if(TextUtils.isEmpty(cityName)|| !Pattern.matches("^[a-zA-Z]*$" ,cityName)){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Gebe einen gültigen Straßennamen an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gebe eine gültige Stadt an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
 

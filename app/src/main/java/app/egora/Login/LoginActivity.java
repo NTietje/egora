@@ -106,7 +106,14 @@ public class LoginActivity extends AppCompatActivity {
                             public void onSuccess(Void aVoid) {
                                 FancyToast.makeText(LoginActivity.this,"Dein Passwort wurde dir an deine Email geschickt!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
                              }
-                        });
+                        })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                            FancyToast.makeText(LoginActivity.this,"Fehler: " + e, FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                        }
+                    });
                 }
             }
         });
@@ -173,7 +180,9 @@ public class LoginActivity extends AppCompatActivity {
         .addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
                 FancyToast.makeText(LoginActivity.this,"Fehler: " + e, FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+
             }
         });
 

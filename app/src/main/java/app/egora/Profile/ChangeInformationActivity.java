@@ -185,7 +185,7 @@ public class ChangeInformationActivity extends AppCompatActivity {
         Map<String, Object> data = new HashMap<>();
 
         //Prüfen der einzelnen Felder
-        if(!firstName.equals("")){
+        if(!firstName.isEmpty()){
             data.put("firstName", firstName);
         }
         if(!lastName.equals("")){
