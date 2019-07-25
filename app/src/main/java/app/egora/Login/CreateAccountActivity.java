@@ -115,6 +115,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         progressDialog.show();
         final String address;
         final String password = editPassword.getText().toString().trim();
+        final String repeatedPassword = editRepeatedPassword.getText().toString().trim();
         final String email = editEmail.getText().toString().trim();
         final String firstName = editFirstName.getText().toString().trim();
         final String lastName = editLastName.getText().toString().trim();
@@ -129,7 +130,19 @@ public class CreateAccountActivity extends AppCompatActivity {
             FancyToast.makeText(CreateAccountActivity.this,"Gebe eine gültige Email an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
-        if(!password.equals(editRepeatedPassword.getText().toString().trim())){
+        if(password.isEmpty()){
+            progressDialog.dismiss();
+            FancyToast.makeText(CreateAccountActivity.this,"Gebe ein Passwort ein!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
+
+        if(repeatedPassword.isEmpty()){
+            progressDialog.dismiss();
+            FancyToast.makeText(CreateAccountActivity.this,"Wiederhole dein Passwort!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
+
+        if(!password.equals(repeatedPassword)){
             progressDialog.dismiss();
             FancyToast.makeText(CreateAccountActivity.this,"Passwörter müssen übereinstimmen!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
