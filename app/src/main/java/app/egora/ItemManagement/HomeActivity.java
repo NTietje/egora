@@ -56,7 +56,6 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseFirestore db;
     private DocumentReference userRef;
-    //private ItemAdapter adapter;
     private FilterableItemAdapter filterAdapter;
 
     private UserInformation currentUser;

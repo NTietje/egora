@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!android.util.Patterns.EMAIL_ADDRESS.matcher(editEmail.getText().toString().trim()).matches()){
                     progressDialog.dismiss();
-                    FancyToast.makeText(LoginActivity.this,"Gebe eine gültige Email an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                    FancyToast.makeText(LoginActivity.this,"Gebe eine gültige Email ein!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                     return;
                 }
                 else {
@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //Validating Inputs
         if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            Toast.makeText(this, "Gebe eine gültige Email an", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Gebe eine gültige Email ein", Toast.LENGTH_LONG).show();
             return;
         }
         else if (TextUtils.isEmpty(password)){

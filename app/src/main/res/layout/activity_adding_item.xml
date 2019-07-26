@@ -56,7 +56,8 @@
                 <EditText
                     android:id="@+id/item_description"
                     style="@style/EgoraEditField"
-                    android:layout_height="130dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
                     android:layout_below="@+id/item_category_field"
                     android:layout_marginTop="10dp"
                     android:gravity="top"
