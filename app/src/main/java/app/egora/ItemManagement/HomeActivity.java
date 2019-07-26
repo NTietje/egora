@@ -175,7 +175,6 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                         currentUser = documentSnapshot.toObject(UserInformation.class);
-                        String userId = mAuth.getUid().toString();
 
                         //Checking if Community exists
                         if (currentUser.getCommunityName() != null) {

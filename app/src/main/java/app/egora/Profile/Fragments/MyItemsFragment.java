@@ -78,7 +78,6 @@ public class MyItemsFragment extends Fragment {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                         currentUser = documentSnapshot.toObject(UserInformation.class);
-                        String userId = mAuth.getUid().toString();
 
                             //Updating View and adding RecyclerViewAdapter
                             Query query = db.collection("items").whereEqualTo("ownerId", mAuth.getUid());
