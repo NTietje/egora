@@ -45,6 +45,7 @@ import app.egora.Model.UserInformation;
 import app.egora.Profile.ProfileActivity;
 import app.egora.R;
 import app.egora.Utils.FilterableItemAdapter;
+import app.egora.Utils.FirestoreUtil;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -77,11 +78,8 @@ public class HomeActivity extends AppCompatActivity {
 
         //Prüfung des Loginstatus
         mAuth = FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser() == null) {
-            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        FirestoreUtil.addAuthListener(mAuth, this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         getSupportActionBar().hide();
@@ -253,26 +251,16 @@ public class HomeActivity extends AppCompatActivity {
         spinnerCategory.setAdapter(spinnerAdapter);
     }
 
-
-    /*@Override
-    protected void onStart() {
+    @Override
+    public void onStart() {
         super.onStart();
-        if(adapter != null){
-            adapter.startListening();
-        }
-        mAuth.addAuthStateListener(mAuthListener);
-    }*/
+        FirestoreUtil.addAuthListener(mAuth, this);
+    }
 
-
-    /*@Override
-    protected void onStop() {
+    @Override
+    public void onStop() {
+        FirestoreUtil.removeAuthListener();
         super.onStop();
-        if(adapter != null){
-            adapter.stopListening();
-        }
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }*/
+    }
 }
 

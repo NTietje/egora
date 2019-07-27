@@ -15,6 +15,7 @@ import android.widget.SearchView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import app.egora.Utils.CommunitiesListViewAdapter;
 import app.egora.R;
 import app.egora.Model.Community;
+import app.egora.Utils.FirestoreUtil;
 
 
 public class CommunitiesActivity extends AppCompatActivity {
@@ -36,6 +38,7 @@ public class CommunitiesActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private FirebaseFirestore db;
+    private FirebaseAuth mAuth;
 
     //Declaration
     private ListView listView;
@@ -48,6 +51,9 @@ public class CommunitiesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_communities_overview);
 
+        //Login-Prüfung
+        mAuth = FirebaseAuth.getInstance();
+        FirestoreUtil.addAuthListener(mAuth, this);
 
         communitiesActivity = this;
         FloatingActionButton addButton = findViewById(R.id.addCommunityButton);
@@ -123,6 +129,18 @@ public class CommunitiesActivity extends AppCompatActivity {
 
     public static CommunitiesActivity getInstance() {
         return communitiesActivity;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirestoreUtil.addAuthListener(mAuth, this);
+    }
+
+    @Override
+    public void onStop() {
+        FirestoreUtil.removeAuthListener();
+        super.onStop();
     }
 
 }

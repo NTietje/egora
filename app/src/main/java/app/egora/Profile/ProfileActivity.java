@@ -20,6 +20,7 @@ import app.egora.Messenger.MessengerActivity;
 import app.egora.Profile.Fragments.MyInfoFragment;
 import app.egora.Profile.Fragments.MyItemsFragment;
 import app.egora.R;
+import app.egora.Utils.FirestoreUtil;
 import app.egora.Utils.SectionsPageAdapter;
 
 
@@ -37,11 +38,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         //Login-Prüfung
         mAuth = FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser() == null){
-            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        FirestoreUtil.addAuthListener(mAuth, this);
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
@@ -90,5 +88,18 @@ public class ProfileActivity extends AppCompatActivity {
         adapter.addFragment(new MyItemsFragment(), getString(R.string.myitems));
         adapter.addFragment(new MyInfoFragment(), getString(R.string.myinfo));
         myViewPager.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirestoreUtil.addAuthListener(mAuth, this);
+    }
+
+    @Override
+    public void onStop() {
+        FirestoreUtil.removeAuthListener();
+        super.onStop();
     }
 }

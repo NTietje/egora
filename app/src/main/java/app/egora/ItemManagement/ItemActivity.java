@@ -72,13 +72,9 @@ public class ItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item);
         getSupportActionBar().hide();
 
-        //Setting up Firebase
+        //Login-Prüfung
         mAuth = FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser() == null) {
-            Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        FirestoreUtil.addAuthListener(mAuth, this);
 
         //Binding view-elements
         textViewOwnerName = findViewById(R.id.item_activity_owner_name);
@@ -209,5 +205,18 @@ public class ItemActivity extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirestoreUtil.addAuthListener(mAuth, this);
+    }
+
+    @Override
+    public void onStop() {
+        FirestoreUtil.removeAuthListener();
+        super.onStop();
+    }
+
+
 
 }

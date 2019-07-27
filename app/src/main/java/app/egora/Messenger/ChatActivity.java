@@ -23,11 +23,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import app.egora.Login.LoginActivity;
 import app.egora.Model.Chat;
 import app.egora.R;
 import app.egora.Utils.FirestoreUtil;
@@ -36,6 +38,7 @@ import app.egora.Utils.MessageAdapter;
 public class ChatActivity extends AppCompatActivity {
 
     private  FirebaseFirestore db;
+    private FirebaseAuth mAuth;
 
     private MessageAdapter adapter;
     private RecyclerView recyclerView;
@@ -52,6 +55,10 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        //Login-Prüfung
+        mAuth = FirebaseAuth.getInstance();
+        FirestoreUtil.addAuthListener(mAuth, this);
 
         db = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
@@ -236,6 +243,18 @@ public class ChatActivity extends AppCompatActivity {
                                 });
                     }
                 });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirestoreUtil.addAuthListener(mAuth, this);
+    }
+
+    @Override
+    public void onStop() {
+        FirestoreUtil.removeAuthListener();
+        super.onStop();
     }
 
 }
