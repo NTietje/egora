@@ -152,31 +152,29 @@ public class CreateAccountActivity extends AppCompatActivity {
             return;
         }
         //Validating Firstname
-        if(TextUtils.isEmpty(firstName)|| !Pattern.matches("^[-a-zA-Zß ]*$" ,firstName)){
+        if(TextUtils.isEmpty(firstName)|| !Pattern.matches("^[-A-Za-z_äÄöÖüÜß ]*$",firstName)){
             progressDialog.dismiss();
-
             FancyToast.makeText(CreateAccountActivity.this,"Gib einen gültigen Vornamen ein. Erlaubte Zeichen: A bis z, ß, - und Leerzeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
         //Validating Lastname
-        if(TextUtils.isEmpty(lastName)|| !Pattern.matches("^[-a-zA-Z-.ß ]*$",lastName)){
+        if(TextUtils.isEmpty(lastName)|| !Pattern.matches("^[-A-Za-z_äÄöÖüÜß. ]*$",lastName)){
             progressDialog.dismiss();
             FancyToast.makeText(CreateAccountActivity.this,"Gib einen gültigen Nachnamen ein. Erlaubte Zeichen: A bis z, ß, -, . und Leerzeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
-        if(TextUtils.isEmpty(streetName)|| !Pattern.matches("^[-a-zA-Z-.ß ]*$",streetName)){
+        if(TextUtils.isEmpty(streetName)|| !Pattern.matches("^[-A-Za-z_äÄöÖüÜß. ]*$",streetName)){
             progressDialog.dismiss();
             FancyToast.makeText(CreateAccountActivity.this,"Gib einen gültigen Straßennamen ein. Erlaubte Zeichen: A bis z, ß, -, . und Leerzeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
-
         //Validating Housenumber
         if(TextUtils.isEmpty(houseNumber)||!houseNumber.matches(".*\\d+.*")){
             progressDialog.dismiss();
             FancyToast.makeText(CreateAccountActivity.this,"Gib eine gültige Hausnummer ein. Erlaubte Zeichen: 0-9 gefolgt von einem Zeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
-        if(TextUtils.isEmpty(cityName)|| !Pattern.matches("^[-a-zA-Zß ]*$" ,cityName)){
+        if(TextUtils.isEmpty(cityName)|| !Pattern.matches("^[-A-Za-z_äÄöÖüÜß ]*$" ,cityName)){
             progressDialog.dismiss();
             FancyToast.makeText(CreateAccountActivity.this,"Gib eine gültige Stadt ein. Erlaubte Zeichen: A bis z, ß, - und Leerzeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
@@ -246,4 +244,4 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
 
-    }
+}

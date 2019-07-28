@@ -43,6 +43,7 @@ import java.util.Map;
 import app.egora.Model.Item;
 import app.egora.Model.UserInformation;
 import app.egora.R;
+import app.egora.Utils.FirestoreUtil;
 
 public class AddingItem extends AppCompatActivity {
 
@@ -73,6 +74,11 @@ public class AddingItem extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //LoginPrüfung
+        mAuth = FirebaseAuth.getInstance();
+        FirestoreUtil.addAuthListener(mAuth, this);
+
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_item);
@@ -274,10 +280,17 @@ public class AddingItem extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        super.onStop();
+        FirestoreUtil.removeAuthListener();
         if (progressDialog != null){
-        progressDialog.dismiss();
+            progressDialog.dismiss();
+        super.onStop();
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirestoreUtil.addAuthListener(mAuth, this);
     }
 
 }

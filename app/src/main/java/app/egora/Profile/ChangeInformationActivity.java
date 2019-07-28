@@ -33,6 +33,7 @@ import javax.annotation.Nullable;
 
 import app.egora.Communities.CommunitiesActivity;
 import app.egora.Communities.NewCommunityActivity;
+import app.egora.Login.CreateAccountActivity;
 import app.egora.Login.LoginActivity;
 import app.egora.Model.UserInformation;
 import app.egora.R;
@@ -45,6 +46,8 @@ public class ChangeInformationActivity extends AppCompatActivity {
     private DocumentReference userRef;
     private UserInformation currentUser;
 
+    private Boolean changingStatus;
+
     private ProgressDialog progressDialog;
     private Button buttonCommitChanges;
     private EditText editPassword;
@@ -55,11 +58,16 @@ public class ChangeInformationActivity extends AppCompatActivity {
     private EditText editHouseNumber;
     private EditText editCityName;
 
+    private int counter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_information);
         progressDialog = new ProgressDialog(this);
+        changingStatus = false;
+
+        counter = 0;
 
         //Firebasekomponenten laden
         mAuth = FirebaseAuth.getInstance();
@@ -75,8 +83,8 @@ public class ChangeInformationActivity extends AppCompatActivity {
 
         //Einbinden der ViewElemente
         buttonCommitChanges = findViewById(R.id.buttonChangeCommit);
-        editPassword = findViewById(R.id.changePasswordRepeat);
-        editRepeatedPassword = findViewById(R.id.changePassword);
+        editPassword = findViewById(R.id.changePassword);
+        editRepeatedPassword = findViewById(R.id.changePasswordRepeat);
         editFirstName = findViewById(R.id.changeFirstName);
         editLastName = findViewById(R.id.changeLastName);
         editStreetName = findViewById(R.id.changeStreetName);
@@ -86,6 +94,7 @@ public class ChangeInformationActivity extends AppCompatActivity {
         buttonCommitChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                changingStatus = true;
                 commitChanges();
             }
         });
@@ -101,77 +110,109 @@ public class ChangeInformationActivity extends AppCompatActivity {
         final String houseNumber = editHouseNumber.getText().toString().trim();
         final String streetName = editStreetName.getText().toString().trim();
         final String cityName = editCityName.getText().toString().trim();
+        final String repeatedPassword = editRepeatedPassword.getText().toString().trim();
 
-        if(!password.equals(editRepeatedPassword.getText().toString().trim())){
+        if(TextUtils.isEmpty(password) && TextUtils.isEmpty(repeatedPassword) && TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName) && TextUtils.isEmpty(houseNumber) && TextUtils.isEmpty(cityName) &&TextUtils.isEmpty(streetName) ){
+
             progressDialog.dismiss();
-            FancyToast.makeText(ChangeInformationActivity.this,"Passwords must match!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(ChangeInformationActivity.this,"Du musst zuerst mindestens ein Feld befüllen!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
+
+        if(!TextUtils.isEmpty(password) && TextUtils.isEmpty(repeatedPassword)){
+            progressDialog.dismiss();
+            FancyToast.makeText(ChangeInformationActivity.this,"Wiederhole dein Passwort!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
+
+        if(!TextUtils.isEmpty(password) && !password.equals(repeatedPassword)){
+            progressDialog.dismiss();
+            FancyToast.makeText(ChangeInformationActivity.this,"Passwörter müssen übereinstimmen!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
+
         //Validating Firstname
-        if(!TextUtils.isEmpty(firstName)&& !Pattern.matches("[a-zA-Z]+",firstName)){
+        if(!TextUtils.isEmpty(firstName)&& !Pattern.matches("^[A-Za-z_äÄöÖüÜß]*$",firstName)){
             progressDialog.dismiss();
+            FancyToast.makeText(ChangeInformationActivity.this,"Gebe einen gültigen Vornamen ein!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
 
-            FancyToast.makeText(ChangeInformationActivity.this,"Please insert a valid firstname!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
-            return;
-        }
         //Validating Lastname
-        if(!TextUtils.isEmpty(lastName)&& !Pattern.matches("[a-zA-Z]+",lastName)){
+        if(!TextUtils.isEmpty(lastName)&& !Pattern.matches("[A-Za-z_äÄöÖüÜß]*$",lastName)){
             progressDialog.dismiss();
-            FancyToast.makeText(ChangeInformationActivity.this,"Please insert a valid lastname!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(ChangeInformationActivity.this,"Gebe einen gültigen Nachnamen ein!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
+
         //Validating Housenumber
         if(!TextUtils.isEmpty(houseNumber)&& !houseNumber.matches(".*\\d+.*")){
             progressDialog.dismiss();
-            FancyToast.makeText(ChangeInformationActivity.this,"Please insert a valid housenumber!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(ChangeInformationActivity.this,"Gebe eine gültige Hausnummer ein!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
 
+        if(!TextUtils.isEmpty(streetName)&& !Pattern.matches("^[A-Za-z_äÄöÖüÜß]+$",streetName)){
+            progressDialog.dismiss();
+            FancyToast.makeText(ChangeInformationActivity.this,"Gebe einen gültigen Straßennamen an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
+
+        if(TextUtils.isEmpty(cityName)&& !Pattern.matches("^[A-Za-z_äÄöÖüÜß]*$",cityName)){
+            progressDialog.dismiss();
+            FancyToast.makeText(ChangeInformationActivity.this,"Gebe einen gültige Stadt an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
+
+
+
         userRef = db.collection("users").document(mAuth.getUid());
+
         userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+                currentUser = documentSnapshot.toObject(UserInformation.class);
+                //Updating Data mit Passwort
+                if(!TextUtils.isEmpty(password)){
+                    user.updatePassword(password).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            if (!isEmpty(editFirstName) || !isEmpty(editLastName) || !isEmpty(editStreetName) || !isEmpty(editHouseNumber) || !isEmpty(editCityName)){
+                                uploadChanges(firstName, lastName, streetName, houseNumber, cityName);
+                            }
 
-                userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                        currentUser = documentSnapshot.toObject(UserInformation.class);
-                        //Updating Data mit Passwort
-                        if(!isEmpty(editPassword)){
-                            user.updatePassword(password).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    if (!isEmpty(editFirstName) || !isEmpty(editLastName) || !isEmpty(editStreetName) || !isEmpty(editHouseNumber) || !isEmpty(editCityName)){
-                                        uploadChanges(firstName, lastName, streetName, houseNumber, cityName);
-                                    }
-                                    else {
-                                        FancyToast.makeText(ChangeInformationActivity.this,"Updated your password!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
-                                        progressDialog.dismiss();
-
-                                        Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                }
-                            });
+                            else {
+                                FancyToast.makeText(ChangeInformationActivity.this,"Passwort wurde geändert!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                                progressDialog.dismiss();
+                                Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
                         }
-                        //Updating Data ohne Passwort
-                        else if (isEmpty(editPassword) && (!isEmpty(editFirstName) || !isEmpty(editLastName) || !isEmpty(editStreetName) || !isEmpty(editHouseNumber) || !isEmpty(editCityName) )){
-                            uploadChanges(firstName, lastName, streetName, houseNumber, cityName);
-                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
 
-                        //Keine Angaben getätigt
-                        else {
-                            FancyToast.makeText(ChangeInformationActivity.this,"You did not insert any information!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                            FancyToast.makeText(ChangeInformationActivity.this,"Fehler: " + e, FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                             progressDialog.dismiss();
                         }
+                    });
+                }
+                //Updating Data ohne Passwort
+                else if (TextUtils.isEmpty(password) && (!TextUtils.isEmpty(firstName) || !TextUtils.isEmpty(lastName) || !TextUtils.isEmpty(streetName) || !TextUtils.isEmpty(houseNumber) || !TextUtils.isEmpty(cityName) )){
+                    uploadChanges(firstName, lastName, streetName, houseNumber, cityName);
 
-                    }
-                });
+                }
+
+                //Keine Angaben getätigt
+                else {
+                    FancyToast.makeText(ChangeInformationActivity.this,"Du hast keine Informationen eingefügt!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                    progressDialog.dismiss();
+                }
             }
         });
-    }
-
+  }
 
     private boolean isEmpty(EditText etText) {
         if (etText.getText().toString().trim().length() > 0)
@@ -182,47 +223,46 @@ public class ChangeInformationActivity extends AppCompatActivity {
 
     //Uploading Firestore Data
     private void uploadChanges(String firstName, String lastName, String streetName, String houseNumber, String cityName){
-        Map<String, Object> data = new HashMap<>();
+            Map<String, Object> data = new HashMap<>();
 
-        //Prüfen der einzelnen Felder
-        if(!firstName.isEmpty()){
-            data.put("firstName", firstName);
-        }
-        if(!lastName.equals("")){
-            data.put("lastName", lastName);
-        }
-
-        if(!streetName.equals("")){
-            data.put("streetName", streetName);
-        }
-
-        if(!houseNumber.equals("")){
-            data.put("houseNumber", houseNumber);
-        }
-
-        if(!cityName.equals("")){
-            data.put("cityName", cityName);
-        }
-
-        //Starten des Uploads (Update der Werte)
-        userRef.update(data).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                progressDialog.dismiss();
-                FancyToast.makeText(ChangeInformationActivity.this,"Informationen wurden geändert!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
-                Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
-                startActivity(intent);
-                finish();
+            //Prüfen der einzelnen Felder
+            if(!TextUtils.isEmpty(firstName)){
+                data.put("firstName", firstName);
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressDialog.dismiss();
-                FancyToast.makeText(ChangeInformationActivity.this,"Fehler: " + e, FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            if(!TextUtils.isEmpty(lastName)){
+                data.put("lastName", lastName);
             }
-        });
 
-    }
+            if(!TextUtils.isEmpty(streetName)){
+                data.put("streetName", streetName);
+            }
+
+            if(!TextUtils.isEmpty(houseNumber)){
+                data.put("houseNumber", houseNumber);
+            }
+
+            if(!TextUtils.isEmpty(cityName)){
+                data.put("cityName", cityName);
+            }
+
+            //Starten des Uploads (Update der Werte)
+            userRef.update(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    progressDialog.dismiss();
+                    FancyToast.makeText(ChangeInformationActivity.this,"Informationen wurden geändert!", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                    Intent intent = new Intent(getBaseContext(), ProfileActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    FancyToast.makeText(ChangeInformationActivity.this,"Fehler: " + e, FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                }
+            });
+        }
 
 
 }
