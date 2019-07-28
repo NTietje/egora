@@ -31,7 +31,7 @@
                     style="@style/EgoraEditText"
                     android:layout_below="@+id/item_imageView"
                     android:layout_marginTop="10dp"
-                    android:hint="Name"
+                    android:hint="@string/itemname"
                     android:inputType="text"
                     android:layout_centerHorizontal="true"
                     tools:ignore="Autofill" />

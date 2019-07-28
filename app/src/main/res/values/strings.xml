@@ -33,6 +33,7 @@
     <string name="setKey">Erstelle einen Zugangscode für die Community</string>
     <string name="join">Beitreten</string>
     <string name="reset">Reset</string>
-
+    <string name="itemname">Artikelname</string>
+    <string name="freeFieldsNotEdit">Lasse die Felder frei, die du nicht ändern willst.</string>
 </resources>
 

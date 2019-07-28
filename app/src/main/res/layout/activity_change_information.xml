@@ -14,11 +14,13 @@
         android:gravity="center" >
 
         <TextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="15dp"
+            android:layout_marginRight="@dimen/marginForRect"
+            android:layout_marginLeft="@dimen/marginForRect"
             android:textColor="@color/colorAccent"
-            android:text="Freie Felder werden nicht editiert!"
+            android:text="@string/freeFieldsNotEdit"
             app:autoSizeTextType="uniform"
 
             />

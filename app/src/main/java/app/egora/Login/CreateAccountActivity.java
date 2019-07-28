@@ -111,7 +111,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     //Register-User-method
     private void registerUser(){
-        progressDialog.setMessage("Register user...");
+        progressDialog.setMessage("Nutzer wird registriert...");
         progressDialog.show();
         final String address;
         final String password = editPassword.getText().toString().trim();
@@ -127,54 +127,58 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Gebe eine gültige Email an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gib eine gültige Email ein", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
         if(password.isEmpty()){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Gebe ein Passwort ein!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gib ein Passwort ein", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
-
+        if(password.length() < 6){
+            progressDialog.dismiss();
+            FancyToast.makeText(CreateAccountActivity.this,"Dein Passwort muss mindestens 6 Zeichen lang sein", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
         if(repeatedPassword.isEmpty()){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Wiederhole dein Passwort!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Wiederhole dein Passwort", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
 
         if(!password.equals(repeatedPassword)){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Passwörter müssen übereinstimmen!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Passwörter müssen übereinstimmen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
         //Validating Firstname
-        if(TextUtils.isEmpty(firstName)|| !Pattern.matches("^[a-zA-Z]*$" ,firstName)){
+        if(TextUtils.isEmpty(firstName)|| !Pattern.matches("^[-a-zA-Zß ]*$" ,firstName)){
             progressDialog.dismiss();
 
-            FancyToast.makeText(CreateAccountActivity.this,"Gebe einen gültigen Vornamen an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gib einen gültigen Vornamen ein. Erlaubte Zeichen: A bis z, ß, - und Leerzeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
         //Validating Lastname
-        if(TextUtils.isEmpty(lastName)|| !Pattern.matches("^[a-zA-Z-.]*$",lastName)){
+        if(TextUtils.isEmpty(lastName)|| !Pattern.matches("^[-a-zA-Z-.ß ]*$",lastName)){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Gebe einen gültigen Nachnamen an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gib einen gültigen Nachnamen ein. Erlaubte Zeichen: A bis z, ß, -, . und Leerzeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
-        if(TextUtils.isEmpty(streetName)|| !Pattern.matches("^[a-zA-Z]*$",streetName)){
+        if(TextUtils.isEmpty(streetName)|| !Pattern.matches("^[-a-zA-Z-.ß ]*$",streetName)){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Gebe einen gültigen Straßennamen an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gib einen gültigen Straßennamen ein. Erlaubte Zeichen: A bis z, ß, -, . und Leerzeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
 
         //Validating Housenumber
         if(TextUtils.isEmpty(houseNumber)||!houseNumber.matches(".*\\d+.*")){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Gebe eine gültige Hausnummer an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gib eine gültige Hausnummer ein. Erlaubte Zeichen: 0-9 gefolgt von einem Zeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
-        if(TextUtils.isEmpty(cityName)|| !Pattern.matches("^[a-zA-Z]*$" ,cityName)){
+        if(TextUtils.isEmpty(cityName)|| !Pattern.matches("^[-a-zA-Zß ]*$" ,cityName)){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Gebe eine gültige Stadt an!", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gib eine gültige Stadt ein. Erlaubte Zeichen: A bis z, ß, - und Leerzeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
 

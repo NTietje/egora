@@ -214,6 +214,7 @@ public class MyInfoFragment extends Fragment {
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                         currentUser = documentSnapshot.toObject(UserInformation.class);
 
+
                         communityRef = db.collection("communities").document(currentUser.getCommunityName());
                         String userAddress = "" + currentUser.getStreetName() +" " + currentUser.getHouseNumber() + ", " + currentUser.getCityName();
                         String userEmail = "" + currentUser.getEmail();

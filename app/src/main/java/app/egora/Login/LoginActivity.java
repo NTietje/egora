@@ -127,16 +127,16 @@ public class LoginActivity extends AppCompatActivity {
 
         //Validating Inputs
         if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            Toast.makeText(this, "Gebe eine gültige Email ein", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Gib eine gültige Email ein", Toast.LENGTH_LONG).show();
             return;
         }
         else if (TextUtils.isEmpty(password)){
-            Toast.makeText(this, "Gebe ein Passwort ein", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Gib ein Passwort ein", Toast.LENGTH_LONG).show();
             return;
         }
 
         //Showing Dialog
-        progressDialog.setMessage("Login ...");
+        progressDialog.setMessage("Login...");
         progressDialog.show();
 
         //Sign-In
