@@ -1,102 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/title_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/largeTextSize"
+            android:gravity="center"
+            android:layout_marginRight="20dp"
+            android:lines="1"
+            android:text="@string/insertItem" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/item_Constraint_Layout">
+
+            <ImageView
+                android:id="@+id/item_imageView"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_marginTop="10dp"
+                android:foregroundGravity="center"
+                android:src="@drawable/ic_photo_camera_gray_24dp"
+                android:layout_centerHorizontal="true"
+                tools:srcCompat="@tools:sample/avatars"
+                />
+
+            <EditText
+                android:id="@+id/item_name"
+                style="@style/EgoraEditText"
+                android:layout_below="@+id/item_imageView"
+                android:layout_marginTop="10dp"
+                android:hint="@string/itemname"
+                android:inputType="text"
+                android:layout_centerHorizontal="true"
+                tools:ignore="Autofill" />
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/item_Constraint_Layout">
-
-                <ImageView
-                    android:id="@+id/item_imageView"
-                    android:layout_width="220dp"
-                    android:layout_height="220dp"
-                    android:layout_marginTop="10dp"
-                    android:foregroundGravity="center"
-                    android:src="@drawable/ic_photo_camera_gray_24dp"
-                    android:layout_centerHorizontal="true"
-                    tools:srcCompat="@tools:sample/avatars"
-                    />
-
-                <EditText
-                    android:id="@+id/item_name"
-                    style="@style/EgoraEditText"
-                    android:layout_below="@+id/item_imageView"
-                    android:layout_marginTop="10dp"
-                    android:hint="@string/itemname"
-                    android:inputType="text"
-                    android:layout_centerHorizontal="true"
-                    tools:ignore="Autofill" />
-
-                <RelativeLayout
-                    android:id="@+id/item_category_field"
-                    style="@style/EgoraEditText"
-                    android:layout_height="40dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/item_name"
-                    android:paddingLeft="12dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="left">
-                    <Spinner
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/item_category_spinner"
-                        />
-                </RelativeLayout>
-
-
-                <EditText
-                    android:id="@+id/item_description"
-                    style="@style/EgoraEditField"
-                    android:layout_height="wrap_content"
-                    android:minHeight="100dp"
-                    android:layout_below="@+id/item_category_field"
-                    android:layout_marginTop="10dp"
-                    android:gravity="top"
-                    android:textSize="@dimen/smallTextSize"
-                    android:hint="Beschreibung"
-                    android:layout_centerHorizontal="true"
-                    android:inputType="textMultiLine" />
-
-                <LinearLayout
+                android:id="@+id/item_category_field"
+                style="@style/EgoraEditText"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/item_name"
+                android:paddingLeft="12dp"
+                android:layout_marginTop="10dp"
+                android:gravity="left">
+                <Spinner
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/item_description"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="80dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/button_reset_item"
-                        style="@style/EgoraButton"
-                        android:layout_marginRight="0dp"
-                        android:layout_width="wrap_content"
-                        android:backgroundTint="@color/colorAccent"
-                        android:textSize="@dimen/smallTextSize"
-                        android:layout_weight="0.1"
-                        android:text="@string/reset" />
-
-                    <Button
-                        android:id="@+id/button_insert_item"
-                        style="@style/EgoraButton"
-                        android:layout_width="wrap_content"
-                        android:layout_weight="1"
-                        android:textSize="@dimen/smallTextSize"
-                        android:text="@string/confirm" />
-
-                </LinearLayout>
-
+                    android:layout_height="match_parent"
+                    android:id="@+id/item_category_spinner"
+                    />
             </RelativeLayout>
+
+
+            <EditText
+                android:id="@+id/item_description"
+                style="@style/EgoraEditField"
+                android:layout_height="wrap_content"
+                android:minHeight="100dp"
+                android:layout_below="@+id/item_category_field"
+                android:layout_marginTop="10dp"
+                android:gravity="top"
+                android:textSize="@dimen/smallTextSize"
+                android:hint="Beschreibung"
+                android:layout_centerHorizontal="true"
+                android:inputType="textMultiLine" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_description"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="80dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button_reset_item"
+                    style="@style/EgoraButton"
+                    android:layout_marginRight="0dp"
+                    android:layout_width="wrap_content"
+                    android:backgroundTint="@color/colorAccent"
+                    android:textSize="@dimen/smallTextSize"
+                    android:layout_weight="0.1"
+                    android:text="@string/reset" />
+
+                <Button
+                    android:id="@+id/button_insert_item"
+                    style="@style/EgoraButton"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/smallTextSize"
+                    android:text="@string/confirm" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
         </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

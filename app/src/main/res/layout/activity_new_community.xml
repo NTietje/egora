@@ -1,73 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Communities.NewCommunityActivity">
 
-    <RelativeLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/title_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/largeTextSize"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@string/insertCommunity" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@id/toolbar">
 
-        <EditText
-            android:id="@+id/communityNameEdit"
-            style="@style/EgoraEditText"
-            android:hint="@string/communityName"
-            tools:ignore="Autofill"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/descEdit"
-            style="@style/EgoraEditField"
-            android:layout_marginTop="@dimen/marginEditText"
-            android:layout_height="wrap_content"
-            android:minHeight="150dp"
-            android:gravity="top"
-            android:hint="@string/writeDescCommunity"
-            tools:ignore="Autofill"
-            android:inputType="textMultiLine"
-            android:layout_below="@id/communityNameEdit" />
-
-        <LinearLayout
-            android:id="@+id/lin1"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_marginLeft="@dimen/marginForRect"
-            android:layout_marginRight="@dimen/marginForRect"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="5dp"
-            android:layout_below="@id/descEdit" >
+            android:layout_height="match_parent">
 
-            <CheckBox
-                android:id="@+id/keyCheckBox"
-                android:backgroundTint="@color/lightTexteditColor"
-                android:textColor="@color/midGrey"
-                android:textSize="@dimen/smallTextSize"
-                android:maxLines="2"
-                android:layout_width="match_parent"
+            <EditText
+                android:id="@+id/communityNameEdit"
+                style="@style/EgoraEditText"
+                android:hint="@string/communityName"
+                tools:ignore="Autofill"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/descEdit"
+                style="@style/EgoraEditField"
+                android:layout_marginTop="@dimen/marginEditText"
                 android:layout_height="wrap_content"
-                android:text="@string/setKey" />
+                android:minHeight="150dp"
+                android:gravity="top"
+                android:hint="@string/writeDescCommunity"
+                tools:ignore="Autofill"
+                android:inputType="textMultiLine"
+                android:layout_below="@id/communityNameEdit" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lin1"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="@dimen/marginForRect"
+                android:layout_marginRight="@dimen/marginForRect"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/descEdit" >
 
-        <EditText
-            android:id="@+id/keyEdit"
-            style="@style/EgoraEditText"
-            android:hint="@string/communityKey"
-            tools:ignore="Autofill"
-            android:inputType="textVisiblePassword"
-            android:layout_marginTop="5dp"
-            android:layout_below="@id/lin1"/>
+                <CheckBox
+                    android:id="@+id/keyCheckBox"
+                    android:backgroundTint="@color/lightTexteditColor"
+                    android:textColor="@color/midGrey"
+                    android:textSize="@dimen/smallTextSize"
+                    android:maxLines="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setKey" />
 
-        <Button
-            android:id="@+id/buttonCreateCommunity"
-            style="@style/EgoraButton"
-            android:layout_below="@+id/keyEdit"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="80dp"
-            android:text="@string/create" />
+            </LinearLayout>
 
-    </RelativeLayout>
-</ScrollView>
+            <EditText
+                android:id="@+id/keyEdit"
+                style="@style/EgoraEditText"
+                android:hint="@string/communityKey"
+                tools:ignore="Autofill"
+                android:inputType="textVisiblePassword"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/lin1"/>
+
+            <Button
+                android:id="@+id/buttonCreateCommunity"
+                style="@style/EgoraButton"
+                android:layout_below="@+id/keyEdit"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="80dp"
+                android:text="@string/create" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

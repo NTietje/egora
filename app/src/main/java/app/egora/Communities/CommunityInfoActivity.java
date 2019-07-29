@@ -43,9 +43,7 @@ public class CommunityInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_community_info);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Community Info");
-        }
+
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         itemList = new ArrayList<>();

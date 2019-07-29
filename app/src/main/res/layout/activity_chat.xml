@@ -25,8 +25,7 @@
                 android:layout_marginTop="5dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/mediumTextSize"
-                android:lines="1"
-                android:text="Chatpartner" />
+                android:lines="1" />
 
             <TextView
                 android:id="@+id/subtitel_toolbar"
@@ -36,8 +35,7 @@
                 android:layout_below="@id/title_toolbar"
                 android:textColor="@color/white"
                 android:textSize="@dimen/xsmallTextSize"
-                android:lines="1"
-                android:text="ItemName" />
+                android:lines="1" />
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>

@@ -42,7 +42,6 @@ public class MessengerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messenger);
-        getSupportActionBar().hide();
 
         recyclerView = findViewById(R.id.messenger_recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -63,13 +62,6 @@ public class MessengerActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         adapter.startListening();
 
-    }
-
-    //Toolbar Menu Hinzufügen
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.options_menu, menu);
-        return true;
     }
 
     //Bottom Navigationsbar

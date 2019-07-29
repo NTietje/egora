@@ -37,6 +37,9 @@
     <string name="freeFieldsNotEdit">Lasse die Felder frei, die du nicht ändern willst.</string>
     <string name="search">Suche</string>
     <string name="chooseCommunity">Wähle deine Community</string>
-
+    <string name="communityInfo">Community Details</string>
+    <string name="messenger">Deine Nachrichten</string>
+    <string name="insertItem">Artikel hinzufügen</string>
+    <string name="insertCommunity">Erstelle eine Community</string>
 </resources>
 

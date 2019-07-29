@@ -54,9 +54,6 @@ public class NewCommunityActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_community);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Erstelle eine Community");
-        }
 
         //Initialisation Firebase
         database = FirebaseDatabase.getInstance();

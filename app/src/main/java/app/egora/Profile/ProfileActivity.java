@@ -43,7 +43,6 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        getSupportActionBar().hide();
 
         myViewPager = findViewById(R.id.profile_viewpager);
 

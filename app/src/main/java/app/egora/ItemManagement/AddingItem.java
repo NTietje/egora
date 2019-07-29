@@ -82,7 +82,6 @@ public class AddingItem extends AppCompatActivity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adding_item);
-        getSupportActionBar().hide();
         db = FirebaseFirestore.getInstance();
         tookPicture = false;
 

@@ -58,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
             finish();
             //Sprung zur Datenbankactivity
         }
-        getSupportActionBar().hide(); // hide the app title bar
 
         // Declaration
         buttonLogin = findViewById(R.id.buttonLogin);

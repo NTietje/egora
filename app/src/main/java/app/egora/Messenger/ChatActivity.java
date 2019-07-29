@@ -69,7 +69,6 @@ public class ChatActivity extends AppCompatActivity {
         String otherUserName = intent.getStringExtra("username");
         String initials = intent.getStringExtra("initials");
 
-        getSupportActionBar().hide();
 
         //set toolbar content
         TextView chatPartnerToolbar = findViewById(R.id.title_toolbar);
