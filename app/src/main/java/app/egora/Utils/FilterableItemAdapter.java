@@ -81,7 +81,7 @@ public class FilterableItemAdapter extends RecyclerView.Adapter<FilterableItemAd
     public int getItemCount() {
         try {
             return filteredItemList.size();
-        } catch (Exception e) {
+        } catch (Exception e) { //important, without: timing problem
             return filteredItemList.size();
         }
     }

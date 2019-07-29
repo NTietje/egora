@@ -41,5 +41,6 @@
     <string name="messenger">Deine Nachrichten</string>
     <string name="insertItem">Artikel hinzufügen</string>
     <string name="insertCommunity">Erstelle eine Community</string>
+    <string name="datasecurityLink">Datenschutzrichtlinien nachlesen</string>
 </resources>
 

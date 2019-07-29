@@ -44,6 +44,7 @@ import app.egora.Login.LoginActivity;
 import app.egora.Model.Community;
 import app.egora.Model.Item;
 import app.egora.Model.UserInformation;
+import app.egora.PrivacyStatement.PrivacyStatement;
 import app.egora.Profile.ChangeInformationActivity;
 import app.egora.Profile.ProfileActivity;
 import app.egora.R;
@@ -69,7 +70,7 @@ public class MyInfoFragment extends Fragment {
     private TextView textViewEmail;
     private TextView textViewCommunityName;
     private TextView textViewCommunityKey;
-    private TextView textViewTableCommunityKey;
+    private TextView textViewDataSec;
     private ImageButton buttonChangeInfo;
     private ImageButton buttonChangeCommunity;
     private Button buttonLogout;
@@ -96,13 +97,21 @@ public class MyInfoFragment extends Fragment {
         textViewEmail = view.findViewById(R.id.my_info_email);
         textViewCommunityName = view.findViewById(R.id.my_info_community);
         textViewCommunityKey = view.findViewById(R.id.my_info_commmunity_key);
-        textViewTableCommunityKey = view.findViewById(R.id.my_info_table_community_key);
+        textViewDataSec = view.findViewById(R.id.linkDataSec);
 
         buttonChangeInfo = view.findViewById(R.id.my_info_button_change_info);
         buttonChangeCommunity = view.findViewById(R.id.my_info_button_change_community);
         buttonLogout = view.findViewById(R.id.button_logout);
 
         settingView();
+
+        textViewDataSec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), PrivacyStatement.class);
+                startActivity(intent);
+            }
+        });
 
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
