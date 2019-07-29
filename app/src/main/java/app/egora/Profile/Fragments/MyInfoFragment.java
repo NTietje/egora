@@ -1,6 +1,7 @@
 package app.egora.Profile.Fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.IntentCompat;
 import androidx.fragment.app.Fragment;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -159,13 +161,14 @@ public class MyInfoFragment extends Fragment {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
                                                         FancyToast.makeText(view.getContext(),"Du hast erfolgreiche deine Community verlassen", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
-
-                                                        Intent intent = new Intent(getActivity().getBaseContext(), CommunitiesActivity.class);
-                                                        startActivity(intent);
-
+                                                        Context context = getActivity().getBaseContext();
+                                                        if(context != null){
+                                                            Intent intent = new Intent(context, CommunitiesActivity.class);
+                                                            startActivity(intent);
+                                                            getActivity().finish();
+                                                        }
                                                     }
                                                 });
-
                                             }
                                         });
 

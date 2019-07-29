@@ -43,6 +43,8 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import java.util.ArrayList;
 
 import javax.annotation.Nullable;
+
+import app.egora.Communities.CommunitiesActivity;
 import app.egora.Login.LoginActivity;
 import app.egora.Messenger.MessengerActivity;
 import app.egora.Model.Item;
@@ -197,14 +199,19 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+
+                userRef.addSnapshotListener(HomeActivity.this, new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                         currentUser = documentSnapshot.toObject(UserInformation.class);
 
                         //Checking if Community exists
-                        if (currentUser.getCommunityName() != null) {
-
+                        if(currentUser.getCommunityName().equals("changing")){
+                            Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else{
                             //Updating View and adding RecyclerViewAdapter
                             currentCommunity = currentUser.getCommunityName();
 
@@ -218,7 +225,6 @@ public class HomeActivity extends AppCompatActivity {
                                     createSearchListener();
                                 }
                             });
-
                         }
                     }
                 });
@@ -307,6 +313,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         FirestoreUtil.removeAuthListener();
+
         super.onStop();
     }
 }
