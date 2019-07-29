@@ -78,8 +78,8 @@ public class FirestoreUtil {
                     }
                 });
 
-        //change ID in otherChat document to "none"
-        db.collection("chats").document(otherChatID).update("otherChatID", "none");
+        //change ID in otherChat document
+        db.collection("chats").document(otherChatID).update("otherUserHasChat", false);
 
         //delete chat document of chatID
         db.collection("chats").document(chatID)
@@ -91,7 +91,6 @@ public class FirestoreUtil {
                     }
                 });
     }
-
 
     public static void createAndSendMessage(String chatID, String otherChatID, String textMessage) {
         Message message = new Message(getCurrentUserID(), textMessage);

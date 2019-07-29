@@ -132,51 +132,51 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
         if(password.isEmpty()){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Gib ein Passwort ein", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gib ein Passwort ein.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
         if(password.length() < 6){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Dein Passwort muss mindestens 6 Zeichen lang sein", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Dein Passwort muss mindestens 6 Zeichen lang sein.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
         if(repeatedPassword.isEmpty()){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Wiederhole dein Passwort", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Wiederhole dein Passwort.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
 
         if(!password.equals(repeatedPassword)){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Passwörter müssen übereinstimmen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Passwörter müssen übereinstimmen.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
         //Validating Firstname
         if(TextUtils.isEmpty(firstName)|| !Pattern.matches("^[-A-Za-z_äÄöÖüÜß ]*$",firstName)){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Gib einen gültigen Vornamen ein. Erlaubte Zeichen: A bis z, ß, - und Leerzeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gib einen gültigen Vornamen ein. Erlaubte Zeichen: A bis z, Umlaute, ß, - und Leerzeichen.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
         //Validating Lastname
         if(TextUtils.isEmpty(lastName)|| !Pattern.matches("^[-A-Za-z_äÄöÖüÜß. ]*$",lastName)){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Gib einen gültigen Nachnamen ein. Erlaubte Zeichen: A bis z, ß, -, . und Leerzeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gib einen gültigen Nachnamen ein. Erlaubte Zeichen: A bis z, Umlaute, ß, -, . und Leerzeichen.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
         if(TextUtils.isEmpty(streetName)|| !Pattern.matches("^[-A-Za-z_äÄöÖüÜß. ]*$",streetName)){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Gib einen gültigen Straßennamen ein. Erlaubte Zeichen: A bis z, ß, -, . und Leerzeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gib einen gültigen Straßennamen ein. Erlaubte Zeichen: A bis z, Umlaute, ß, -, . und Leerzeichen.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
         //Validating Housenumber
         if(TextUtils.isEmpty(houseNumber)||!houseNumber.matches(".*\\d+.*")){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Gib eine gültige Hausnummer ein. Erlaubte Zeichen: 0-9 gefolgt von einem Zeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gib eine gültige Hausnummer ein. Erlaubte Zeichen: 0-9 gefolgt von einem Zeichen.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
         if(TextUtils.isEmpty(cityName)|| !Pattern.matches("^[-A-Za-z_äÄöÖüÜß ]*$" ,cityName)){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Gib eine gültige Stadt ein. Erlaubte Zeichen: A bis z, ß, - und Leerzeichen", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Gib eine gültige Stadt ein. Erlaubte Zeichen: A bis z, Umlaute, ß, - und Leerzeichen.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
 
@@ -226,7 +226,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                         user.updateProfile(profileUpdates);
                         progressDialog.dismiss();
 
-                        FancyToast.makeText(CreateAccountActivity.this,"Dein Account wurde erfolgreich angelegt", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
+                        FancyToast.makeText(CreateAccountActivity.this,"Dein Account wurde erfolgreich angelegt.", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
 
                         //Changing Activity
                         Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);

@@ -12,6 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +28,12 @@ public class FilterableItemAdapter extends RecyclerView.Adapter<FilterableItemAd
 
     private List<Item> itemList;
     private List<Item> filteredItemList;
+    private ArrayList<String> categories;
 
-    public FilterableItemAdapter(List<Item> itemList) {
+    public FilterableItemAdapter(List<Item> itemList, ArrayList<String> categories) {
         this.itemList = itemList;
         filteredItemList = itemList;
+        this.categories = categories;
     }
 
     @NonNull
@@ -96,19 +101,16 @@ public class FilterableItemAdapter extends RecyclerView.Adapter<FilterableItemAd
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 String pattern = constraint.toString().toLowerCase().trim();
-                if(pattern.isEmpty() && category.equals("Alle")) { //category empty, text empty
+                if(pattern.isEmpty() && category.equals(categories.get(0))) { //category empty, text empty
                     filteredItemList = itemList;
                 }
                 else {
                     List<Item> filteredList = new ArrayList<>();
                     for(Item item : itemList){
-                        Log.d("deb7", "category: " +  category);
-                        Log.d("deb7", "itemcategory: " +  item.getCategory());
                         if(pattern.isEmpty() && category.equals(item.getCategory())) { //category filled, text empty
                             filteredList.add(item);
-                            Log.d("deb8:", "item gefunden: " + item.getName());
                         }
-                        else if(category.equals("Alle") && item.getName().toLowerCase().contains(pattern)) { //category empty, text filled
+                        else if(category.equals(categories.get(0)) && item.getName().toLowerCase().contains(pattern)) { //category empty, text filled
                             filteredList.add(item);
                         }
                         else if(category.equals(item.getCategory()) && item.getName().toLowerCase().contains(pattern)) { //category filled, text filled

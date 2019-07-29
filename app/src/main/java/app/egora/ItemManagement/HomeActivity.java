@@ -75,6 +75,7 @@ public class HomeActivity extends AppCompatActivity {
     private Toolbar spinnerToolbar;
     private boolean filterOpen;
     private RelativeLayout spinnerLayout;
+    private ArrayList<String> categories;
 
 
     //Konstruktor (wird benötigt)
@@ -213,7 +214,7 @@ public class HomeActivity extends AppCompatActivity {
                             query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    filterAdapter = new FilterableItemAdapter(task.getResult().toObjects(Item.class));
+                                    filterAdapter = new FilterableItemAdapter(task.getResult().toObjects(Item.class), categories);
                                     recyclerView.setAdapter(filterAdapter);
                                     createSearchListener();
                                 }
@@ -260,10 +261,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 searchText = editSearch.getText().toString();
-                Log.d("deb11", searchText);
                 category = spinnerCategory.getSelectedItem().toString();
                 filterAdapter.getFilter(category).filter(searchText);
-                Log.d("deb11", category);
             }
         });
 
@@ -280,18 +279,19 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    //get filter categories from database
     private void loadCategories() {
         db.collection("basedata").document("categories").get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        ArrayList<String> categories = (ArrayList<String>) documentSnapshot.get("categories");
-                        Log.d("deb9", categories.toString());
+                        categories = (ArrayList<String>) documentSnapshot.get("categories");
                         setSpinnerCategories(categories);
                     }
                 });
     }
 
+    //set categories in spinner
     private void setSpinnerCategories(ArrayList<String> categories) {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
                 R.layout.spinner_layout, categories);

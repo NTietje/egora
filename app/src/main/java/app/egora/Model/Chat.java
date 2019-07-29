@@ -7,10 +7,10 @@ public class Chat {
     private String otherChatID;
     private String userID;
     private String otherUserID;
-    private String otherUserName;
     private String itemTitle;
     private String lastMessageText;
     private Date lastActivity;
+    private boolean otherUserHasChat;
     //private ArrayList<Message> messages;
 
 
@@ -20,21 +20,21 @@ public class Chat {
         this.otherChatID = "NA";
         this.userID = "NA";
         this.otherUserID = "NA";
-        this.otherUserName = "NA";
         this.itemTitle = "NA";
         this.lastMessageText = "NA";
+        this.otherUserHasChat = true;
         this.lastActivity = new Date();
         //this.messages = new ArrayList<>();
     }
 
     //Constructor
-    public Chat(String userID, String otherUserID, String otherUserName, String itemTitle) {
+    public Chat(String userID, String otherUserID, String itemTitle) {
         this.userID = userID;
         this.otherUserID = otherUserID;
-        this.otherUserName = otherUserName;
         this.itemTitle = itemTitle;
         this.otherChatID = "";
         this.lastMessageText = "";
+        this.otherUserHasChat = true;
         this.lastActivity = new Date();
     }
 
@@ -70,20 +70,12 @@ public class Chat {
         this.itemTitle = itemTitle;
     }
 
-    /*public ArrayList<Message> getMessages() {
-        return messages;
+    public boolean getOtherUserHasChat(){
+        return otherUserHasChat;
     }
 
-    public void setMessages(ArrayList<Message> messages) {
-        this.messages = messages;
-    }*/
-
-    public String getOtherUserName() {
-        return otherUserName;
-    }
-
-    public void setOtherUserName(String otherUser) {
-        this.otherUserName = otherUser;
+    public void setOtherUserHasChat(boolean otherUserHasChat) {
+        this.otherUserHasChat = otherUserHasChat;
     }
 
     public String getOtherUserID() {

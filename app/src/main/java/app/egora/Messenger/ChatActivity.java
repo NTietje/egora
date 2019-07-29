@@ -207,7 +207,8 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String id = documentSnapshot.get("otherChatID").toString();
-                if(id.equals("none")) {
+                boolean otherUserHasChat = (boolean) documentSnapshot.get("otherUserHasChat");
+                if(!otherUserHasChat) {
                     createDeletedChat(message);
                 }
                 else {
@@ -219,12 +220,12 @@ public class ChatActivity extends AppCompatActivity {
 
     //if chat of chatpartner was deleted, create new chat on chatpartner side
     private void createDeletedChat(final String message) {
-        final Chat newChat = new Chat(otherUserID, FirestoreUtil.getCurrentUserID(), FirestoreUtil.getCurrentUserName(), itemName);
+        final Chat newChat = new Chat(otherUserID, FirestoreUtil.getCurrentUserID(), itemName);
         DocumentReference chatsRef = db.collection("chats").document();
         otherChatID = chatsRef.getId();
         newChat.setChatID(otherChatID);
         newChat.setOtherChatID(chatID);
-        db.collection("chats").document(chatID).update("otherChatID", otherChatID)
+        db.collection("chats").document(chatID).update("otherUserHasChat", true)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

@@ -158,9 +158,9 @@ public class ItemActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     // chat A
-                    Chat chat = new Chat(FirestoreUtil.getCurrentUserID(), ownerId, ownerName, itemName);
+                    Chat chat = new Chat(FirestoreUtil.getCurrentUserID(), ownerId, itemName);
                     // chat B
-                    final Chat itemOwnerChat = new Chat(ownerId, FirestoreUtil.getCurrentUserID(), FirestoreUtil.getCurrentUserName(), itemName);
+                    final Chat itemOwnerChat = new Chat(ownerId, FirestoreUtil.getCurrentUserID(), itemName);
 
                     //set chat IDs
                     DocumentReference chatsRef = db.collection("chats").document();

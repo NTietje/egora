@@ -26,6 +26,7 @@ public class ChatAdapter extends FirestoreRecyclerAdapter <Chat, ChatAdapter.Cha
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private Context mContext;
+    private String otherUserName;
 
     public ChatAdapter(@NonNull FirestoreRecyclerOptions<Chat> options, Context context) {
         super(options);
@@ -37,16 +38,14 @@ public class ChatAdapter extends FirestoreRecyclerAdapter <Chat, ChatAdapter.Cha
         db.collection("users").document(chatModel.getOtherUserID()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                UserInformation user = documentSnapshot.toObject(UserInformation.class);
-                final String otherUserName = user.getFullName();
-                Log.d("deb10", user.getFullName());
+                otherUserName = documentSnapshot.toObject(UserInformation.class).getFullName();
 
                 //set chatholder ui content
-                final String initials = chatModel.getOtherUserName().replaceAll("^\\s*([a-zA-Z]).*\\s+([a-zA-Z])\\S+$", "$1$2");
                 chatHolder.textViewUserName.setText(otherUserName);
                 chatHolder.textViewItemName.setText(chatModel.getItemTitle());
                 chatHolder.textViewLastMessage.setText(chatModel.getLastMessageText());
                 chatHolder.textViewDate.setText(Message.getDateStringOfDate(chatModel.getLastActivity()));
+                final String initials = otherUserName.replaceAll("^\\s*([a-zA-Z]).*\\s+([a-zA-Z])\\S+$", "$1$2");
                 chatHolder.textViewInitials.setText(initials);
 
                 //create ChatActivity on click
