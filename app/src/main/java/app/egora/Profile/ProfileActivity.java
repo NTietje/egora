@@ -13,10 +13,20 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import javax.annotation.Nullable;
+
+import app.egora.Communities.CommunitiesActivity;
 import app.egora.ItemManagement.HomeActivity;
 import app.egora.Login.LoginActivity;
 import app.egora.Messenger.MessengerActivity;
+import app.egora.Model.UserInformation;
 import app.egora.Profile.Fragments.MyInfoFragment;
 import app.egora.Profile.Fragments.MyItemsFragment;
 import app.egora.R;
@@ -27,7 +37,9 @@ import app.egora.Utils.SectionsPageAdapter;
 public class ProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
+    private DocumentReference userRef;
 
     private ViewPager myViewPager;
     private SectionsPageAdapter mySectionsPageAdapter;
@@ -39,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
         //Login-Prüfung
         mAuth = FirebaseAuth.getInstance();
         FirestoreUtil.addAuthListener(mAuth, this);
+        db = FirebaseFirestore.getInstance();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         super.onCreate(savedInstanceState);
@@ -51,6 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
         myTablayout.setupWithViewPager(myViewPager);
 
         setupViewPager();
+        checkCommunity();
 
         //BottomNavigation
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
@@ -87,6 +101,23 @@ public class ProfileActivity extends AppCompatActivity {
         adapter.addFragment(new MyItemsFragment(), getString(R.string.myitems));
         adapter.addFragment(new MyInfoFragment(), getString(R.string.myinfo));
         myViewPager.setAdapter(adapter);
+    }
+
+    private void checkCommunity(){
+
+        userRef = db.collection("users").document(mAuth.getUid());
+        userRef.addSnapshotListener(ProfileActivity.this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                UserInformation currentUser = documentSnapshot.toObject(UserInformation.class);
+                if(currentUser.getCommunityName().equals("changing")){
+                    Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
     }
 
 
