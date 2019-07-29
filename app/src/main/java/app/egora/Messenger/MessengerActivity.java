@@ -83,6 +83,7 @@ public class MessengerActivity extends AppCompatActivity {
             }
 
             startActivity(intent);
+            finish();
             return true;
         }
 

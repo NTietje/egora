@@ -90,6 +90,7 @@ public class ProfileActivity extends AppCompatActivity {
                     break;
             }
             startActivity(intent);
+            finish();
             return true;
         }
 
