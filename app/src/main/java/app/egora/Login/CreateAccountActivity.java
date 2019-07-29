@@ -9,7 +9,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +33,7 @@ import java.util.regex.Pattern;
 
 import app.egora.Communities.CommunitiesActivity;
 import app.egora.Communities.NewCommunityActivity;
+import app.egora.PrivacyStatement.PrivacyStatement;
 import app.egora.Profile.ChangeInformationActivity;
 import app.egora.R;
 
@@ -56,6 +59,8 @@ public class CreateAccountActivity extends AppCompatActivity {
     private EditText editStreetName;
     private EditText editHouseNumber;
     private EditText editCityName;
+    private TextView privacyStatementLink;
+    private CheckBox privacyCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,23 +73,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         myRef = database.getReference();
 
-        /* Authentification Listener
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Toast.makeText(CreateAccountActivity.this, "Succesfully logged in", Toast.LENGTH_LONG).show();
-                 } else {
-                    // User is signed out
-                    Toast.makeText(CreateAccountActivity.this, "Succesfully logged out", Toast.LENGTH_LONG).show();
-                    }
-                        // ...
-                }
-            };
-        */
-
         // Initialisation UI Components
         buttonRegister = findViewById(R.id.buttonRegister);
         editEmail = findViewById(R.id.regEmail);
@@ -95,6 +83,9 @@ public class CreateAccountActivity extends AppCompatActivity {
         editStreetName = findViewById(R.id.regStreetName);
         editHouseNumber = findViewById(R.id.regHouseNumber);
         editCityName = findViewById(R.id.regCityName);
+        privacyStatementLink = findViewById(R.id.privacy_statement_link);
+        privacyCheckBox = findViewById(R.id.privacy_checkbox);
+
 
         //editPhoneNumber = findViewById(R.id.regPhoneNumber);
         progressDialog = new ProgressDialog(this);
@@ -104,6 +95,14 @@ public class CreateAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registerUser();
+            }
+        });
+
+        privacyStatementLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), PrivacyStatement.class);
+                startActivity(intent);
             }
         });
     }
@@ -176,6 +175,11 @@ public class CreateAccountActivity extends AppCompatActivity {
         if(TextUtils.isEmpty(cityName)|| !Pattern.matches("^[-A-Za-z_äÄöÖüÜß ]*$" ,cityName)){
             progressDialog.dismiss();
             FancyToast.makeText(CreateAccountActivity.this,"Gib eine gültige Stadt ein. Erlaubte Zeichen: A bis z, Umlaute, ß, - und Leerzeichen.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            return;
+        }
+        if(!privacyCheckBox.isChecked()){
+            progressDialog.dismiss();
+            FancyToast.makeText(CreateAccountActivity.this,"Sie müssen vorher die Datenschutzhinweise aktzeptieren.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
 

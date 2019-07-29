@@ -73,6 +73,49 @@
             style="@style/EgoraEditText"
             android:hint="@string/city" />
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            >
+
+            <CheckBox
+                android:id="@+id/privacy_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="25dp"
+                />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/privacy_checkbox">
+
+                <TextView
+                    android:id="@+id/privacy_first_words"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ich aktzeptiere hiermit die "
+                    android:textSize="18dp"
+                    />
+
+                <TextView
+                    android:id="@+id/privacy_statement_link"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Datenschutzhinweise"
+                    android:textSize="18dp"
+                    android:layout_below="@id/privacy_first_words"
+                    android:textColor="@color/colorPrimary"
+                    />
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
         <Button
             android:id="@+id/buttonRegister"
             style="@style/EgoraButton"
