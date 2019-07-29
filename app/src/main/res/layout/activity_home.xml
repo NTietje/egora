@@ -15,21 +15,37 @@
         android:layout_height="55dp"
         android:background="@color/colorPrimary">
 
-        <Spinner
-            android:id="@+id/item_category2"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content">
-        </Spinner>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <SearchView
-            android:id="@+id/item_search2"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_toEndOf="@+id/item_category2">
-            <!--android:searchIcon="@drawable/ic_search_white_34dp"-->
-        </SearchView>
+            <EditText
+                android:id="@+id/item_search"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rectangle_round"
+                android:drawableLeft="@drawable/ic_search_24dp"
+                android:paddingLeft="10dp"
+                android:drawablePadding="10dp"
+                android:hint="@string/search"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:imeOptions="actionSearch"
+                />
 
+            <ImageButton
+                android:id="@+id/item_filter_button"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:src="@drawable/ic_filter_24dp"
+                android:scaleType="fitCenter"
+                android:layout_alignParentRight="true"
+                />
+
+        </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -57,6 +73,21 @@
         app:maxImageSize="36dp"
         app:borderWidth="0dp"
          />
+
+    <RelativeLayout
+        android:id="@+id/spinner_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:background="@color/colorPrimary"
+        android:layout_below="@id/search_toolbar">
+        <Spinner
+            android:id="@+id/categorie_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            >
+        </Spinner>
+    </RelativeLayout>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

@@ -15,12 +15,17 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -66,6 +71,10 @@ public class HomeActivity extends AppCompatActivity {
     private String searchText;
     private Spinner spinnerCategory;
     private SearchView searchView;
+    private EditText editSearch;
+    private Toolbar spinnerToolbar;
+    private boolean filterOpen;
+    private RelativeLayout spinnerLayout;
 
 
     //Konstruktor (wird benötigt)
@@ -87,9 +96,15 @@ public class HomeActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         loadCategories();
-        Toolbar toolbar = findViewById(R.id.search_toolbar);
-        searchView = findViewById(R.id.item_search2);
-        spinnerCategory = findViewById(R.id.item_category2);
+        //searchView = findViewById(R.id.item_search2);
+        editSearch = findViewById(R.id.item_search);
+        spinnerCategory = findViewById(R.id.categorie_spinner);
+        //spinnerToolbar = findViewById(R.id.spinner_toolbar);
+        ImageButton filterButton = findViewById(R.id.item_filter_button);
+        FloatingActionButton addButton = findViewById(R.id.add_object_button);
+        spinnerLayout = findViewById(R.id.spinner_layout);
+
+        spinnerLayout.setVisibility(View.INVISIBLE);
 
         //RecyclerView
         recyclerView = findViewById(R.id.items_recyclerView);
@@ -100,8 +115,7 @@ public class HomeActivity extends AppCompatActivity {
 
         setupFirebaseModules();
 
-        //Button zum Hinzufügen von Items
-        FloatingActionButton addButton = findViewById(R.id.add_object_button);
+        //Buttonlistener zum Hinzufügen von Items
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +130,21 @@ public class HomeActivity extends AppCompatActivity {
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         bottomNav.getMenu().getItem(1).setChecked(true);
 
-        //Textview bei keiner Gruppe
+        //filterbutton listener to show category spinner
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(filterOpen) {
+                    spinnerLayout.setVisibility(View.INVISIBLE);
+                    filterOpen = false;
+                }
+                else {
+                    spinnerLayout.setVisibility(View.VISIBLE);
+                    filterOpen = true;
+                }
+
+            }
+        });
     }
 
 
@@ -205,7 +233,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void createSearchListener() {
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String newText) {
                 return false;
@@ -217,6 +245,25 @@ public class HomeActivity extends AppCompatActivity {
                 category = spinnerCategory.getSelectedItem().toString();
                 filterAdapter.getFilter(category).filter(newText);
                 return false;
+            }
+        });*/
+
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                searchText = editSearch.getText().toString();
+                Log.d("deb11", searchText);
+                category = spinnerCategory.getSelectedItem().toString();
+                filterAdapter.getFilter(category).filter(searchText);
+                Log.d("deb11", category);
             }
         });
 
@@ -247,7 +294,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setSpinnerCategories(ArrayList<String> categories) {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, categories);
+                R.layout.spinner_layout, categories);
         spinnerCategory.setAdapter(spinnerAdapter);
     }
 

@@ -4,6 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textSize="@dimen/smallTextSize"
-    android:textColor="@color/darkTextColor"
+    android:textColor="@color/midDarkTextColor"
     android:padding="8dp"
     />

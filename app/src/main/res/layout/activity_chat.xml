@@ -8,13 +8,48 @@
     android:background="@color/lightGrey"
     tools:context=".Messenger.ChatActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/chat_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/title_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/mediumTextSize"
+                android:lines="1"
+                android:text="Chatpartner" />
+
+            <TextView
+                android:id="@+id/subtitel_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-2dp"
+                android:layout_below="@id/title_toolbar"
+                android:textColor="@color/white"
+                android:textSize="@dimen/xsmallTextSize"
+                android:lines="1"
+                android:text="ItemName" />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp" />
+        android:layout_below="@+id/chat_toolbar"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp" />
 
     <RelativeLayout
         android:id="@+id/bottom"

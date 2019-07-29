@@ -35,5 +35,8 @@
     <string name="reset">Reset</string>
     <string name="itemname">Artikelname</string>
     <string name="freeFieldsNotEdit">Lasse die Felder frei, die du nicht ändern willst.</string>
+    <string name="search">Suche</string>
+    <string name="chooseCommunity">Wähle deine Community</string>
+
 </resources>
 

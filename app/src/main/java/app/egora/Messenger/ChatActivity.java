@@ -7,16 +7,17 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,7 +30,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import app.egora.Login.LoginActivity;
 import app.egora.Model.Chat;
 import app.egora.R;
 import app.egora.Utils.FirestoreUtil;
@@ -50,7 +50,6 @@ public class ChatActivity extends AppCompatActivity {
     private String otherUserID;
     private boolean isAtBottom;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +61,7 @@ public class ChatActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         Intent intent = getIntent();
+
         chatID = intent.getStringExtra("chatid");
         otherChatID = intent.getStringExtra("otherchatid");
         itemName = intent.getStringExtra("itemname");
@@ -69,11 +69,15 @@ public class ChatActivity extends AppCompatActivity {
         String otherUserName = intent.getStringExtra("username");
         String initials = intent.getStringExtra("initials");
 
-        //set username in top actionbar
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(otherUserName);
-            //getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Back Pfeil in der Toolbar oben links hinzufügen
-        }
+        getSupportActionBar().hide();
+
+        //set toolbar content
+        TextView chatPartnerToolbar = findViewById(R.id.title_toolbar);
+        TextView itemNameToolbar = findViewById(R.id.subtitel_toolbar);
+        Toolbar toolbar = findViewById(R.id.chat_toolbar);
+        chatPartnerToolbar.setText(otherUserName);
+        itemNameToolbar.setText(itemName);
+        toolbar.inflateMenu(R.menu.options_menu_chat);
 
         sendButton = findViewById(R.id.chat_sendButton);
         textToSend = findViewById(R.id.chat_textToSend);
@@ -152,24 +156,18 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-    }
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.delete_chat:
+                        deleteDialog();
+                        return true;
+                }
+                return false;
+            }
+        });
 
-    //Toolbar Menu Hinzufügen
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.options_menu_chat, menu);
-        return true;
-    }
-
-    //Toolbar Menu - Funktionen (Logout)
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.delete_chat:
-                deleteDialog();
-                return true;
-        }
-        return false;
     }
 
     private void deleteDialog() {
@@ -179,7 +177,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        //Yes button clicked
+                        //Yes button clicked, delete chat in firestore
                         FirestoreUtil.deleteChat(chatID, otherChatID);
                         finish();
                         break;
@@ -203,13 +201,14 @@ public class ChatActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    //send the message to firestore
     private void sendMessage(final String message) {
         db.collection("chats").document(chatID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 String id = documentSnapshot.get("otherChatID").toString();
                 if(id.equals("none")) {
-                    createDeletetChat(message);
+                    createDeletedChat(message);
                 }
                 else {
                     FirestoreUtil.createAndSendMessage(chatID, otherChatID, message);
@@ -218,7 +217,8 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-    private void createDeletetChat(final String message) {
+    //if chat of chatpartner was deleted, create new chat on chatpartner side
+    private void createDeletedChat(final String message) {
         final Chat newChat = new Chat(otherUserID, FirestoreUtil.getCurrentUserID(), FirestoreUtil.getCurrentUserName(), itemName);
         DocumentReference chatsRef = db.collection("chats").document();
         otherChatID = chatsRef.getId();

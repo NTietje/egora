@@ -12,7 +12,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
@@ -20,11 +22,15 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
 
+import javax.annotation.Nullable;
+
 import app.egora.ItemManagement.HomeActivity;
 import app.egora.ItemManagement.ItemActivity;
 import app.egora.Login.LoginActivity;
+import app.egora.Messenger.ChatActivity;
 import app.egora.Model.Chat;
 import app.egora.Model.Message;
+import app.egora.Model.UserInformation;
 
 public class FirestoreUtil {
 
@@ -34,11 +40,7 @@ public class FirestoreUtil {
 
 
     public FirestoreUtil() {
-
-
     }
-
-    private static boolean exists;
 
     public static Query getUserChatsQuery(String userID) {
         return db.collection("chats").whereEqualTo("userID", userID).orderBy("lastActivity", Query.Direction.DESCENDING);
@@ -137,6 +139,7 @@ public class FirestoreUtil {
                     }
                 });
     }
+
 
     public static void signOut() {
         mAuth.signOut();

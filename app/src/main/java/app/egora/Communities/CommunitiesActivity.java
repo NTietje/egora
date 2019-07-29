@@ -5,11 +5,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 
@@ -50,6 +54,7 @@ public class CommunitiesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_communities_overview);
+        getSupportActionBar().hide();
 
         //Login-Prüfung
         mAuth = FirebaseAuth.getInstance();
@@ -57,6 +62,7 @@ public class CommunitiesActivity extends AppCompatActivity {
 
         communitiesActivity = this;
         FloatingActionButton addButton = findViewById(R.id.addCommunityButton);
+        final EditText searchCommunity = findViewById(R.id.community_search);
 
         //Initialisation Firebase
         database = FirebaseDatabase.getInstance();
@@ -97,9 +103,28 @@ public class CommunitiesActivity extends AppCompatActivity {
             }
         });
 
+        searchCommunity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (TextUtils.isEmpty(searchCommunity.getText().toString())) {
+                    adapter.filter("");
+                    listView.clearTextFilter();
+                }
+                else {
+                    adapter.filter(searchCommunity.getText().toString());
+                }
+            }
+        });
+
     }
 
-    //Search function filters communities by name
+    /*//Search function filters communities by name
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_communities, menu);
@@ -125,7 +150,7 @@ public class CommunitiesActivity extends AppCompatActivity {
         });
 
         return true;
-    }
+    }*/
 
     public static CommunitiesActivity getInstance() {
         return communitiesActivity;
