@@ -2,6 +2,7 @@ package app.egora.Utils;
 
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Handler;
+
 import app.egora.ItemManagement.ItemActivity;
 import app.egora.Model.Item;
 import app.egora.R;
@@ -75,24 +79,11 @@ public class FilterableItemAdapter extends RecyclerView.Adapter<FilterableItemAd
 
     @Override
     public int getItemCount() {
-        return filteredItemList.size();
-    }
-
-    //filter
-    public void filter(String text) {
-        text = text.toLowerCase().trim();
-        filteredItemList.clear();
-        if (text.isEmpty()) {
-            filteredItemList = itemList;
+        try {
+            return filteredItemList.size();
+        } catch (Exception e) {
+            return filteredItemList.size();
         }
-        else {
-            for (Item item : itemList) {
-                if (item.getName().toLowerCase(Locale.getDefault()).contains(text)) {
-                    filteredItemList.add(item);
-                }
-            }
-        }
-        notifyDataSetChanged();
     }
 
     public Filter getFilter(final String category) {
@@ -135,10 +126,6 @@ public class FilterableItemAdapter extends RecyclerView.Adapter<FilterableItemAd
     public static class ItemHolder extends RecyclerView.ViewHolder {
         TextView textViewItemName;
         TextView textViewitemDescription;
-        TextView textViewownerName;
-        String ownerId;
-        String ownerFirstName;
-        String ownerLastName;
         RelativeLayout relativeLayout;
         ImageView imageViewItemImage;
 
