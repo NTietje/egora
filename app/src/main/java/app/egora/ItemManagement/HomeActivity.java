@@ -178,22 +178,6 @@ public class HomeActivity extends AppCompatActivity {
     //Methode um Firebase und die Listener vorzubereiten
     private void setupFirebaseModules() {
 
-        mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                } else {
-                    // User is signed out
-                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        };
-
         currentUser = new UserInformation();
         userRef = db.collection("users").document(mAuth.getUid());
         userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -218,6 +202,24 @@ public class HomeActivity extends AppCompatActivity {
 
                             //Get item data from firestore
                             Query query = db.collection("items").whereEqualTo("communityName", currentCommunity);
+                            query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                                    filterAdapter = new FilterableItemAdapter(queryDocumentSnapshots.toObjects(Item.class), categories);
+                                    recyclerView.setAdapter(filterAdapter);
+                                    createSearchListener();
+                                }
+
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                    Log.d("Fehler Item: ", ""+ e);
+                                    FancyToast.makeText(HomeActivity.this,"Fehler: " + e.toString(), FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+                                }
+                            });
+                            /*
                             query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -226,6 +228,7 @@ public class HomeActivity extends AppCompatActivity {
                                     createSearchListener();
                                 }
                             });
+                            */
                         }
                     }
                 });
@@ -235,6 +238,9 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 FancyToast.makeText(HomeActivity.this,"Fehler: " + e.toString(), FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+
+                Log.d("Fehler User", ""+ e);
+
             }
         });
     }

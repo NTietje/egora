@@ -79,11 +79,11 @@ public class FilterableItemAdapter extends RecyclerView.Adapter<FilterableItemAd
 
     @Override
     public int getItemCount() {
-        try {
-            return filteredItemList.size();
-        } catch (Exception e) {
-            return filteredItemList.size();
-        }
+            try {
+                return filteredItemList.size();
+            } catch (Exception e) {
+                return filteredItemList.size();
+            }
     }
 
     public Filter getFilter(final String category) {

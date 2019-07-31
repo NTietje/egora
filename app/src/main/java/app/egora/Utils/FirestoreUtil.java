@@ -142,6 +142,7 @@ public class FirestoreUtil {
 
     public static void signOut() {
         mAuth.signOut();
+
     }
 
 
