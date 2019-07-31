@@ -179,7 +179,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
         if(!privacyCheckBox.isChecked()){
             progressDialog.dismiss();
-            FancyToast.makeText(CreateAccountActivity.this,"Sie müssen vorher die Datenschutzhinweise aktzeptieren.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
+            FancyToast.makeText(CreateAccountActivity.this,"Bitte akzeptiere vorher die Datenschutzhinweise.", FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
             return;
         }
 

@@ -41,6 +41,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -220,7 +221,8 @@ public class HomeActivity extends AppCompatActivity {
                             Query query = db.collection("items").whereEqualTo("communityName", currentCommunity);
                             query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                 @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                public void onComplete(@NonNull final Task<QuerySnapshot> task) {
+                                    //List<Item> itemList = task.getResult().toObjects(Item.class);
                                     filterAdapter = new FilterableItemAdapter(task.getResult().toObjects(Item.class), categories);
                                     recyclerView.setAdapter(filterAdapter);
                                     createSearchListener();

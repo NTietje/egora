@@ -35,8 +35,8 @@ public class FilterableItemAdapter extends RecyclerView.Adapter<FilterableItemAd
     private ArrayList<String> categories;
 
     public FilterableItemAdapter(List<Item> itemList, ArrayList<String> categories) {
-        this.itemList = itemList;
         filteredItemList = itemList;
+        this.itemList = itemList;
         this.categories = categories;
     }
 
@@ -81,7 +81,7 @@ public class FilterableItemAdapter extends RecyclerView.Adapter<FilterableItemAd
     public int getItemCount() {
         try {
             return filteredItemList.size();
-        } catch (Exception e) { //important, without: timing problem
+        } catch (Exception e) { //for timing problem
             return filteredItemList.size();
         }
     }
