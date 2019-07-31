@@ -116,9 +116,14 @@ public class MyInfoFragment extends Fragment {
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
                 FirestoreUtil.signOut();
-                //Intent intent = new Intent(getActivity(), LoginActivity.class);
-                //startActivity(intent);
+                getActivity().finish();
+
             }
         });
 
@@ -170,12 +175,15 @@ public class MyInfoFragment extends Fragment {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {
                                                         FancyToast.makeText(view.getContext(),"Du hast erfolgreiche deine Community verlassen", FancyToast.LENGTH_LONG,FancyToast.SUCCESS,false).show();
-                                                        Context context = getActivity().getBaseContext();
-                                                        if(context != null){
-                                                            Intent intent = new Intent(context, CommunitiesActivity.class);
-                                                            startActivity(intent);
-                                                            getActivity().finish();
+                                                        if(getActivity()!= null){
+                                                            Context context = getActivity().getBaseContext();
+                                                            if(context != null){
+                                                                Intent intent = new Intent(context, CommunitiesActivity.class);
+                                                                startActivity(intent);
+                                                                getActivity().finish();
+                                                            }
                                                         }
+
                                                     }
                                                 });
                                             }
@@ -223,32 +231,35 @@ public class MyInfoFragment extends Fragment {
                 userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                        currentUser = documentSnapshot.toObject(UserInformation.class);
+                        if(documentSnapshot != null){
+                            currentUser = documentSnapshot.toObject(UserInformation.class);
 
 
-                        communityRef = db.collection("communities").document(currentUser.getCommunityName());
-                        String userAddress = "" + currentUser.getStreetName() +" " + currentUser.getHouseNumber() + ", " + currentUser.getCityName();
-                        String userEmail = "" + currentUser.getEmail();
+                            communityRef = db.collection("communities").document(currentUser.getCommunityName());
+                            String userAddress = "" + currentUser.getStreetName() +" " + currentUser.getHouseNumber() + ", " + currentUser.getCityName();
+                            String userEmail = "" + currentUser.getEmail();
 
-                        textViewFirstname.setText(currentUser.getFirstName());
-                        textViewLastname.setText(currentUser.getLastName());
-                        textViewAddress.setText(userAddress);
-                        textViewEmail.setText(userEmail);
-                        communityRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                if(documentSnapshot.toObject(Community.class) != null) {
+                            textViewFirstname.setText(currentUser.getFirstName());
+                            textViewLastname.setText(currentUser.getLastName());
+                            textViewAddress.setText(userAddress);
+                            textViewEmail.setText(userEmail);
+                            communityRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    if(documentSnapshot.toObject(Community.class) != null) {
 
-                                    community = documentSnapshot.toObject(Community.class);
-                                    textViewCommunityName.setText(community.getName());
+                                        community = documentSnapshot.toObject(Community.class);
+                                        textViewCommunityName.setText(community.getName());
 
-                                    textViewCommunityKey.setText(R.string.none);
-                                    if(!community.getKey().isEmpty()){
-                                        textViewCommunityKey.setText(community.getKey());
+                                        textViewCommunityKey.setText(R.string.none);
+                                        if(!community.getKey().isEmpty()){
+                                            textViewCommunityKey.setText(community.getKey());
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        }
+
                     }
                 });
             }

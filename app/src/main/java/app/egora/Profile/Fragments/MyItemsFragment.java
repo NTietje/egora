@@ -69,31 +69,37 @@ public class MyItemsFragment extends Fragment {
 
         currentUser = new UserInformation();
 
-        userRef = db.collection("users").document(mAuth.getCurrentUser().getUid());
-        userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
+        if(mAuth.getCurrentUser() != null) {
+            userRef = db.collection("users").document(mAuth.getCurrentUser().getUid());
+            userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                        currentUser = documentSnapshot.toObject(UserInformation.class);
+                    userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                            if(documentSnapshot != null){
 
-                            //Updating View and adding RecyclerViewAdapter
-                            Query query = db.collection("items").whereEqualTo("ownerId", mAuth.getUid());
+                                currentUser = documentSnapshot.toObject(UserInformation.class);
 
-                            FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Item>()
-                                    .setQuery(query, Item.class)
-                                    .build();
+                                //Updating View and adding RecyclerViewAdapter
+                                Query query = db.collection("items").whereEqualTo("ownerId", mAuth.getUid());
 
-                            adapter = new MyItemAdapter(options);
-                            recyclerView.setAdapter(adapter);
-                            adapter.startListening();
+                                FirestoreRecyclerOptions options = new FirestoreRecyclerOptions.Builder<Item>()
+                                        .setQuery(query, Item.class)
+                                        .build();
 
-                    }
-                });
-            }
-        });
+                                adapter = new MyItemAdapter(options);
+                                recyclerView.setAdapter(adapter);
+                                adapter.startListening();
+                            }
+
+                        }
+                    });
+                }
+            });
+        }
+
     }
 
 }
