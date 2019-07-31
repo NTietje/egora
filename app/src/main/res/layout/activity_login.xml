@@ -15,35 +15,16 @@
         android:gravity="center"
         tools:ignore="Autofill" >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            >
-
-            <ImageView
-                android:id="@+id/egora_icon"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="33dp"
-                android:src="@drawable/egora_image"
-                />
-
-            <TextView
-                android:id="@+id/titleLoginView"
-                android:layout_width="206dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="28dp"
-                android:fontFamily="sans-serif-thin"
-                android:text="gora"
-                android:textColor="@color/colorPrimary"
-                android:typeface="normal"
-                app:autoSizeTextType="uniform"
-                android:layout_toEndOf="@id/egora_icon"/>
-
-        </RelativeLayout>
-
-
+        <TextView
+            android:id="@+id/titleLoginView"
+            android:layout_width="206dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="28dp"
+            android:fontFamily="sans-serif-thin"
+            android:text="egora"
+            android:textColor="@color/colorPrimary"
+            android:typeface="normal"
+            app:autoSizeTextType="uniform" />
 
         <EditText
             android:id="@+id/logEmail"

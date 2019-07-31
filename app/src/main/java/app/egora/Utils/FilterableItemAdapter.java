@@ -35,9 +35,9 @@ public class FilterableItemAdapter extends RecyclerView.Adapter<FilterableItemAd
     private ArrayList<String> categories;
 
     public FilterableItemAdapter(List<Item> itemList, ArrayList<String> categories) {
+        this.categories = categories;
         filteredItemList = itemList;
         this.itemList = itemList;
-        this.categories = categories;
     }
 
     @NonNull
@@ -79,11 +79,28 @@ public class FilterableItemAdapter extends RecyclerView.Adapter<FilterableItemAd
 
     @Override
     public int getItemCount() {
-        try {
-            return filteredItemList.size();
-        } catch (Exception e) { //for timing problem
-            return filteredItemList.size();
+        boolean initialized = false;
+        int count = 0;
+        while(!initialized) {
+            try {
+                count = filteredItemList.size();
+                Log.d("deb15" , "im try");
+                initialized = true;
+            } catch (Exception e) { //for timing problem
+                try {
+                    Log.d("deb16" , "im try 2");
+                    wait(500);
+                    count = filteredItemList.size();
+                    initialized = true;
+                    Log.d("deb16" , "im try 23");
+                }
+                catch (Exception e2) {
+                    Log.d("deb15" , "im else");
+                    initialized = true;
+                }
+            }
         }
+        return count;
     }
 
     public Filter getFilter(final String category) {
@@ -91,26 +108,48 @@ public class FilterableItemAdapter extends RecyclerView.Adapter<FilterableItemAd
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                String pattern = constraint.toString().toLowerCase().trim();
-                if(pattern.isEmpty() && category.equals(categories.get(0))) { //category empty, text empty
-                    filteredItemList = itemList;
+                boolean initialized = false;
+                try {
+                    Log.d("deb17" , "im try");
+                    categories.get(0);
+                    initialized = true;
                 }
-                else {
-                    List<Item> filteredList = new ArrayList<>();
-                    for(Item item : itemList){
-                        if(pattern.isEmpty() && category.equals(item.getCategory())) { //category filled, text empty
-                            filteredList.add(item);
-                        }
-                        else if(category.equals(categories.get(0)) && item.getName().toLowerCase().contains(pattern)) { //category empty, text filled
-                            filteredList.add(item);
-                        }
-                        else if(category.equals(item.getCategory()) && item.getName().toLowerCase().contains(pattern)) { //category filled, text filled
-                            filteredList.add(item);
-                        }
+                catch (Exception e3) {
+                    try {
+                        Log.d("deb17" , "im try 2");
+                        wait(500);
+                        categories.get(0);
+                        initialized = true;
                     }
-                    filteredItemList = filteredList;
+                    catch (Exception e4) {
+                        Log.d("deb17" , "im else");
+                        initialized = true;
+                    }
                 }
                 FilterResults filterResults = new FilterResults();
+                if (initialized) {
+                    String pattern = constraint.toString().toLowerCase().trim();
+                    if(pattern.isEmpty() && category.equals(categories.get(0))) { //category empty, text empty
+                        filteredItemList = itemList;
+                    }
+                    else {
+                        List<Item> filteredList = new ArrayList<>();
+                        for(Item item : itemList){
+                            if(pattern.isEmpty() && category.equals(item.getCategory())) { //category filled, text empty
+                                filteredList.add(item);
+                            }
+                            else if(category.equals(categories.get(0)) && item.getName().toLowerCase().contains(pattern)) { //category empty, text filled
+                                filteredList.add(item);
+                            }
+                            else if(category.equals(item.getCategory()) && item.getName().toLowerCase().contains(pattern)) { //category filled, text filled
+                                filteredList.add(item);
+                            }
+                        }
+                        filteredItemList = filteredList;
+                    }
+                    filterResults.values = filteredItemList;
+                    return filterResults;
+                }
                 filterResults.values = filteredItemList;
                 return filterResults;
             }

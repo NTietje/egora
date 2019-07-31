@@ -3,9 +3,6 @@ package app.egora.ItemManagement;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -14,23 +11,19 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -39,14 +32,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.shashank.sony.fancytoastlib.FancyToast;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nullable;
-
 import app.egora.Communities.CommunitiesActivity;
-import app.egora.Login.LoginActivity;
 import app.egora.Messenger.MessengerActivity;
 import app.egora.Model.Item;
 import app.egora.Model.UserInformation;
@@ -58,7 +46,6 @@ import app.egora.Utils.FirestoreUtil;
 
 public class HomeActivity extends AppCompatActivity {
 
-    ImageView itemImage;
 
     //Firebase
     private FirebaseAuth mAuth;
@@ -206,7 +193,6 @@ public class HomeActivity extends AppCompatActivity {
                             query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                 @Override
                                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
                                     filterAdapter = new FilterableItemAdapter(queryDocumentSnapshots.toObjects(Item.class), categories);
                                     recyclerView.setAdapter(filterAdapter);
                                     createSearchListener();
@@ -215,22 +201,10 @@ public class HomeActivity extends AppCompatActivity {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-
-                                    Log.d("Fehler Item: ", ""+ e);
                                     FancyToast.makeText(HomeActivity.this,"Fehler: " + e.toString(), FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
                                 }
                             });
-                            /*
-                            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull final Task<QuerySnapshot> task) {
-                                    //List<Item> itemList = task.getResult().toObjects(Item.class);
-                                    filterAdapter = new FilterableItemAdapter(task.getResult().toObjects(Item.class), categories);
-                                    recyclerView.setAdapter(filterAdapter);
-                                    createSearchListener();
-                                }
-                            });
-                            */
+
                         }
                     }
                 });
@@ -241,27 +215,12 @@ public class HomeActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 FancyToast.makeText(HomeActivity.this,"Fehler: " + e.toString(), FancyToast.LENGTH_LONG,FancyToast.ERROR,false).show();
 
-                Log.d("Fehler User", ""+ e);
-
             }
         });
     }
 
+    //search method for editText and spinner with categories
     private void createSearchListener() {
-        /*searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String newText) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                searchText = newText;
-                category = spinnerCategory.getSelectedItem().toString();
-                filterAdapter.getFilter(category).filter(newText);
-                return false;
-            }
-        });*/
 
         editSearch.addTextChangedListener(new TextWatcher() {
             @Override
