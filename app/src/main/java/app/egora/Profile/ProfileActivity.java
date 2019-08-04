@@ -110,13 +110,18 @@ public class ProfileActivity extends AppCompatActivity {
         userRef.addSnapshotListener(ProfileActivity.this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                UserInformation currentUser = documentSnapshot.toObject(UserInformation.class);
-                if(currentUser.getCommunityName().equals("changing")){
-                    Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
+                if(documentSnapshot != null){
+                    UserInformation currentUser = documentSnapshot.toObject(UserInformation.class);
+
+                    if(currentUser.getCommunityName().equals("changing")){
+                        Intent intent = new Intent(getBaseContext(), CommunitiesActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+
                 }
+
             }
         });
     }
