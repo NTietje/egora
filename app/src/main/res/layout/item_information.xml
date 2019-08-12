@@ -24,7 +24,6 @@
         android:id="@+id/item_textView_name"
         android:layout_marginStart="110dp"
         android:textSize="@dimen/smallTextSize"
-        android:layout_toEndOf="@+id/my_item_imageView"
         android:minLines="1"
         android:maxLines="2"
         android:textColor="@color/darkTextColor"
