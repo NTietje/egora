@@ -16,7 +16,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="1dp"
-        android:contentDescription="Bild des Items" />
+        android:contentDescription="Bild des Artikels" />
 
     <TextView
         android:layout_width="match_parent"
