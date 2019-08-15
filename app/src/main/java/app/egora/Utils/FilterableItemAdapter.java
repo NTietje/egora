@@ -128,7 +128,8 @@ public class FilterableItemAdapter extends RecyclerView.Adapter<FilterableItemAd
                 }
                 FilterResults filterResults = new FilterResults();
                 if (initialized) {
-                    String pattern = constraint.toString().toLowerCase().trim();
+                    String pattern = "";
+                    pattern = constraint.toString().toLowerCase().trim();
                     if(pattern.isEmpty() && category.equals(categories.get(0))) { //category empty, text empty
                         filteredItemList = itemList;
                     }
