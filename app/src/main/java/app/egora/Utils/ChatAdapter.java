@@ -26,7 +26,6 @@ public class ChatAdapter extends FirestoreRecyclerAdapter <Chat, ChatAdapter.Cha
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private Context mContext;
-    private String otherUserName;
 
     public ChatAdapter(@NonNull FirestoreRecyclerOptions<Chat> options, Context context) {
         super(options);
@@ -38,7 +37,7 @@ public class ChatAdapter extends FirestoreRecyclerAdapter <Chat, ChatAdapter.Cha
         db.collection("users").document(chatModel.getOtherUserID()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                otherUserName = documentSnapshot.toObject(UserInformation.class).getFullName();
+                final String otherUserName = documentSnapshot.toObject(UserInformation.class).getFullName();
 
                 //set chatholder ui content
                 chatHolder.textViewUserName.setText(otherUserName);
@@ -86,7 +85,7 @@ public class ChatAdapter extends FirestoreRecyclerAdapter <Chat, ChatAdapter.Cha
         View chatView;
 
         //Constructor
-        public ChatHolder(@NonNull View chatView) {
+        private ChatHolder(@NonNull View chatView) {
             super(chatView);
             this.chatView = chatView;
             textViewUserName = chatView.findViewById(R.id.textViewUserName);
@@ -96,7 +95,7 @@ public class ChatAdapter extends FirestoreRecyclerAdapter <Chat, ChatAdapter.Cha
             textViewInitials = chatView.findViewById(R.id.initials);
         }
 
-        public View getChatView()
+        private View getChatView()
         {
             return chatView;
         }

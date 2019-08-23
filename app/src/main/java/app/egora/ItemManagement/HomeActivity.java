@@ -60,9 +60,7 @@ public class HomeActivity extends AppCompatActivity {
     private String category;
     private String searchText;
     private Spinner spinnerCategory;
-    private SearchView searchView;
     private EditText editSearch;
-    private Toolbar spinnerToolbar;
     private boolean filterOpen;
     private RelativeLayout spinnerLayout;
     private ArrayList<String> categories;
@@ -86,10 +84,8 @@ public class HomeActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         loadCategories();
-        //searchView = findViewById(R.id.item_search2);
         editSearch = findViewById(R.id.item_search);
         spinnerCategory = findViewById(R.id.categorie_spinner);
-        //spinnerToolbar = findViewById(R.id.spinner_toolbar);
         ImageButton filterButton = findViewById(R.id.item_filter_button);
         FloatingActionButton addButton = findViewById(R.id.add_object_button);
         spinnerLayout = findViewById(R.id.spinner_layout);
@@ -244,6 +240,8 @@ public class HomeActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 category = spinnerCategory.getSelectedItem().toString();
                 filterAdapter.getFilter(category).filter("");
+                spinnerLayout.setVisibility(View.INVISIBLE);
+                filterOpen = false;
             }
 
             @Override
