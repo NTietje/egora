@@ -12,7 +12,7 @@ Für die Installation unter **Android 6-7** muss vorher der Punkt "Unbekannte Qu
 
 Öffne anschließend die heruntergeladene Datei, um die App zu installieren. Folgt eine Warnung von Play Protect, klicke auf "trotzdem installieren" um fortzufahren. Sollte dies nicht funktionieren gehe in die Einstellungen, dann auf "Bildschirmsperre & Sicherheit" > "Google Play Protect" > Einstellungs-Icon oben rechts. Schalte hier die Option "Gerät auf Sicherheitsbedrohungen prüfen" aus und starte erneut die Installation, anschließend kannst du die Option wieder aktivieren.
 
-[App hier herunterladen](https://dl.dropboxusercontent.com/s/45ad10pvg20ih0b/egora_app_v01.apk?dl=0)
+[App hier herunterladen](https://dl.dropboxusercontent.com/s/dwx5isiktt8wouc/egoraV03.apk?dl=0)
 
 Solltest du Hilfe bei der Bedienung der App benötigen findest du unten einen Link zum Handbuch.
 
